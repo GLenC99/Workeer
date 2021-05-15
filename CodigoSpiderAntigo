@@ -1,0 +1,21 @@
+import scrapy
+class vacanciesSpider(scrapy.Spider):
+    name = 'vacanciesbot'
+    allowed_domains = ['empregacampinas.com.br']
+    start_urls = ['https://empregacampinas.com.br/categoria/vaga/']
+
+    def parse(self, response):
+        vagas = response.xpath('//a[@class="thumbnail"]')
+        for vaga in vagas:
+            print(vaga)
+            yield{
+                'titulo' : vaga.xpath('.//h2/text()').get(),
+                'descricao' : vaga.xpath('.//p[@class="descricao-vaga"]/text()').get(),
+                'link' : vaga.xpath('.//@href').get(),
+                #'linkvaga' : vaga.xpath('.//span[@class="arrow transition"]/@href').get(), #Não ta pegando o link
+            }
+        nextPage = response.xpath('//div[@class="wp-pagenavi"]/a[@class="nextpostlink"]/@href').get()
+        #nextPage = response.xpath('//*[@id="article"]/div/div[2]/div/div/div[20]/a[5]/@href').get()
+        if nextPage:
+            yield scrapy.Request(url=nextPage, callback=self.parse)
+
