@@ -10,7 +10,7 @@ vagasquery = data['vaga']
 descricaoquery = data['descricao']
 linkquery = data['link']
 
-#converto as informações para lista (Sim, eu preciso utilizar o head(), por algum motivo não funciona sem ele)
+#converto as informações para lista [Sim, eu preciso utilizar o head(), por algum motivo não funciona sem ele]
 vaga_list = vagasquery.head(len(vagasquery)).tolist()
 descricao_list = descricaoquery.head(len(vagasquery)).tolist()
 link_list = linkquery.head(len(vagasquery)).tolist()
