@@ -1,6 +1,13 @@
 from firebase import firebase
 import pandas as pd
 import numpy as np
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import firestore
+
+cred = credentials.Certificate("Chave_Privada_Projeto/workeer-system-firebase-adminsdk-7929c-5351dc3a3b.json")
+firebase_admin.initialize_app(cred)
+db = firestore.client()
 
 #leio o Json
 data = pd.read_json('workeerSpider/WorkeerSpider/vagas.json', orient='columns')
@@ -45,23 +52,36 @@ for i in range (len(vaga_list)):
 
 #envio para o firebase
 
-firebase = firebase.FirebaseApplication("https://workeer-system.firebaseio.com/", None)
-try:
-   for i in range(len(titulo)):
-      info = {
-         'Titulo' : titulo[i],
-         'Descricao' : descricao[i],
-         'Link' : link[i],
-         'Local' : local[i],
-         'Funcao' : funcao[i],
-         'Numero de Vagas' : numvagas[i],
-      }
-      envio = firebase.post('/workeer-system/Vagas',info)
-   print("envio para o firebase concluido")
-except:
-   print("Erro no envio para o firebase")
-
-
+#firebase = firebase.FirebaseApplication("https://workeer-system.firebaseio.com/", None)
+#try:
+#   for i in range(len(titulo)):
+#      info = {
+#         'Titulo' : titulo[i],
+#         'Descricao' : descricao[i],
+#         'Link' : link[i],
+#         'Local' : local[i],
+#         'Funcao' : funcao[i],
+#         'Numero de Vagas' : numvagas[i],
+#      }
+#      envio = firebase.post('/workeer-system/Vagas',info)
+#   print("envio para o firebase concluido")
+#except:
+#   print("Erro no envio para o firebase")
+linha = 0
+for i in range(len(titulo)):
+   try:
+      doc_ref = db.collection(u'Vagas').document()
+      doc_ref.set({
+         u'Titulo': titulo[i],
+         u'Descricao': descricao[i],
+         u'Link': link[i],
+         u'Local': local[i],
+         u'Funcao': funcao[i],
+         u'Numero de Vagas': numvagas[i],
+      })
+      linha = i
+   except (KeyError, IndexError):
+      print("Erro no envio para o firestore na linha " + str(linha))
 #                                                    COMENTÁRIOS DO CÓDIGO
 
 #Eu consegui enviar vários mas parei lá pra linha 11584 do json, mas, mostrou que tinha mais 12978 coisas(Eu forcei o fechamento pq esperei muito tempo e nada de aparecer vaga nova)
