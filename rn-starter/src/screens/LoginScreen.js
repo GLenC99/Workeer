@@ -1,15 +1,5 @@
-import React, { Component } from "react";
-import {TextInput, StyleSheet, Text, Button, View, Alert,ScrollView,TouchableOpacity} from "react-native";
-
-let Cadastrar = false;
-const msgLogin=()=>{
-  Alert.alert('Msg','Efetuando Login');
-}
-
-const msgCadastro=()=>{
-  Alert.alert('Msg','Abrindo Tela de Cadastro');
-  Cadastrar = true;
-}
+import React from "react";
+import {TextInput, StyleSheet, Text, Button, View, ScrollView,TouchableOpacity} from "react-native";
 
 const LoginScreen = ({navigation}) => {
   return(
@@ -23,12 +13,11 @@ const LoginScreen = ({navigation}) => {
           <Text style={styles.labels}>Senha</Text>
           <TextInput placeholder = "Senha" style={styles.content}></TextInput>
           <TouchableOpacity>
-            <Text onPress={() => navigation.navigate('Register')} style={styles.register}>Primeira Vez? Cadastre-se</Text>
+          <Text onPress={() => navigation.navigate('Register')} style={styles.register}>Primeira Vez? Cadastre-se</Text>
           </TouchableOpacity>
           <View style={styles.view2}>
-            <Button
+            <Button onPress={() => navigation.navigate('Home')}
               title = "login" style={styles.button} color="#9900cc"
-              onPress={() => navigation.navigate('Start')}
             ></Button>
           </View>
         </View>
@@ -102,3 +91,7 @@ const styles = StyleSheet.create({
 });
 
 export default LoginScreen;
+
+/*
+
+*/

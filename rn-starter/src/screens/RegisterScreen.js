@@ -1,43 +1,88 @@
 import React, { Component,useState } from "react";
-import {TextInput, StyleSheet, Text, CheckBox, Picker, View,Button, Alert,Image,Navigation } from "react-native";
+import {TextInput, StyleSheet, Text, Picker, View,Button, Image } from "react-native";
 
 
 //descobirir como faço pra criar aqueles negócios de cadastro de data
-//pegar as imagens
-//Fazer a margem das coisas
-//diminuir as imagens 
-//Antes tava abrindo sozinho direto na tela Start sem passar por essa antes
-
+//Configurar o genero pq ta dando ruim
 const RegisterScreen = ({navigation}) => {
     navigation.onPress = false;
     const [selectedValue, setSelectedValue] = useState("mulher");
     function checkToNavigate() {
         if((navigation.onPress) == false)
           navigation.onPress = true;
-          navigation.navigate('Home');
       }
     return(
         <View style={styles.container}>
           <Text style={styles.textTitle}> Workeer</Text>  
-          <Text style={styles.content}>Por Favor Insira Seu Nome(Nome Social)</Text>
-          <Image/>
+          <View style = {styles.inforows}>
+          <Image source={require('../../assets/NameIcon.png')} style={styles.image}/>
+          <Text style={styles.content}>Nome(Nome Social)</Text>
           <TextInput placeholder = "Nome Completo" style={styles.content} title= "name"></TextInput>
-          <Image/>
-          <Text style={styles.date}>Insira sua Data de Nascimento:</Text>
-          <View style={styles.date}>
-            <TextInput placeholder = "Dia" style={{width:100}}></TextInput>
-            <TextInput placeholder = "Mês" style={{width:100}}></TextInput>
-            <TextInput placeholder = "Ano" style={{width:100}}></TextInput>
           </View>
-          <Image/>
-          <Text style={styles.content}>Se identifica como</Text>
-          <Picker selectedValue={selectedValue}  style={styles.pickers}
+          <View style = {styles.inforows}>
+            <Image source={require('../../assets/DateIcon.png')} style={styles.image}/>
+            <Text style={styles.date}>Data de Nascimento:</Text>
+            <View style={styles.date}>
+              <TextInput placeholder = "Dia" style={{width:30, marginLeft: 10}}></TextInput>
+              <TextInput placeholder = "Mês" style={{width:30, marginLeft: 10}}></TextInput>
+              <TextInput placeholder = "Ano" style={{width:30, marginLeft: 10}}></TextInput>
+           </View>
+          </View>
+          <View style = {styles.inforows}>
+            <Image source={require('../../assets/GenderIdentityIcon.png')} style={styles.image}/>
+            <Text style={styles.content}>Genero</Text>
+            <Picker selectedValue={selectedValue}  style={styles.pickers}
                   onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}>
                   <Picker.Item label="Homem" value="homem" />
                   <Picker.Item label="Mulher" value="mulher" />
                   <Picker.Item label="Travesti" value="travesti" />
                   <Picker.Item label="Pessoa Não Binária" value="naobinaria" />
-          </Picker>
+            </Picker>
+          </View>  
+          <View style = {styles.inforows}>
+            <Image source={require('../../assets/LoginIcon.png')} style={styles.image}/>
+            <Text>Nome de Usuário</Text>
+            <TextInput placeholder = "Nome de Usuário" style={styles.content}></TextInput>
+          </View>
+          <View style = {styles.inforows}>
+            <Image source={require('../../assets/PasswordIcon.png')} style={styles.image}/>
+            <Text>Senha de Usuário</Text>
+            <TextInput placeholder = "Senha de Usuário" style={styles.content}></TextInput>
+          </View>
+          <View style = {styles.inforows}>
+            <Image source={require('../../assets/EmailIcon.png')} style={styles.image}/>
+            <Text>Email</Text>
+            <TextInput placeholder = "Email" style={styles.content}/>
+          </View>  
+          <Button title="Cadastrar" onPress={() => navigation.navigate('Home')}></Button>
+        </View>     
+      );
+    };
+
+const styles = StyleSheet.create({
+    image: {
+      width: 20,
+      height: 20,
+      resizeMode: 'stretch',
+      marginLeft: 40,
+     marginRight:40,    
+    },
+    inforows: {
+      flexDirection: "row",
+      display: 'flex',
+    },
+    date: {
+      flexDirection: "row",
+    },
+    content : {
+      marginLeft: 10,
+    }
+  }); 
+      
+export default RegisterScreen;
+
+
+      /*
           <Image/>    
           <Text style={styles.content}>Seus pronomes são:</Text>
           <View  style={styles.checkboxM}>
@@ -52,28 +97,10 @@ const RegisterScreen = ({navigation}) => {
             <CheckBox/>
             <Text >Neutros</Text>
           </View>
-  
-          <Image/>
-          <Text>Por Favor Cadastre um Nome de Usuário</Text>
-          <TextInput placeholder = "Nome de Usuário" style={styles.container}></TextInput>
-          <Image/>
-          <Text>Por Favor Cadastre uma Senha de Usuário</Text>
-          <TextInput placeholder = "Senha de Usuário" style={styles.container}></TextInput>
-  
-          <Image/>
-          <Text>Por Favor Cadastre seu Email</Text>
-          <TextInput placeholder = "Email" style={styles.container}></TextInput>
-  
-          <Image/>
-          <Text>Por Favor Confirme seu Email</Text>
-          <TextInput placeholder = "Email" style={styles.container}></TextInput>
-  
-          <Button title="Cadastrar" onPress={checkToNavigate()}></Button>
-        </View>     
-      );
-    };
 
-const styles = StyleSheet.create({
+
+
+          const styles = StyleSheet.create({
         checkboxM: {
           flexDirection: "row",
           alignSelf: "center",
@@ -92,6 +119,4 @@ const styles = StyleSheet.create({
       
         },
       }); 
-      
-      
-      export default RegisterScreen;
+      */
