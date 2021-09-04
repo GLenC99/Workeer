@@ -1,32 +1,90 @@
 import React, { Component,useState } from "react";
-import {TextInput, StyleSheet, Text, Picker, View,Button, Image } from "react-native";
-
+import {TextInput, StyleSheet, Text, Picker, View,Button, Image, Alert,Container,Content,Form } from "react-native"
+import DatePicker from '@react-native-community/datetimepicker';
 
 //descobirir como faço pra criar aqueles negócios de cadastro de data
 //Configurar o genero pq ta dando ruim
+
 const RegisterScreen = ({navigation}) => {
     navigation.onPress = false;
     const [selectedValue, setSelectedValue] = useState("mulher");
+    const [name, setName] = useState('');
+    const [bornDate, setBornDate] = useState('');
+    const [gender, setGender] = useState('');
+    const [email, setEmail] = useState(null);
+    const [password, setPassword] = useState(null);
     function checkToNavigate() {
         if((navigation.onPress) == false)
           navigation.onPress = true;
+      };
+
+    function consoleLogs(){
+     console.log(name);
+     console.log(email);
+     console.log(password);
+
+    }
+    
+      /*
+    state = {
+      data:'',
+    };
+    
+    changeDate = (valor) => {
+      yhis.setState({
+          data: valor,
+      })
+      setBornDate(data);
+    };
+    */
+      /*
+  useEffect(() => {
+    console.log("Abre Login Screen");
+    fetch(
+      'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDpv3MTThp_aC0VbykbZa9VQP1gjKlv3uY',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: 'guilherme.cossu@aulno.ifsp.edu.br',
+          password: 'password',
+          returnSecureToken: true
+        })
       }
-    return(
-        <View style={styles.container}>
-          <Text style={styles.textTitle}> Workeer</Text>  
+    ).then((response) => { console.log("Resposta:" + response.json()) }).catch((error) => { console.log(error) })
+
+  }, []);
+  */
+
+  const onHandleChange = (event) => {
+    console.log(event.target.id);
+    console.log(event.target.value);
+    /*
+    if(event.target.id==="name" ){
+      setBook({...book,name: event.target.value})
+    }
+    if(event.target.id==="author" ){
+      setBook({...book,author: event.target.value})
+    }
+    if(event.target.id==="pages" ){
+      setBook({...book,pages: event.target.value})
+    }
+    */
+  };
+
+  return(
+        <View style={styles.container}>       
           <View style = {styles.inforows}>
           <Image source={require('../../assets/NameIcon.png')} style={styles.image}/>
-          <Text style={styles.content}>Nome(Nome Social)</Text>
-          <TextInput placeholder = "Nome Completo" style={styles.content} title= "name"></TextInput>
+          <Text>Nome(Nome Social)</Text>
+          <TextInput placeholder = "Nome Completo" onValueChange = {name => setName(name)} style={styles.content} 
+              id="name" value = {name} ></TextInput>
           </View>
           <View style = {styles.inforows}>
-            <Image source={require('../../assets/DateIcon.png')} style={styles.image}/>
+            <Image source={require('../../assets/DateIcon.png')} style={styles.image}/>         
             <Text style={styles.date}>Data de Nascimento:</Text>
-            <View style={styles.date}>
-              <TextInput placeholder = "Dia" style={{width:30, marginLeft: 10}}></TextInput>
-              <TextInput placeholder = "Mês" style={{width:30, marginLeft: 10}}></TextInput>
-              <TextInput placeholder = "Ano" style={{width:30, marginLeft: 10}}></TextInput>
-           </View>
           </View>
           <View style = {styles.inforows}>
             <Image source={require('../../assets/GenderIdentityIcon.png')} style={styles.image}/>
@@ -38,23 +96,20 @@ const RegisterScreen = ({navigation}) => {
                   <Picker.Item label="Travesti" value="travesti" />
                   <Picker.Item label="Pessoa Não Binária" value="naobinaria" />
             </Picker>
-          </View>  
-          <View style = {styles.inforows}>
-            <Image source={require('../../assets/LoginIcon.png')} style={styles.image}/>
-            <Text>Nome de Usuário</Text>
-            <TextInput placeholder = "Nome de Usuário" style={styles.content}></TextInput>
-          </View>
-          <View style = {styles.inforows}>
-            <Image source={require('../../assets/PasswordIcon.png')} style={styles.image}/>
-            <Text>Senha de Usuário</Text>
-            <TextInput placeholder = "Senha de Usuário" style={styles.content}></TextInput>
           </View>
           <View style = {styles.inforows}>
             <Image source={require('../../assets/EmailIcon.png')} style={styles.image}/>
             <Text>Email</Text>
-            <TextInput placeholder = "Email" style={styles.content}/>
-          </View>  
-          <Button title="Cadastrar" onPress={() => navigation.navigate('Home')}></Button>
+            <TextInput placeholder = "Email" style={styles.content} onValueChange = {email => setEmail(email)} id="email" 
+              value={email}/>
+          </View>    
+          <View style = {styles.inforows}>
+            <Image source={require('../../assets/PasswordIcon.png')} style={styles.image}/>
+            <Text>Senha de Usuário</Text>
+            <TextInput placeholder = "Senha de Usuário" onValueChange = {password => setPassword(password)} style={styles.content} 
+              id="password" value = {password} ></TextInput>
+          </View>
+          <Button title="Cadastrar" onPress={consoleLogs} /*{() => navigation.navigate('Home')}*/ ></Button>
         </View>     
       );
     };
@@ -74,6 +129,9 @@ const styles = StyleSheet.create({
     date: {
       flexDirection: "row",
     },
+    dateComponent: {
+      width: 200,
+    },
     content : {
       marginLeft: 10,
     }
@@ -81,6 +139,38 @@ const styles = StyleSheet.create({
       
 export default RegisterScreen;
 
+
+/*
+            <DatePicker
+              format="DD-MM-YYYY"
+              style={styles.dateComponent}
+              date={this.state.data}
+              onDateChange={this.changeDate}
+            />  
+*/
+
+
+/*
+            <View style={styles.date}>
+              <TextInput placeholder = "Dia" style={{width:30, marginLeft: 10}}></TextInput>
+              <TextInput placeholder = "Mês" style={{width:30, marginLeft: 10}}></TextInput>
+              <TextInput placeholder = "Ano" style={{width:30, marginLeft: 10}}></TextInput>
+           </View>
+
+
+*/
+
+  /*
+          <View style = {styles.inforows}>
+            <Image source={require('../../assets/LoginIcon.png')} style={styles.image}/>
+            <Text>Nome de Usuário</Text>
+            <TextInput placeholder = "Nome de Usuário" style={styles.content}></TextInput>
+          </View>
+
+
+
+
+  */
 
       /*
           <Image/>    

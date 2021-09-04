@@ -7,11 +7,11 @@ const imageSource = '../../assets/UserIcon.png';
 const SettingsScreen = ({ navigation }) => {
     return (
         <ScrollView>
-            <View style={styles.img}>
+            <View style={styles.Iconimg}>
                 <Image source={require('../../assets/UserIcon.png')} style={styles.image} />
             </View>
             <View style={styles.faixasuperior}>
-                <Text>{nome}</Text>
+                <Text style={{marginBottom:20}}>{nome}</Text>
             </View>
             <View style={styles.conteudo}>
                 <View style = {styles.inforows}>
@@ -29,12 +29,15 @@ const SettingsScreen = ({ navigation }) => {
                 <View style = {styles.inforows}>
                 <Image source={require('../../assets/ReportProblemIcon.png')} style={styles.img}/>
                 <Text onPress={() => navigation.navigate('ReportProblems')}>Reportar problemas</Text>
-                </View>
-                <Button title="sair"
-                    color="#9900cc"
-                    onPress={() => navigation.navigate('Login')}
-                ></Button>
+                </View>                
             </View>
+            <View style={[{ width: "40%", margin: 10, backgroundColor: "red", alignContent: "center", alignSelf:"center", marginTop:150}]}>
+                    <Button style = {styles.button}
+                        title="sair"
+                        color='#9900cc'
+                        onPress={() => navigation.navigate('Login')}        
+                    ></Button>
+                </View>
             <View style={styles.menuinferior}>
                 <TouchableOpacity onPress={() => navigation.navigate('Home')}>
                     <Image source={require('../../assets/HomeIcon.png')} style={styles.image} />
@@ -53,7 +56,12 @@ const SettingsScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
     faixasuperior: {
         alignSelf: 'center',
+        marginBottom:70,
     },
+    Iconimg:{
+        width:40,
+        height:40,
+    },  
     img: {
         width: 20,
         height: 20,
@@ -62,8 +70,10 @@ const styles = StyleSheet.create({
         marginLeft: 5,
     },
     inforows: {
+        marginTop:10,
         flexDirection: "row",
         display: 'flex',
+        marginBottom:10,
       },
     image: {
         width: 50,
@@ -71,10 +81,13 @@ const styles = StyleSheet.create({
         resizeMode: 'stretch',
         marginLeft: 40,
         marginRight: 40,
+        marginBottom:50,
     },
+
     conteudo: {
         backgroundColor: 'gray',
     },
+
     menuinferior: {
         backgroundColor: 'lime',
         flexDirection: "row",

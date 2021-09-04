@@ -1,33 +1,75 @@
-import React from "react";
-import {TextInput, StyleSheet, Text, Button, View, ScrollView,TouchableOpacity} from "react-native";
+import React, { useEffect } from "react";
+import { TextInput, StyleSheet, Text, Button, View, ScrollView, TouchableOpacity } from "react-native";
 
-const LoginScreen = ({navigation}) => {
-  return(
+
+const LoginScreen = ({ navigation }) => {
+/*  
+  fetch(
+    'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDpv3MTThp_aC0VbykbZa9VQP1gjKlv3uY',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: 'guilherme.cossu@aulno.ifsp.edu.br',
+        password: 'password',
+        returnSecureToken: true
+      })
+    }
+  ).then((response) => { console.log("Login:" + response) }).catch((error) => { console.log(error) });
+*/
+async function signupHandler() {
+
+        console.log("Cheguei no sigupHandler");
+        // // dispatch(authActions.signup(formState.inputValues.email, formState.inputValues.password));
+        // dispatch(authActions.login('andre@gmail.com', 'ifsp@1234'));
+        const response = await fetch(
+            'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDpv3MTThp_aC0VbykbZa9VQP1gjKlv3uY',
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email: 'guilherme.cossu@aulno.ifsp.edu.br',
+                    password: 'password',
+                    returnSecureToken: true
+                })
+            }
+        );
+        const resData = await response.json();
+        console.log(resData);
+    }
+
+
+
+  return (
     <ScrollView style={styles.scrollView}>
-        <View style={styles.viewTitle}>
-          <Text style={styles.textTitle}> Workeer</Text>
+      <View style={styles.viewTitle}>
+        <Text style={styles.textTitle}> Workeer</Text>
+      </View>
+      <View style={styles.appscreen}>
+        <Text style={styles.labels}>Login</Text>
+        <TextInput placeholder="Login" style={styles.content}></TextInput>
+        <Text style={styles.labels}>Senha</Text>
+        <TextInput placeholder="Senha" style={styles.content}></TextInput>
+        <TouchableOpacity>
+          <Text onPress={() => navigation.navigate('Register2')} style={styles.register}>Primeira Vez? Cadastre-se</Text>
+        </TouchableOpacity>
+        <View style={styles.view2}>
+          <Button onPress={/*() => navigation.navigate('Home')*/signupHandler}
+            title="login" style={styles.button} color="#9900cc"
+          ></Button>
         </View>
-        <View style={styles.appscreen}>
-          <Text style={styles.labels}>Login</Text>
-          <TextInput placeholder = "Login" style={styles.content}></TextInput>
-          <Text style={styles.labels}>Senha</Text>
-          <TextInput placeholder = "Senha" style={styles.content}></TextInput>
-          <TouchableOpacity>
-          <Text onPress={() => navigation.navigate('Register')} style={styles.register}>Primeira Vez? Cadastre-se</Text>
-          </TouchableOpacity>
-          <View style={styles.view2}>
-            <Button onPress={() => navigation.navigate('Home')}
-              title = "login" style={styles.button} color="#9900cc"
-            ></Button>
-          </View>
-        </View>
-    </ScrollView>  
-);
+      </View>
+    </ScrollView>
+  );
 };
 
 const styles = StyleSheet.create({
   scrowView: {
-    backgroundColor: '#FFF5EE',    
+    backgroundColor: '#ffffff',
   },
 
   appView: {
@@ -35,17 +77,17 @@ const styles = StyleSheet.create({
   },
 
   viewTitle: {
-    backgroundColor: 'red',
+    backgroundColor: '#54b9f8',
   },
 
   textTitle: {
     fontSize: 50,
     textAlign: 'center',
-    width : 300,
+    width: 300,
     justifyContent: 'center',
-    marginLeft:50,
-    marginTop:30,
-    marginBottom:30,
+    marginLeft: 50,
+    marginTop: 30,
+    marginBottom: 30,
   },
   appscreen: {
     marginTop: 120,
@@ -55,34 +97,34 @@ const styles = StyleSheet.create({
     marginTop: 20,
     textAlign: 'center',
     justifyContent: 'center',
-    width : 100,
-    height:50,
-    marginLeft:150,
+    width: 100,
+    height: 50,
+    marginLeft: 150,
     backgroundColor: 'yellow',
   },
-  labels:{
+  labels: {
     marginTop: 30,
     textAlign: 'center',
     justifyContent: 'center',
     fontWeight: 'bold',
-    width : 100,
-    marginLeft:150,
+    width: 100,
+    marginLeft: 150,
   },
 
-  view2:{
-      width:200,
-      alignSelf:'center'
+  view2: {
+    width: 200,
+    alignSelf: 'center'
   },
-  button:{
+  button: {
     flexDirection: 'row',
     flex: 1,
-    marginBottom:20,
+    marginBottom: 20,
 
   },
-  register:{
-    marginTop:30,
+  register: {
+    marginTop: 30,
     marginBottom: 20,
-    marginRight:10,
+    marginRight: 10,
     textAlign: 'right',
     fontStyle: 'italic',
     fontSize: 15,

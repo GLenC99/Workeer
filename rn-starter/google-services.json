@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "107378858995",
+    "firebase_url": "https://workeer-system.firebaseio.com",
+    "project_id": "workeer-system",
+    "storage_bucket": "workeer-system.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:107378858995:android:db3fb090b7c4dcaa799086",
+        "android_client_info": {
+          "package_name": "com.workeer.firebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "107378858995-m55iaks86j76a63beo0ec9a9cqi828e1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAchcYnhtl00L5C9dbAgkUg2Lo8Cx_AlV8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "107378858995-m55iaks86j76a63beo0ec9a9cqi828e1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:107378858995:android:c184604671f0b3ad799086",
+        "android_client_info": {
+          "package_name": "io.invertase.firebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "107378858995-m55iaks86j76a63beo0ec9a9cqi828e1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAchcYnhtl00L5C9dbAgkUg2Lo8Cx_AlV8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "107378858995-m55iaks86j76a63beo0ec9a9cqi828e1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
