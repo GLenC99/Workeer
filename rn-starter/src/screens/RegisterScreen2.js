@@ -3,6 +3,7 @@ import {StyleSheet,Text,View,TextInput,TouchableOpacity, Dimensions, Alert} from
 import * as Animatable from 'react-native-animatable';
 import Feather from 'react-native-vector-icons/Feather';
 
+//Erro rodao envio para o firebase sempre que eu clico ou escrevo no TextInput mas quando clico no Touchable Opacity não roda
 const RegisterScreen2 = ({navigation}) => {
     const [data, setData] = React.useState({
         email: '',
@@ -44,8 +45,36 @@ const RegisterScreen2 = ({navigation}) => {
     }
 
     const getInfo = ()=> {
-        Alert.alert({data});
+        //Alert.alert(data.email);
+        console.log(data.email);
     };
+
+    const postFirebase = (data) => {
+        console.log(data.email);
+        Alert.alert("Enviando para o Firebase....")
+
+        try{
+            useEffect(() => {
+                fetch(
+                  'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDpv3MTThp_aC0VbykbZa9VQP1gjKlv3uY',
+                  {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                      email: data.email,
+                      password: data.password,
+                      returnSecureToken: true
+                    })
+                  }
+                ).then((response) => { console.log("Resposta:" + response.json()) }).catch((error) => { console.log(error) })
+            
+              }, []);
+        }catch(Exception){
+            console.log("ERRO FIREBASE");
+        }  
+    }
     return(
         <View>
             <Text>Registration</Text>
@@ -80,9 +109,11 @@ const RegisterScreen2 = ({navigation}) => {
                 
                 }
             </TouchableOpacity>
-            <TouchableOpacity onPress={getInfo}>
+            <TouchableOpacity onPress={postFirebase(data)}>
                 <Text>Registrar</Text>
             </TouchableOpacity>
+            <Text>{data.email}</Text>
+            <Text>{data.password}</Text>
         </View>
     );
 };
