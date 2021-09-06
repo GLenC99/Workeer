@@ -50,7 +50,8 @@ const RegisterScreen2 = ({navigation}) => {
     };
 
     const postFirebase = (data) => {
-        console.log(data.email);
+        console.log("Email: " + data.email);
+        console.log("Senha: " + data.password);
         Alert.alert("Enviando para o Firebase....")
 
         try{
@@ -109,13 +110,17 @@ const RegisterScreen2 = ({navigation}) => {
                 
                 }
             </TouchableOpacity>
-            <TouchableOpacity onPress={postFirebase(data)}>
-                <Text>Registrar</Text>
+            <TouchableOpacity>
+                <Text onPress={() => postFirebase(data)}>Registrar</Text>
             </TouchableOpacity>
             <Text>{data.email}</Text>
             <Text>{data.password}</Text>
         </View>
     );
 };
+
+const styles = StyleSheet.create({
+
+})
 
 export default RegisterScreen2;

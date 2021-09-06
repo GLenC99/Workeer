@@ -1,8 +1,38 @@
 import React, { useEffect } from "react";
 import { TextInput, StyleSheet, Text, Button, View, ScrollView, TouchableOpacity } from "react-native";
-
+import Feather from 'react-native-vector-icons/Feather';
 
 const LoginScreen = ({ navigation }) => {
+  const [data, setData] = React.useState({
+    email: '',
+    password:'',
+    secureTextEntry: true,
+  });
+
+  const handleEmailChange = (val) =>{
+    if(val.length != 0){
+        setData({
+            ...data,
+            email: val,
+        });
+    };
+  };
+
+  const handlePasswordChange = (val) =>{
+    if(val.length != 0){
+        setData({
+            ...data,
+            password: val,
+        });
+    };
+  };
+
+  const updateSecureTextEntry = () => {
+    setData({
+        ...data,
+        secureTextEntry: !data.secureTextEntry,
+    })
+  };
 /*  
   fetch(
     'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDpv3MTThp_aC0VbykbZa9VQP1gjKlv3uY',
@@ -32,9 +62,11 @@ async function signupHandler() {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    email: 'guilherme.cossu@aulno.ifsp.edu.br',
-                    password: 'password',
-                    returnSecureToken: true
+                    //email: 'guilherme.cossu@aulno.ifsp.edu.br',
+                    //password: 'password',
+                    email: data.email,
+                    password: data.password,
+                    returnSecureToken: true,
                 })
             }
         );
@@ -50,16 +82,34 @@ async function signupHandler() {
         <Text style={styles.textTitle}> Workeer</Text>
       </View>
       <View style={styles.appscreen}>
-        <Text style={styles.labels}>Login</Text>
-        <TextInput placeholder="Login" style={styles.content}></TextInput>
+        <Text style={styles.labels}>Email</Text>
+        <TextInput placeholder="Email" onChangeText={(val) => handleEmailChange(val)} style={styles.content}/>
         <Text style={styles.labels}>Senha</Text>
-        <TextInput placeholder="Senha" style={styles.content}></TextInput>
+        <View style={styles.passwordLine}>
+          <TextInput placeholder="Senha" underlineColorAndroid={'transparent'} secureTextEntry={data.secureTextEntry ? true : false} 
+                onChangeText={(val) => handlePasswordChange(val)} style={styles.content}/>
+          <TouchableOpacity onPress={updateSecureTextEntry}>
+              {data.secureTextEntry ? 
+                <Feather
+                    name="eye-off"
+                    color="grey"
+                    size={20}
+                />
+                :
+                <Feather
+                    name="eye"
+                    color="grey"
+                    size={20}
+                />
+              }
+          </TouchableOpacity>  
+        </View>
         <TouchableOpacity>
           <Text onPress={() => navigation.navigate('Register2')} style={styles.register}>Primeira Vez? Cadastre-se</Text>
         </TouchableOpacity>
         <View style={styles.view2}>
-          <Button onPress={/*() => navigation.navigate('Home')*/signupHandler}
-            title="login" style={styles.button} color="#9900cc"
+          <Button onPress={/*() => navigation.navigate('Home')*/() => signupHandler(data)}
+            title="email" style={styles.button} color="#9900cc"
           ></Button>
         </View>
       </View>
@@ -109,6 +159,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     width: 100,
     marginLeft: 150,
+  },
+
+  passwordLine:{
+    flexDirection: 'row',
   },
 
   view2: {
