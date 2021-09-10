@@ -109,7 +109,7 @@ const RegisterScreen = ({navigation}) => {
             <TextInput placeholder = "Senha de Usuário" onValueChange = {password => setPassword(password)} style={styles.content} 
               id="password" value = {password} ></TextInput>
           </View>
-          <Button title="Cadastrar" onPress={consoleLogs} /*{() => navigation.navigate('Home')}*/ ></Button>
+          <Button title="Cadastrar" onPress={consoleLogs,() => navigation.navigate('Home')} /*{() => navigation.navigate('Home')}*/ ></Button>
         </View>     
       );
     };
