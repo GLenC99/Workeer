@@ -109,7 +109,7 @@ async function signupHandler() {
         </TouchableOpacity>
         <View style={styles.view2}>
           <Button onPress={/*() => navigation.navigate('Home')*/() => signupHandler(data)}
-            title="email" style={styles.button} color="#9900cc"
+            title="Login" style={styles.button} color="#9900cc"
           ></Button>
         </View>
       </View>
