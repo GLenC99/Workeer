@@ -1,10 +1,9 @@
-import React /*, {useEffect}*/ from "react";
+import React, {useEffect} from "react";
 import {StyleSheet,Text,View,TextInput,TouchableOpacity, Dimensions, Alert} from "react-native";
 import * as Animatable from 'react-native-animatable';
 import { color } from "react-native-reanimated";
 import Feather from 'react-native-vector-icons/Feather';
 
- //Erro rodao envio para o firebase sempre que eu clico ou escrevo no TextInput mas quando clico no Touchable Opacity não roda
 const RegisterScreen2 = ({navigation}) => {
     const [data, setData] = React.useState({
         name: '',
@@ -54,11 +53,6 @@ const RegisterScreen2 = ({navigation}) => {
             secureTextEntry: !data.secureTextEntry,
         })
     }
-
-    const getInfo = ()=> {
-        //Alert.alert(data.email);
-        console.log(data.email);
-    };
 /*
     const postFirebase = (data) => {
         console.log("Email: " + data.email);
@@ -85,7 +79,6 @@ const RegisterScreen2 = ({navigation}) => {
               }, []);
         }catch(Exception){
             console.log("ERRO FIREBASE");
-<<<<<<< HEAD
             console.log(Exception);
         }  
         
@@ -186,12 +179,6 @@ const styles = StyleSheet.create({
 export default RegisterScreen2;
 
 /*
-<<<<<<< HEAD
-Can't find variable: useEffect
-at src\screens\RegisterScreen2.js:57:21 in postFirebase
-at src\screens\RegisterScreen2.js:114:49 in Text.props.onPress
-=======
-
 Can't find variable: useEffect
 at src\screens\RegisterScreen2.js:58:21 in postFirebase
 at src\screens\RegisterScreen2.js:115:49 in Text.props.onPress
@@ -219,8 +206,4 @@ at node_modules\react-native\Libraries\BatchedBridge\MessageQueue.js:416:4 in __
 at node_modules\react-native\Libraries\BatchedBridge\MessageQueue.js:109:6 in __guard$argument_0
 at node_modules\react-native\Libraries\BatchedBridge\MessageQueue.js:364:10 in __guard
 at node_modules\react-native\Libraries\BatchedBridge\MessageQueue.js:108:4 in callFunctionReturnFlushedQueue
-<<<<<<< HEAD
-=======
-
->>>>>>> 4055c01e4d13f8bbb8b46d6f29f626badb13e9fa
 */
