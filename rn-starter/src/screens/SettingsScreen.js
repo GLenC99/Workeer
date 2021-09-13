@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, Image, View, ScrollView, Button, Alert, TouchableOpacity } from "react-native";
-
+import Feather from 'react-native-vector-icons/Feather';
 const nome = "Nome da Pessoa";
 const imageSource = '../../assets/UserIcon.png';
 
@@ -39,14 +39,32 @@ const SettingsScreen = ({ navigation }) => {
                     ></Button>
                 </View>
             <View style={styles.menuinferior}>
-                <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-                    <Image source={require('../../assets/HomeIcon.png')} style={styles.image} />
+            <TouchableOpacity onPress={() => navigation.navigate('Home')} style= {styles.image}>
+                    <Feather
+                        name="home"
+                        color="black"
+                        size={80}
+                        marginLeft={40}
+                        marginRight={40}
+                    />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('Search')}>
-                    <Image source={require('../../assets/SearchIcon.png')} style={styles.image} />
+                <TouchableOpacity onPress={() => navigation.navigate('Search')} style= {styles.image}>
+                    <Feather
+                        name="search"
+                        color="black"
+                        size={80}
+                        marginLeft={40}
+                        marginRight={40}
+                    />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
-                    <Image source={require('../../assets/SettingsIcon.png')} style={styles.image} />
+                <TouchableOpacity onPress={() => navigation.navigate('Settings')} style= {styles.image}>
+                    <Feather
+                        name="settings"
+                        color="black"
+                        size={80}
+                        marginLeft={40}
+                        marginRight={40}
+                    />
                 </TouchableOpacity>
             </View>
         </ScrollView>
@@ -76,12 +94,10 @@ const styles = StyleSheet.create({
         marginBottom:10,
       },
     image: {
-        width: 50,
-        height: 50,
-        resizeMode: 'stretch',
-        marginLeft: 40,
-        marginRight: 40,
-        marginBottom:50,
+        width: 131,
+        height: 80,
+        borderWidth:1,
+        alignItems: "center",
     },
 
     conteudo: {

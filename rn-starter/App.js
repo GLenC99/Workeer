@@ -23,7 +23,7 @@ const navigator = createStackNavigator(
     Register2: RegisterScreen2,
   },
   {
-    initialRouteName: "Login",
+    initialRouteName: "Home",
     defaultNavigationOptions: {
       title: "App",
     },
