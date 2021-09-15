@@ -211,7 +211,7 @@ const RegisterScreen2 = ({ navigation }) => {
             </View>
 
             <TouchableOpacity>
-                <Text onPress={/*() => postFirebase(data)*/consoleLogs, () => navigation.navigate('Register')} style={styles.button}>Cadastrar</Text>
+                <Text onPress={/*() => postFirebase(data)*/consoleLogs, () => navigation.navigate('Login')} style={styles.button}>Cadastrar</Text>
             </TouchableOpacity>
             <Text>{data.name}</Text>
             <Text>{data.email}</Text>

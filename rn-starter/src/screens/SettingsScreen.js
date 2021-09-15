@@ -2,32 +2,51 @@ import React from "react";
 import { StyleSheet, Text, Image, View, ScrollView, Button, Alert, TouchableOpacity } from "react-native";
 import Feather from 'react-native-vector-icons/Feather';
 const nome = "Nome da Pessoa";
-const imageSource = '../../assets/UserIcon.png';
 
 const SettingsScreen = ({ navigation }) => {
     return (
         <ScrollView>
             <View style={styles.Iconimg}>
-                <Image source={require('../../assets/UserIcon.png')} style={styles.image} />
+                <Feather
+                    name="user"
+                    color="black"
+                    size={40}
+                    />
             </View>
             <View style={styles.faixasuperior}>
                 <Text style={{marginBottom:20}}>{nome}</Text>
             </View>
             <View style={styles.conteudo}>
                 <View style = {styles.inforows}>
-                <Image source={require('../../assets/AboutAppIcon.png')} style={styles.img}/>
+                    <Feather
+                    name="info"
+                    color="black"
+                    size={20}
+                    />
                 <Text onPress={() => Alert.alert('Sobre Workeer', 'Versão Beta 0.0.1')}>Sobre o aplicativo</Text>
                 </View>
                 <View style = {styles.inforows}>
-                <Image source={require('../../assets/OpinionIcon.png')} style={styles.img}/>
+                <Feather
+                    name="clipboard"
+                    color="black"
+                    size={20}
+                    />
                 <Text onPress={() => navigation.navigate('UserOpinion')}>Opine sobre o sistema</Text>
                 </View>
                 <View style = {styles.inforows}>
-                <Image source={require('../../assets/ChangeUserInfoIcon.png')} style={styles.img}/>
+                <Feather
+                    name="edit"
+                    color="black"
+                    size={20}
+                    />
                 <Text onPress={() => navigation.navigate('AlterInfo')}>Alterar informações pessoais</Text>
                 </View>
                 <View style = {styles.inforows}>
-                <Image source={require('../../assets/ReportProblemIcon.png')} style={styles.img}/>
+                <Feather
+                    name="frown"
+                    color="black"
+                    size={20}
+                    />
                 <Text onPress={() => navigation.navigate('ReportProblems')}>Reportar problemas</Text>
                 </View>                
             </View>
