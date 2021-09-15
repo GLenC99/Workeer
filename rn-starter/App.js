@@ -21,6 +21,7 @@ const navigator = createStackNavigator(
     Settings: SettingsScreen,
     UserOpinion: UserOpinionScreen,
     Register2: RegisterScreen2,
+    UserOpinion: UserOpinionScreen,
   },
   {
     initialRouteName: "Home",

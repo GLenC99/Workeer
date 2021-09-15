@@ -49,7 +49,9 @@ const HomeScreen = ({ navigation }) => {
             <View style={styles.faixasuperior}>
                 <Text>Olá, {nome}!</Text>
             </View>
+            <View> 
                 <ResultsList results = {vagas}> </ResultsList>
+            </View>
             <View style={styles.menuinferior}>
                 <TouchableOpacity onPress={() => navigation.navigate('Home')} style= {styles.image}>
                     <Feather
