@@ -8,8 +8,11 @@ const handleSearch = () => {
     this.setState({query: text});
 }
 */
+ //Precisa reconhecer o que está sendo inserido e procurar por vagas no firebase que contenham o que é 
+ //pesquisado em alguma parte e retornar para o usuário em uma lista
 
-const SearchScreen = ({navigation}) => {
+
+const SearchScreen = ({navigation,user}) => {
     const botaoPressionado= () => {
         Alert.alert("Botão Pressionado")
     }

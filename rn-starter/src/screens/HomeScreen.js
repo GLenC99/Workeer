@@ -8,7 +8,7 @@ import ResultsList from "../components/ResultsList";
 const nome = "Nome User"
 
 
-// As informações das vagas não são apresentadas
+// As informações das vagas não são apresentadas, precisa receber o user e pegar o nome dele
 const HomeScreen = ({ navigation,user }) => {
     const [vagas, setvagas] = useState([]);
 

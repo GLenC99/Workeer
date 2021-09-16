@@ -2,6 +2,10 @@ import React, { useEffect } from "react";
 import { TextInput, StyleSheet, Text, Button, View, ScrollView, TouchableOpacity } from "react-native";
 import Feather from 'react-native-vector-icons/Feather';
 
+
+//Não funciona na web mas no cel e no emuldor funciona certo, agora só preciso descobrir se tem como colocar pra entrar na home dependendo da resposta
+//Eu consigo com a validação do usuário pegar as informações cadastradas dele? (Email,genero,nome,datadenasc,senha  etc.)
+
 const LoginScreen = ({ navigation }) => {
   const [data, setData] = React.useState({
     email: '',

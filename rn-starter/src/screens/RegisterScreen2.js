@@ -1,5 +1,5 @@
-import React, { useEffect,useState } from "react";
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, Picker } from "react-native";
+import React, { useEffect, useState } from "react";
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image,Alert, Picker } from "react-native";
 import * as Animatable from 'react-native-animatable';
 import { color } from "react-native-reanimated";
 import Feather from 'react-native-vector-icons/Feather';
@@ -11,6 +11,10 @@ import DatePicker from 'react-native-datepicker';
 /*Warning: DatePickerAndroid has been merged with DatePickerIOS and will be removed in a future release. It can now be 
 installed and imported from '@react-native-community/datetimepicker' instead of 'react-native'. See 
 https://github.com/react-native-community/datetimepicker */
+
+
+//Não sei o que eu fiz mas ta pegando as informações perfeitamente, só tem que mudar a estética 
+//(Diminuir o espaço do olho e check do email e senha, organizar data, genero e o cadastrar)
 const RegisterScreen2 = ({ navigation }) => {
     const [data, setData] = React.useState({
         name: '',
@@ -63,7 +67,7 @@ const RegisterScreen2 = ({ navigation }) => {
         })
     };
 
-    const handleGenderSelect =(val) => {
+    const handleGenderSelect = (val) => {
         if (val.length != 0) {
             setData({
                 ...data,
@@ -79,76 +83,36 @@ const RegisterScreen2 = ({ navigation }) => {
             });
         };
     };
-    /*
-        const postFirebase = (data) => {
-            console.log("Email: " + data.email);
-            console.log("Senha: " + data.password);
-            Alert.alert("Enviando para o Firebase....")
-            /*
-            try{
-                useEffect(() => {
-                    fetch(
-                      'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDpv3MTThp_aC0VbykbZa9VQP1gjKlv3uY',
-                      {
-                        method: 'POST',
-                        headers: {
-                          'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                          email: "data.email",
-                          password: "data.password",
-                          returnSecureToken: true
-                        })
-                      }
-                    ).then((response) => { console.log("Resposta:" + response.json()) }).catch((error) => { console.log(error) })
-                
-                  }, []);
-            }catch(Exception){
-                console.log("ERRO FIREBASE");
-                console.log(Exception);
-            }  
-            
-            useEffect(() => {
-                console.log("Abre Login Screen");
-                fetch(
-                  'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDpv3MTThp_aC0VbykbZa9VQP1gjKlv3uY',
-                  {
+
+    const postFirebase = (data) => {
+        console.log("Email: " + data.email);
+        console.log("Senha: " + data.password);
+        Alert.alert("Enviando para o Firebase....")
+        useEffect(() => {
+            fetch(
+                'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDpv3MTThp_aC0VbykbZa9VQP1gjKlv3uY',
+                {
                     method: 'POST',
                     headers: {
-                      'Content-Type': 'application/json'
+                        'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                      email: 'guilherme.cossu@aluno.ifsp.edu.br',
-                      password: 'senha',
-                      returnSecureToken: true
+                        email: "data.email",
+                        password: "data.password",
+                        returnSecureToken: true
                     })
-                  }
-                ).then((response) => { console.log("Resposta:" + response.json()) }).catch((error) => { console.log(error) })
-              }, []);
-        };
-    
-    useEffect(() => {
-        fetch(
-          'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDpv3MTThp_aC0VbykbZa9VQP1gjKlv3uY',
-          {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              email: 'guilherme.cossu@aluno.ifsp.edu.br',
-              password: 'senha',
-              returnSecureToken: true
-            })
-          }
-        ).then((response) => { console.log("Resposta:" + response.json()) }).catch((error) => { console.log(error) })
-      }, []);
-    */
+                }
+            ).then((response) => { console.log("Resposta:" + response.json()) }).catch((error) => { console.log(error) })
+
+        }, [])
+    };
+
     const consoleLogs = () => {
         console.log("Nome: " + data.name);
         console.log("Email: " + data.email);
         console.log("Senha: " + data.password);
     };
+
     return (
         <View>
             <Text>Registration</Text>
@@ -193,10 +157,10 @@ const RegisterScreen2 = ({ navigation }) => {
                 </TouchableOpacity>
             </View>
             <View >
-            <DatePicker date={data.date} 
-            onDateChange={handleDateSelect}
-            />
-            </View>        
+                <DatePicker date={data.date}
+                    onDateChange={handleDateSelect}
+                />
+            </View>
             <View style={styles.picker}>
                 <Picker
                     selectedValue={data.gender}
@@ -211,7 +175,7 @@ const RegisterScreen2 = ({ navigation }) => {
             </View>
 
             <TouchableOpacity>
-                <Text onPress={/*() => postFirebase(data)*/consoleLogs, () => navigation.navigate('Login')} style={styles.button}>Cadastrar</Text>
+                <Text onPress={() => postFirebase(data) /*consoleLogs, () => navigation.navigate('Login')*/} style={styles.button}>Cadastrar</Text>
             </TouchableOpacity>
             <Text>{data.name}</Text>
             <Text>{data.email}</Text>
@@ -275,8 +239,8 @@ const styles = StyleSheet.create({
     picker: {
         paddingTop: 40,
         alignItems: "center"
-      },
-    
+    },
+
 
     button: {
         marginTop: 20,
@@ -291,36 +255,75 @@ const styles = StyleSheet.create({
         backgroundColor: 'blue',
 
     },
-})
+});
 
 export default RegisterScreen2;
 
 /*
-Can't find variable: useEffect
-at src\screens\RegisterScreen2.js:58:21 in postFirebase
-at src\screens\RegisterScreen2.js:115:49 in Text.props.onPress
->>>>>>> 4055c01e4d13f8bbb8b46d6f29f626badb13e9fa
-at node_modules\react-native\Libraries\Text\Text.js:242:8 in touchableHandlePress
-at node_modules\react-native\Libraries\Components\Touchable\Touchable.js:880:8 in TouchableMixin._performSideEffectsForTransition
-at node_modules\react-native\Libraries\Components\Touchable\Touchable.js:779:6 in TouchableMixin._receiveSignal
-at node_modules\react-native\Libraries\Components\Touchable\Touchable.js:491:4 in TouchableMixin.touchableHandleResponderRelease
-at node_modules\react-native\Libraries\Text\Text.js:194:8 in onResponderRelease
-at node_modules\react-native\Libraries\Renderer\implementations\ReactNativeRenderer-dev.js:265:4 in invokeGuardedCallbackImpl
-at node_modules\react-native\Libraries\Renderer\implementations\ReactNativeRenderer-dev.js:476:2 in invokeGuardedCallback
-at node_modules\react-native\Libraries\Renderer\implementations\ReactNativeRenderer-dev.js:500:2 in invokeGuardedCallbackAndCatchFirstError
-at node_modules\react-native\Libraries\Renderer\implementations\ReactNativeRenderer-dev.js:597:41 in executeDispatch
-at node_modules\react-native\Libraries\Renderer\implementations\ReactNativeRenderer-dev.js:621:19 in executeDispatchesInOrder
-at node_modules\react-native\Libraries\Renderer\implementations\ReactNativeRenderer-dev.js:2521:28 in executeDispatchesAndRelease
-at node_modules\react-native\Libraries\Renderer\implementations\ReactNativeRenderer-dev.js:836:4 in forEachAccumulated
-at node_modules\react-native\Libraries\Renderer\implementations\ReactNativeRenderer-dev.js:2546:20 in runEventsInBatch
-at node_modules\react-native\Libraries\Renderer\implementations\ReactNativeRenderer-dev.js:2702:18 in runExtractedPluginEventsInBatch
-at node_modules\react-native\Libraries\Renderer\implementations\ReactNativeRenderer-dev.js:2639:35 in batchedUpdates$argument_0
-at node_modules\react-native\Libraries\Renderer\implementations\ReactNativeRenderer-dev.js:17712:13 in batchedUpdates$1
-at node_modules\react-native\Libraries\Renderer\implementations\ReactNativeRenderer-dev.js:2492:29 in batchedUpdates
-at node_modules\react-native\Libraries\Renderer\implementations\ReactNativeRenderer-dev.js:2638:16 in _receiveRootNodeIDEvent
-at node_modules\react-native\Libraries\Renderer\implementations\ReactNativeRenderer-dev.js:2767:27 in receiveTouches
-at node_modules\react-native\Libraries\BatchedBridge\MessageQueue.js:416:4 in __callFunction
-at node_modules\react-native\Libraries\BatchedBridge\MessageQueue.js:109:6 in __guard$argument_0
+Error: Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:
+1. You might have mismatching versions of React and the renderer (such as React DOM)
+2. You might be breaking the Rules of Hooks
+3. You might have more than one copy of React in the same app
+See https://fb.me/react-invalid-hook-call for tips about how to debug and fix this problem.
+at node_modules\react-native\Libraries\LogBox\LogBox.js:148:8 in registerError
+at node_modules\react-native\Libraries\LogBox\LogBox.js:59:8 in errorImpl
+at node_modules\react-native\Libraries\LogBox\LogBox.js:33:4 in console.error
+at node_modules\expo\build\environment\react-native-logs.fx.js:27:4 in error
+at node_modules\react-native\Libraries\Core\ExceptionsManager.js:104:6 in reportException
+at node_modules\react-native\Libraries\Core\ExceptionsManager.js:171:19 in handleException
+at node_modules\react-native\Libraries\Core\setUpErrorHandling.js:24:6 in handleError
+at node_modules\expo-error-recovery\build\ErrorRecovery.fx.js:12:21 in ErrorUtils.setGlobalHandler$argument_0
+at node_modules\regenerator-runtime\runtime.js:63:36 in tryCatch
+at node_modules\regenerator-runtime\runtime.js:294:29 in invoke
+at node_modules\regenerator-runtime\runtime.js:63:36 in tryCatch
+at node_modules\regenerator-runtime\runtime.js:155:27 in invoke
+at node_modules\regenerator-runtime\runtime.js:165:18 in PromiseImpl.resolve.then$argument_0
+at node_modules\react-native\node_modules\promise\setimmediate\core.js:37:13 in tryCallOne
+at node_modules\react-native\node_modules\promise\setimmediate\core.js:123:24 in setImmediate$argument_0
+at node_modules\react-native\Libraries\Core\Timers\JSTimers.js:130:14 in _callTimer
+at node_modules\react-native\Libraries\Core\Timers\JSTimers.js:181:14 in _callImmediatesPass
+at node_modules\react-native\Libraries\Core\Timers\JSTimers.js:441:30 in callImmediates
+at node_modules\react-native\Libraries\BatchedBridge\MessageQueue.js:387:6 in __callImmediates
+at node_modules\react-native\Libraries\BatchedBridge\MessageQueue.js:135:6 in __guard$argument_0
 at node_modules\react-native\Libraries\BatchedBridge\MessageQueue.js:364:10 in __guard
-at node_modules\react-native\Libraries\BatchedBridge\MessageQueue.js:108:4 in callFunctionReturnFlushedQueue
+at node_modules\react-native\Libraries\BatchedBridge\MessageQueue.js:134:4 in flushedQueue*/
+
+
+/*
+
+        useEffect(() => {
+            console.log("Abre Login Screen");
+            fetch(
+              'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDpv3MTThp_aC0VbykbZa9VQP1gjKlv3uY',
+              {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  email: 'guilherme.cossu@aluno.ifsp.edu.br',
+                  password: 'senha',
+                  returnSecureToken: true
+                })
+              }
+            ).then((response) => { console.log("Resposta:" + response.json()) }).catch((error) => { console.log(error) })
+          }, []);
+    };
+
+useEffect(() => {
+    fetch(
+      'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDpv3MTThp_aC0VbykbZa9VQP1gjKlv3uY',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: 'guilherme.cossu@aluno.ifsp.edu.br',
+          password: 'senha',
+          returnSecureToken: true
+        })
+      }
+    ).then((response) => { console.log("Resposta:" + response.json()) }).catch((error) => { console.log(error) })
+  }, []);
 */

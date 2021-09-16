@@ -4,7 +4,8 @@ import Feather from 'react-native-vector-icons/Feather';
 import DatePicker from 'react-native-datepicker';
 import * as Animatable from 'react-native-animatable';
 
-
+//Precisa conseguir reconhecer o usuario e postar as informações novas, substituindo as antigas, 
+//o valor por default pode ser o que já esta gravado no firebase do usuario
 const AlterInfoScreen = ({ navigation,user }) => {
     const [data, setData] = React.useState({
         name: '',

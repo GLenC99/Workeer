@@ -3,6 +3,8 @@ import { StyleSheet, Text, Image, View, ScrollView, Button, Alert, TouchableOpac
 import Feather from 'react-native-vector-icons/Feather';
 const nome = "Nome da Pessoa";
 
+//precisa receber as informações do usuario para poder associar reclamações e alterá-las nessa tela, 
+//precisa passar as informações do usuario pras proximas telas e não tenho certeza de como fazer isso
 const SettingsScreen = ({ navigation,user }) => {
     return (
         <ScrollView>
