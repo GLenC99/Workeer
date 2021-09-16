@@ -7,6 +7,8 @@ import SearchScreen from "./src/screens/SearchScreen";
 import SettingsScreen from "./src/screens/SettingsScreen";
 import UserOpinionScreen from "./src/screens/UserOpinionScreen";
 import RegisterScreen2 from "./src/screens/RegisterScreen2";
+import ReportProblemsScreen from "./src/screens/ReportProblemsScreen";
+import AlterInfoScreen from "./src/screens/AlterInfoScreen";
 
 //Colors Trangender Banner blue #54b9f8 white #ffffff pink #ffb3be --> Deixar a cor base do app como branca e a parte de cima como azul e a debaixo como rosa,
 //ou deixar as letras em branco
@@ -22,6 +24,8 @@ const navigator = createStackNavigator(
     UserOpinion: UserOpinionScreen,
     Register2: RegisterScreen2,
     UserOpinion: UserOpinionScreen,
+    ReportProblems: ReportProblemsScreen,
+    AlterInfo: AlterInfoScreen,
   },
   {
     initialRouteName: "Home",

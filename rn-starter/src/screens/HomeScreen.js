@@ -8,8 +8,8 @@ import ResultsList from "../components/ResultsList";
 const nome = "Nome User"
 
 
-
-const HomeScreen = ({ navigation }) => {
+// As informações das vagas não são apresentadas
+const HomeScreen = ({ navigation,user }) => {
     const [vagas, setvagas] = useState([]);
 
     useEffect(() => {

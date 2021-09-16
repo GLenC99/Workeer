@@ -273,7 +273,6 @@ const styles = StyleSheet.create({
     },
 
     picker: {
-        flex: 1,
         paddingTop: 40,
         alignItems: "center"
       },

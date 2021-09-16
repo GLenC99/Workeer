@@ -1,12 +1,20 @@
-import React from "react";
+import React, {useState} from "react";
 import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity} from "react-native";
 
-const UserOpinionScreen = ({ navigation }) => {
-    const equipeemail = "emailworkeer@email.com"
+const UserOpinionScreen = ({ navigation,user }) => {
+    const equipeemail = "emailworkeer@email.com";
+    const [opinion, setOpinion] = useState();
+
+    const handleOpinion = (val) =>{
+        if(val.length != 0){
+            setOpinion(val);
+        };
+      };
+
     return(
         <View>
             <Text>Insira abaixo sua opinião sobre o sistema</Text>
-            <textarea cols= "10" row= "2" />
+            <TextInput style={styles.textInput} onChangeText={handleOpinion}/>
             <TouchableOpacity>
                 <Text>Enviar</Text>
             </TouchableOpacity>

@@ -3,7 +3,7 @@ import { StyleSheet, Text, Image, View, ScrollView, Button, Alert, TouchableOpac
 import Feather from 'react-native-vector-icons/Feather';
 const nome = "Nome da Pessoa";
 
-const SettingsScreen = ({ navigation }) => {
+const SettingsScreen = ({ navigation,user }) => {
     return (
         <ScrollView>
             <View style={styles.Iconimg}>
