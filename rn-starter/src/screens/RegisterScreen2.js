@@ -4,6 +4,8 @@ import * as Animatable from 'react-native-animatable';
 import { color } from "react-native-reanimated";
 import Feather from 'react-native-vector-icons/Feather';
 import DatePicker from 'react-native-datepicker';
+import firebase from 'firebase/app';
+import 'firebase/firestore';
 
 //warning: Attempted import error: 'DatePickerAndroid' is not exported from 'react-native-web/dist/index'.
 //Por algum motivo não consigo clicar no date picker no web e no emulador o Picker de genero não aparece
@@ -22,6 +24,22 @@ data@gmail.com -> data.password
 guilherme.cossu@aulno.ifsp.edu.br -> password
 
 */
+
+const setFirebase = () => {
+    // Add a new document in collection "cities"
+    db.collection("cities").doc("LA").set({
+        name: "Los Angeles",
+        state: "CA",
+        country: "USA"
+    })
+        .then(() => {
+            console.log("Document successfully written!");
+        })
+        .catch((error) => {
+            console.error("Error writing document: ", error);
+        });
+}
+
 const RegisterScreen2 = ({ navigation }) => {
     const [data, setData] = React.useState({
         name: '',
@@ -139,9 +157,9 @@ const RegisterScreen2 = ({ navigation }) => {
                     </Animatable.View>
                     : null}
             </View>
-            {data.email.match("@") ? 
+            {data.email.match("@") ?
                 <Text></Text>
-                :   
+                :
                 <Text style={styles.warnings}>O valor inserido não é reconhecido como um email</Text>
             }
             <View style={styles.passwStyle}>
@@ -166,19 +184,19 @@ const RegisterScreen2 = ({ navigation }) => {
                 </TouchableOpacity>
             </View>
             {data.password.length < 6 ?
-                    <Text style={styles.warnings}>A senha deve ter ao menos 6 caracteres</Text> 
+                <Text style={styles.warnings}>A senha deve ter ao menos 6 caracteres</Text>
                 :
-                    <Text></Text> 
-                }
+                <Text></Text>
+            }
             <View style={styles.date}>
-                <Image source={require('../../assets/DateIcon.png')} style={styles.image}/>
-                <Text marginRight = {20}>Data de nascimento: </Text>
+                <Image source={require('../../assets/DateIcon.png')} style={styles.image} />
+                <Text marginRight={20}>Data de nascimento: </Text>
                 <DatePicker date={data.date}
                     onDateChange={handleDateSelect}
                 />
             </View>
             <View style={styles.picker}>
-                <Image source={require('../../assets/GenderIdentityIcon.png')} style={styles.image}/>
+                <Image source={require('../../assets/GenderIdentityIcon.png')} style={styles.image} />
                 <Picker
                     selectedValue={data.gender}
                     style={{ height: 50, width: 150 }}
@@ -255,7 +273,7 @@ const styles = StyleSheet.create({
 
     date: {
         flexDirection: "row",
-    },  
+    },
 
     picker: {
         paddingTop: 40,
