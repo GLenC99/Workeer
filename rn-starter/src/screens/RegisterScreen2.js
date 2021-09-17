@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image,Alert, Picker } from "react-native";
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, Alert, Picker } from "react-native";
 import * as Animatable from 'react-native-animatable';
 import { color } from "react-native-reanimated";
 import Feather from 'react-native-vector-icons/Feather';
@@ -15,6 +15,13 @@ https://github.com/react-native-community/datetimepicker */
 
 //Não sei o que eu fiz mas ta pegando as informações perfeitamente, só tem que mudar a estética 
 //(Diminuir o espaço do olho e check do email e senha, organizar data, genero e o cadastrar)
+
+
+/*
+data@gmail.com -> data.password
+guilherme.cossu@aulno.ifsp.edu.br -> password
+
+*/
 const RegisterScreen2 = ({ navigation }) => {
     const [data, setData] = React.useState({
         name: '',
@@ -88,23 +95,20 @@ const RegisterScreen2 = ({ navigation }) => {
         console.log("Email: " + data.email);
         console.log("Senha: " + data.password);
         Alert.alert("Enviando para o Firebase....")
-        useEffect(() => {
-            fetch(
-                'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDpv3MTThp_aC0VbykbZa9VQP1gjKlv3uY',
-                {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        email: "data.email",
-                        password: "data.password",
-                        returnSecureToken: true
-                    })
-                }
-            ).then((response) => { console.log("Resposta:" + response.json()) }).catch((error) => { console.log(error) })
-
-        }, [])
+        fetch(
+            'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDpv3MTThp_aC0VbykbZa9VQP1gjKlv3uY',
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email: data.email,
+                    password: data.password,
+                    returnSecureToken: true
+                })
+            }
+        ).then((response) => { console.log("Resposta:" + response.json()) }).catch((error) => { console.log(error) })
     };
 
     const consoleLogs = () => {
@@ -135,6 +139,11 @@ const RegisterScreen2 = ({ navigation }) => {
                     </Animatable.View>
                     : null}
             </View>
+            {data.email.match("@") ? 
+                <Text></Text>
+                :   
+                <Text style={styles.warnings}>O valor inserido não é reconhecido como um email</Text>
+            }
             <View style={styles.passwStyle}>
                 <Image source={require('../../assets/PasswordIcon.png')} style={styles.image} />
                 <TextInput placeholder="Senha" underlineColorAndroid={'transparent'} secureTextEntry={data.secureTextEntry ? true : false}
@@ -156,12 +165,20 @@ const RegisterScreen2 = ({ navigation }) => {
                     }
                 </TouchableOpacity>
             </View>
-            <View >
+            {data.password.length < 6 ?
+                    <Text style={styles.warnings}>A senha deve ter ao menos 6 caracteres</Text> 
+                :
+                    <Text></Text> 
+                }
+            <View style={styles.date}>
+                <Image source={require('../../assets/DateIcon.png')} style={styles.image}/>
+                <Text marginRight = {20}>Data de nascimento: </Text>
                 <DatePicker date={data.date}
                     onDateChange={handleDateSelect}
                 />
             </View>
             <View style={styles.picker}>
+                <Image source={require('../../assets/GenderIdentityIcon.png')} style={styles.image}/>
                 <Picker
                     selectedValue={data.gender}
                     style={{ height: 50, width: 150 }}
@@ -211,7 +228,7 @@ const styles = StyleSheet.create({
 
     emailInputStyle: {
         width: 300,
-        marginRight: 50,
+        marginRight: 30,
         borderWidth: 2,
     },
 
@@ -224,7 +241,7 @@ const styles = StyleSheet.create({
 
     passwInputStyle: {
         width: 300,
-        marginRight: 50,
+        marginRight: 30,
         borderWidth: 2,
     },
 
@@ -233,14 +250,24 @@ const styles = StyleSheet.create({
         display: 'flex',
         marginTop: 10,
         marginBottom: 10,
-        textAlign: 'justify'
+        textAlign: 'justify',
     },
+
+    date: {
+        flexDirection: "row",
+    },  
 
     picker: {
         paddingTop: 40,
-        alignItems: "center"
+        alignItems: "center",
+        flexDirection: "row",
     },
 
+    warnings: {
+        color: "red",
+        fontSize: 8,
+        fontWeight: "bold",
+    },
 
     button: {
         marginTop: 20,
