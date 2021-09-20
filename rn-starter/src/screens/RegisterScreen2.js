@@ -4,8 +4,36 @@ import * as Animatable from 'react-native-animatable';
 import { color } from "react-native-reanimated";
 import Feather from 'react-native-vector-icons/Feather';
 import DatePicker from 'react-native-datepicker';
+
+import firebase from "firebase/app";
+import firestore from "firebase/firestore";
+/*
+import firebase from "firebase/app";
+
 import firebase from 'firebase/app';
-import 'firebase/firestore';
+import firestore from '@react-native-firebase/firestore';
+*/
+
+
+const testFirestoreadd = () => {
+    console.log("Abriu a função de adição no Firestore a ");
+    
+    /*
+    firestore()
+        .collection('Users')
+        .add({
+            name: 'data',
+            gender: 'naobinario',
+            email: 'data@gmail.com',
+            password: 'data.password',
+            date: '17/09/2021',
+
+        })
+        .then(() => {
+            console.log('User added!');
+        });
+        */
+};
 
 //warning: Attempted import error: 'DatePickerAndroid' is not exported from 'react-native-web/dist/index'.
 //Por algum motivo não consigo clicar no date picker no web e no emulador o Picker de genero não aparece
@@ -23,7 +51,7 @@ https://github.com/react-native-community/datetimepicker */
 data@gmail.com -> data.password
 guilherme.cossu@aulno.ifsp.edu.br -> password
 
-*/
+
 
 const setFirebase = () => {
     // Add a new document in collection "cities"
@@ -39,7 +67,7 @@ const setFirebase = () => {
             console.error("Error writing document: ", error);
         });
 }
-
+*/
 const RegisterScreen2 = ({ navigation }) => {
     const [data, setData] = React.useState({
         name: '',
@@ -212,6 +240,11 @@ const RegisterScreen2 = ({ navigation }) => {
             <TouchableOpacity>
                 <Text onPress={() => postFirebase(data) /*consoleLogs, () => navigation.navigate('Login')*/} style={styles.button}>Cadastrar</Text>
             </TouchableOpacity>
+            <TouchableOpacity>
+                <Text onPress={testFirestoreadd} style={styles.button}>Teste Firestore</Text>
+            </TouchableOpacity>
+
+            
             <Text>{data.name}</Text>
             <Text>{data.email}</Text>
             <Text>{data.password}</Text>
