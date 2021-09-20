@@ -5,8 +5,9 @@ import { color } from "react-native-reanimated";
 import Feather from 'react-native-vector-icons/Feather';
 import DatePicker from 'react-native-datepicker';
 
-import firebase from "firebase/app";
-import firestore from "firebase/firestore";
+import { initializeApp } from "firebase/app"
+import { getFirestore, collection, addDoc } from "firebase/firestore"
+
 /*
 import firebase from "firebase/app";
 
@@ -14,12 +15,36 @@ import firebase from 'firebase/app';
 import firestore from '@react-native-firebase/firestore';
 */
 
+// Esse stack overflow talvez ajude com um erro no firestore https://stackoverflow.com/questions/46636255/firebase-firestore-is-not-a-function-when-trying-to-initialize-cloud-firestore
+// Firestore link https://firebase.google.com/docs/firestore/quickstart?hl=pt#web-version-9
+
+const firebaseApp = initializeApp({
+    apiKey: 'AIzaSyDpv3MTThp_aC0VbykbZa9VQP1gjKlv3uY',
+    authDomain: '"https://accounts.google.com/o/oauth2/auth',
+    projectId: 'workeer-system'
+});
+
+const db = getFirestore();
 
 const testFirestoreadd = () => {
-    console.log("Abriu a função de adição no Firestore a ");
-    
+    console.log("Abriu a função de adição no Firestore");
+    //Código achado no stack overflow
     /*
-    firestore()
+    const config = {
+        apiKey: "",
+        authDomain: "a",
+        databaseURL: "https://workeer-system.firebaseio.com",
+        projectId: "a", //Id é o code ou o number do projeto
+        storageBucket: "a",
+        messagingSenderId: "a"
+    };
+    if (!firebase.apps.length) {
+        firebase.initializeApp(config);
+        let firestore = firebase.firestore();
+    };
+    */
+    //Código achado no Primeiros passos com o Cloud Firestore 
+    /*firestore()
         .collection('Users')
         .add({
             name: 'data',
@@ -32,7 +57,21 @@ const testFirestoreadd = () => {
         .then(() => {
             console.log('User added!');
         });
-        */
+
+    */
+
+    try {
+        const docRef = async () => await addDoc(collection(db, "users"), {
+            name: 'data',
+            gender: 'naobinario',
+            email: 'data@gmail.com',
+            password: 'data.password',
+            date: '17/09/2021',
+        });
+        console.log("Document written with ID: ", docRef.id);
+    } catch (e) {
+        console.error("Error adding document: ", e);
+    }
 };
 
 //warning: Attempted import error: 'DatePickerAndroid' is not exported from 'react-native-web/dist/index'.
@@ -244,7 +283,7 @@ const RegisterScreen2 = ({ navigation }) => {
                 <Text onPress={testFirestoreadd} style={styles.button}>Teste Firestore</Text>
             </TouchableOpacity>
 
-            
+
             <Text>{data.name}</Text>
             <Text>{data.email}</Text>
             <Text>{data.password}</Text>
@@ -338,11 +377,7 @@ const styles = StyleSheet.create({
 export default RegisterScreen2;
 
 /*
-Error: Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:
-1. You might have mismatching versions of React and the renderer (such as React DOM)
-2. You might be breaking the Rules of Hooks
-3. You might have more than one copy of React in the same app
-See https://fb.me/react-invalid-hook-call for tips about how to debug and fix this problem.
+TypeError: undefined is not a function (near '...(0, _app.initializeApp)...')
 at node_modules\react-native\Libraries\LogBox\LogBox.js:148:8 in registerError
 at node_modules\react-native\Libraries\LogBox\LogBox.js:59:8 in errorImpl
 at node_modules\react-native\Libraries\LogBox\LogBox.js:33:4 in console.error
@@ -364,7 +399,8 @@ at node_modules\react-native\Libraries\Core\Timers\JSTimers.js:441:30 in callImm
 at node_modules\react-native\Libraries\BatchedBridge\MessageQueue.js:387:6 in __callImmediates
 at node_modules\react-native\Libraries\BatchedBridge\MessageQueue.js:135:6 in __guard$argument_0
 at node_modules\react-native\Libraries\BatchedBridge\MessageQueue.js:364:10 in __guard
-at node_modules\react-native\Libraries\BatchedBridge\MessageQueue.js:134:4 in flushedQueue*/
+at node_modules\react-native\Libraries\BatchedBridge\MessageQueue.js:134:4 in flushedQueue
+*/
 
 
 /*
