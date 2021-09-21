@@ -4,11 +4,13 @@ import * as Animatable from 'react-native-animatable';
 import { color } from "react-native-reanimated";
 import Feather from 'react-native-vector-icons/Feather';
 import DatePicker from 'react-native-datepicker';
+import db from '../API/Firebase';
 
+/*
 import { initializeApp } from "firebase/app"
 import { getFirestore, collection, addDoc } from "firebase/firestore"
 
-/*
+
 import firebase from "firebase/app";
 
 import firebase from 'firebase/app';
@@ -17,7 +19,7 @@ import firestore from '@react-native-firebase/firestore';
 
 // Esse stack overflow talvez ajude com um erro no firestore https://stackoverflow.com/questions/46636255/firebase-firestore-is-not-a-function-when-trying-to-initialize-cloud-firestore
 // Firestore link https://firebase.google.com/docs/firestore/quickstart?hl=pt#web-version-9
-
+/*
 const firebaseApp = initializeApp({
     apiKey: 'AIzaSyDpv3MTThp_aC0VbykbZa9VQP1gjKlv3uY',
     authDomain: '"https://accounts.google.com/o/oauth2/auth',
@@ -29,7 +31,7 @@ const db = getFirestore();
 const testFirestoreadd = () => {
     console.log("Abriu a função de adição no Firestore");
     //Código achado no stack overflow
-    /*
+    
     const config = {
         apiKey: "",
         authDomain: "a",
@@ -58,8 +60,7 @@ const testFirestoreadd = () => {
             console.log('User added!');
         });
 
-    */
-
+    
     try {
         const docRef = async () => await addDoc(collection(db, "users"), {
             name: 'data',
@@ -73,6 +74,7 @@ const testFirestoreadd = () => {
         console.error("Error adding document: ", e);
     }
 };
+*/
 
 //warning: Attempted import error: 'DatePickerAndroid' is not exported from 'react-native-web/dist/index'.
 //Por algum motivo não consigo clicar no date picker no web e no emulador o Picker de genero não aparece
@@ -193,15 +195,25 @@ const RegisterScreen2 = ({ navigation }) => {
                     returnSecureToken: true
                 })
             }
-        ).then((response) => { console.log("Resposta:" + response.json()) }).catch((error) => { console.log(error) })
+        ).then((response) => {
+            console.log("Resposta:" + response.json()) 
+            //aqui vai ser quando grava no firestore
+            db.collection("Users").add({
+                name: data.name,
+                gender: data.gender,
+                date: data.date,
+                email: data.email,
+                password: data.password,
+            }).then(() => console.log("Usuario Cadastrado")).catch((erro) => console.log("Erro no Cadastro", erro))
+        }).catch((error) => { console.log(error) })
     };
-
+/*
     const consoleLogs = () => {
         console.log("Nome: " + data.name);
         console.log("Email: " + data.email);
         console.log("Senha: " + data.password);
     };
-
+*/
     return (
         <View>
             <Text>Registration</Text>
@@ -279,9 +291,7 @@ const RegisterScreen2 = ({ navigation }) => {
             <TouchableOpacity>
                 <Text onPress={() => postFirebase(data) /*consoleLogs, () => navigation.navigate('Login')*/} style={styles.button}>Cadastrar</Text>
             </TouchableOpacity>
-            <TouchableOpacity>
-                <Text onPress={testFirestoreadd} style={styles.button}>Teste Firestore</Text>
-            </TouchableOpacity>
+
 
 
             <Text>{data.name}</Text>
