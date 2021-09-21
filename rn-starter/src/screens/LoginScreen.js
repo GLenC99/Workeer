@@ -37,22 +37,7 @@ const LoginScreen = ({ navigation }) => {
         secureTextEntry: !data.secureTextEntry,
     })
   };
-/*  
-  fetch(
-    'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDpv3MTThp_aC0VbykbZa9VQP1gjKlv3uY',
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        email: 'guilherme.cossu@aulno.ifsp.edu.br',
-        password: 'password',
-        returnSecureToken: true
-      })
-    }
-  ).then((response) => { console.log("Login:" + response) }).catch((error) => { console.log(error) });
-*/
+
 async function signupHandler() {
 
         console.log("Cheguei no sigupHandler");
@@ -192,6 +177,19 @@ const styles = StyleSheet.create({
 
 export default LoginScreen;
 
-/*
-
+/*  
+  fetch(
+    'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDpv3MTThp_aC0VbykbZa9VQP1gjKlv3uY',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: 'guilherme.cossu@aulno.ifsp.edu.br',
+        password: 'password',
+        returnSecureToken: true
+      })
+    }
+  ).then((response) => { console.log("Login:" + response) }).catch((error) => { console.log(error) });
 */

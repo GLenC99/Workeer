@@ -5,111 +5,22 @@ import { color } from "react-native-reanimated";
 import Feather from 'react-native-vector-icons/Feather';
 import DatePicker from 'react-native-datepicker';
 import db from '../API/Firebase';
-
-/*
-import { initializeApp } from "firebase/app"
-import { getFirestore, collection, addDoc } from "firebase/firestore"
-
-
-import firebase from "firebase/app";
-
-import firebase from 'firebase/app';
-import firestore from '@react-native-firebase/firestore';
-*/
+import { getAuth } from firebase;
 
 // Esse stack overflow talvez ajude com um erro no firestore https://stackoverflow.com/questions/46636255/firebase-firestore-is-not-a-function-when-trying-to-initialize-cloud-firestore
 // Firestore link https://firebase.google.com/docs/firestore/quickstart?hl=pt#web-version-9
-/*
-const firebaseApp = initializeApp({
-    apiKey: 'AIzaSyDpv3MTThp_aC0VbykbZa9VQP1gjKlv3uY',
-    authDomain: '"https://accounts.google.com/o/oauth2/auth',
-    projectId: 'workeer-system'
-});
-
-const db = getFirestore();
-
-const testFirestoreadd = () => {
-    console.log("Abriu a função de adição no Firestore");
-    //Código achado no stack overflow
-    
-    const config = {
-        apiKey: "",
-        authDomain: "a",
-        databaseURL: "https://workeer-system.firebaseio.com",
-        projectId: "a", //Id é o code ou o number do projeto
-        storageBucket: "a",
-        messagingSenderId: "a"
-    };
-    if (!firebase.apps.length) {
-        firebase.initializeApp(config);
-        let firestore = firebase.firestore();
-    };
-    */
-    //Código achado no Primeiros passos com o Cloud Firestore 
-    /*firestore()
-        .collection('Users')
-        .add({
-            name: 'data',
-            gender: 'naobinario',
-            email: 'data@gmail.com',
-            password: 'data.password',
-            date: '17/09/2021',
-
-        })
-        .then(() => {
-            console.log('User added!');
-        });
-
-    
-    try {
-        const docRef = async () => await addDoc(collection(db, "users"), {
-            name: 'data',
-            gender: 'naobinario',
-            email: 'data@gmail.com',
-            password: 'data.password',
-            date: '17/09/2021',
-        });
-        console.log("Document written with ID: ", docRef.id);
-    } catch (e) {
-        console.error("Error adding document: ", e);
-    }
-};
-*/
-
-//warning: Attempted import error: 'DatePickerAndroid' is not exported from 'react-native-web/dist/index'.
-//Por algum motivo não consigo clicar no date picker no web e no emulador o Picker de genero não aparece
-
-/*Warning: DatePickerAndroid has been merged with DatePickerIOS and will be removed in a future release. It can now be 
-installed and imported from '@react-native-community/datetimepicker' instead of 'react-native'. See 
-https://github.com/react-native-community/datetimepicker */
-
+//Gerenciar Usuarios Firebase https://firebase.google.com/docs/auth/web/manage-users?hl=pt-br
 
 //Não sei o que eu fiz mas ta pegando as informações perfeitamente, só tem que mudar a estética 
 //(Diminuir o espaço do olho e check do email e senha, organizar data, genero e o cadastrar)
-
 
 /*
 data@gmail.com -> data.password
 guilherme.cossu@aulno.ifsp.edu.br -> password
 
-
-
-const setFirebase = () => {
-    // Add a new document in collection "cities"
-    db.collection("cities").doc("LA").set({
-        name: "Los Angeles",
-        state: "CA",
-        country: "USA"
-    })
-        .then(() => {
-            console.log("Document successfully written!");
-        })
-        .catch((error) => {
-            console.error("Error writing document: ", error);
-        });
-}
 */
 const RegisterScreen2 = ({ navigation }) => {
+
     const [data, setData] = React.useState({
         name: '',
         gender: '',
@@ -196,9 +107,15 @@ const RegisterScreen2 = ({ navigation }) => {
                 })
             }
         ).then((response) => {
-            console.log("Resposta:" + response.json()) 
-            //aqui vai ser quando grava no firestore
-            db.collection("Users").add({
+            console.log("Resposta:" + response.json())
+            //pega o id do auth
+            const auth = db.getAuth();
+            const user = auth.currentUser;
+            if (user !== null) {
+                const uid = user.uid;
+            } 
+            //grava no firestore
+            db.collection("Users").doc(uid).set({
                 name: data.name,
                 gender: data.gender,
                 date: data.date,
@@ -207,13 +124,7 @@ const RegisterScreen2 = ({ navigation }) => {
             }).then(() => console.log("Usuario Cadastrado")).catch((erro) => console.log("Erro no Cadastro", erro))
         }).catch((error) => { console.log(error) })
     };
-/*
-    const consoleLogs = () => {
-        console.log("Nome: " + data.name);
-        console.log("Email: " + data.email);
-        console.log("Senha: " + data.password);
-    };
-*/
+
     return (
         <View>
             <Text>Registration</Text>
@@ -387,29 +298,8 @@ const styles = StyleSheet.create({
 export default RegisterScreen2;
 
 /*
-TypeError: undefined is not a function (near '...(0, _app.initializeApp)...')
-at node_modules\react-native\Libraries\LogBox\LogBox.js:148:8 in registerError
-at node_modules\react-native\Libraries\LogBox\LogBox.js:59:8 in errorImpl
-at node_modules\react-native\Libraries\LogBox\LogBox.js:33:4 in console.error
-at node_modules\expo\build\environment\react-native-logs.fx.js:27:4 in error
-at node_modules\react-native\Libraries\Core\ExceptionsManager.js:104:6 in reportException
-at node_modules\react-native\Libraries\Core\ExceptionsManager.js:171:19 in handleException
-at node_modules\react-native\Libraries\Core\setUpErrorHandling.js:24:6 in handleError
-at node_modules\expo-error-recovery\build\ErrorRecovery.fx.js:12:21 in ErrorUtils.setGlobalHandler$argument_0
-at node_modules\regenerator-runtime\runtime.js:63:36 in tryCatch
-at node_modules\regenerator-runtime\runtime.js:294:29 in invoke
-at node_modules\regenerator-runtime\runtime.js:63:36 in tryCatch
-at node_modules\regenerator-runtime\runtime.js:155:27 in invoke
-at node_modules\regenerator-runtime\runtime.js:165:18 in PromiseImpl.resolve.then$argument_0
-at node_modules\react-native\node_modules\promise\setimmediate\core.js:37:13 in tryCallOne
-at node_modules\react-native\node_modules\promise\setimmediate\core.js:123:24 in setImmediate$argument_0
-at node_modules\react-native\Libraries\Core\Timers\JSTimers.js:130:14 in _callTimer
-at node_modules\react-native\Libraries\Core\Timers\JSTimers.js:181:14 in _callImmediatesPass
-at node_modules\react-native\Libraries\Core\Timers\JSTimers.js:441:30 in callImmediates
-at node_modules\react-native\Libraries\BatchedBridge\MessageQueue.js:387:6 in __callImmediates
-at node_modules\react-native\Libraries\BatchedBridge\MessageQueue.js:135:6 in __guard$argument_0
-at node_modules\react-native\Libraries\BatchedBridge\MessageQueue.js:364:10 in __guard
-at node_modules\react-native\Libraries\BatchedBridge\MessageQueue.js:134:4 in flushedQueue
+Erro:
+
 */
 
 
