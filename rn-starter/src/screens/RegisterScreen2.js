@@ -6,6 +6,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import DatePicker from 'react-native-datepicker';
 import db from '../API/Firebase';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import firebase from 'firebase';
 
 // Esse stack overflow talvez ajude com um erro no firestore https://stackoverflow.com/questions/46636255/firebase-firestore-is-not-a-function-when-trying-to-initialize-cloud-firestore
 // Firestore link https://firebase.google.com/docs/firestore/quickstart?hl=pt#web-version-9
@@ -95,6 +96,7 @@ const RegisterScreen2 = ({ navigation }) => {
         console.log("Email: " + data.email);
         console.log("Senha: " + data.password);
         Alert.alert("Enviando para o Firebase....")
+        
         fetch(
             'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDpv3MTThp_aC0VbykbZa9VQP1gjKlv3uY',
             {
@@ -109,9 +111,12 @@ const RegisterScreen2 = ({ navigation }) => {
                 })
             }
         ).then((response) => {
-            console.log("Resposta:" + response.json())
+            var resp = response.json();
+            let user = firebase.auth().currentUser.uid;
+            console.log("User: " + user);
+            console.log("Resposta:" + resp)
             //pega o id do auth
-            const auth = db.getAuth(); //Erro: Firebase.default.getAuth is not a function.
+            const auth = getAuth(); //Erro: Firebase.default.getAuth is not a function.
             onAuthStateChanged(auth, (user) => {
                 if (user) {
                     // User is signed in, see docs for a list of available properties
