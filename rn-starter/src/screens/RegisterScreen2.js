@@ -4,7 +4,6 @@ import * as Animatable from 'react-native-animatable';
 import { color } from "react-native-reanimated";
 import Feather from 'react-native-vector-icons/Feather';
 import DatePicker from 'react-native-datepicker';
-import db from '../API/Firebase';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import firebase from 'firebase';
 
@@ -96,48 +95,54 @@ const RegisterScreen2 = ({ navigation }) => {
         console.log("Email: " + data.email);
         console.log("Senha: " + data.password);
         Alert.alert("Enviando para o Firebase....")
-        
-        fetch(
-            'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDpv3MTThp_aC0VbykbZa9VQP1gjKlv3uY',
-            {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    email: data.email,
-                    password: data.password,
-                    returnSecureToken: true
-                })
-            }
-        ).then((response) => {
-            var resp = response.json();
-            let user = firebase.auth().currentUser.uid;
-            console.log("User: " + user);
-            console.log("Resposta:" + resp)
+
+        // fetch(
+        //     'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDpv3MTThp_aC0VbykbZa9VQP1gjKlv3uY',
+        //     {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json'
+        //         },
+        //         body: JSON.stringify({
+        //             email: data.email,
+        //             password: data.password,
+        //             returnSecureToken: true
+        //         })
+        //     }
+        // )
+        firebase.auth().createUserWithEmailAndPassword(data.email, data.password).then((response) => {
+            console.log('[RegisterScreen 2] Usuário criado com sucesso.', response.user.uid);
+            let user = response.user;
+            let userId = response.user.uid
+            // console.log("User: " + user);
+            // console.log("Resposta:" + resp)
             //pega o id do auth
-            const auth = getAuth(); //Erro: Firebase.default.getAuth is not a function.
-            onAuthStateChanged(auth, (user) => {
-                if (user) {
-                    // User is signed in, see docs for a list of available properties
-                    // https://firebase.google.com/docs/reference/js/firebase.User
-                    const uid = user.uid;
-                    console.log(uid);
-                } else {
-                    // User is signed out
-                    // ...
-                    console.log("user is signed out");
-                }
-            });
-            
+            // const auth = getAuth(); //Erro: Firebase.default.getAuth is not a function.
+            // onAuthStateChanged(auth, (user) => {
+            //     if (user) {
+            //         // User is signed in, see docs for a list of available properties
+            //         // https://firebase.google.com/docs/reference/js/firebase.User
+            //         const uid = user.uid;
+            //         console.log(uid);
+            //     } else {
+            //         // User is signed out
+            //         // ...
+            //         console.log("user is signed out");
+            //     }
+            // });
+
             //grava no firestore
-            db.collection("Users").doc(uid).set({
+            firebase.firestore().collection("Users").doc(userId).set({
                 name: data.name,
                 gender: data.gender,
                 date: data.date,
                 email: data.email,
                 password: data.password,
-            }).then(() => console.log("Usuario Cadastrado")).catch((erro) => console.log("Erro no Cadastro", erro))
+            }).then(() => { 
+                console.log("Usuario Cadastrado");
+            }).catch((erro) => {
+                console.log("Erro no Cadastro", erro);
+            })
         }).catch((error) => { console.log(error) })
     };
 
