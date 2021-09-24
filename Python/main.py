@@ -5,6 +5,10 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
 
+#scrapy runspider vacanciesSpider.py
+#precisa mudar o arquivo json workeer-system-firebase-adminsdk.....
+
+
 cred = credentials.Certificate("Chave_Privada_Projeto/workeer-system-firebase-adminsdk-7929c-5351dc3a3b.json")
 firebase_admin.initialize_app(cred)
 db = firestore.client()

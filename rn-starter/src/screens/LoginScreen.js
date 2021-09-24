@@ -38,53 +38,25 @@ const LoginScreen = ({ navigation }) => {
     })
   };
 
-  async function signupHandler() {
-
-    console.log("Cheguei no sigupHandler");
-    // // dispatch(authActions.signup(formState.inputValues.email, formState.inputValues.password));
-    // dispatch(authActions.login('andre@gmail.com', 'ifsp@1234'));
-    const response = await fetch(
-      'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDpv3MTThp_aC0VbykbZa9VQP1gjKlv3uY',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          //email: 'guilherme.cossu@aulno.ifsp.edu.br',
-          //password: 'password',
-          email: data.email,
-          password: data.password,
-          returnSecureToken: true,
-        })
-      }
-    );
-    const resData = await response.json();
-    console.log(resData);
-  }
-
-  const signupFirebase = (data) => {
-    console.log("Email: " + data.email);
-    console.log("Senha: " + data.password);
-    console.log("Logando no Firebas...");
+  const signinFirebase = (data) => {
     firebase.auth().signInWithEmailAndPassword(data.email, data.password).then((userCredential) => {
-      // Signed in
-      console.log("Login Bem Sucedido");
+      //console.log("Login Bem Sucedido");
       const user = userCredential.user;
-      console.log("User ID:" + user.uid);
-      // ...
-    })
-      .catch((error) => {
-        console.log("Falha no Login");
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode);
-        console.log(errorMessage);
-        // ..
+
+      firebase.firestore().collection("Users").doc(user.uid).get().then((firebasedata) => {
+        console.log(firebasedata.data());
+        console.log(firebasedata.data().gender);
+      }).catch((error) => {
+        console.log(error);
       });
+    }).catch((error) => {
+      console.log("Falha no Login");
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode);
+      console.log(errorMessage);
+    });
   };
-
-
 
   return (
     <ScrollView style={styles.scrollView}>
@@ -122,7 +94,7 @@ const LoginScreen = ({ navigation }) => {
             title="Login" style={styles.button} color="#9900cc"
           ></Button>
 
-          <Button onPress={/*() => navigation.navigate('Home')*/() => signupFirebase(data)}
+          <Button onPress={/*() => navigation.navigate('Home')*/() => signinFirebase(data)}
             title="Login 2 " style={styles.button} color="#9900cc" marginTop={20}
           ></Button>
         </View>
@@ -218,3 +190,30 @@ export default LoginScreen;
     }
   ).then((response) => { console.log("Login:" + response) }).catch((error) => { console.log(error) });
 */
+
+/*
+ async function signupHandler() {
+
+   console.log("Cheguei no sigupHandler");
+   // // dispatch(authActions.signup(formState.inputValues.email, formState.inputValues.password));
+   // dispatch(authActions.login('andre@gmail.com', 'ifsp@1234'));
+   const response = await fetch(
+     'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDpv3MTThp_aC0VbykbZa9VQP1gjKlv3uY',
+     {
+       method: 'POST',
+       headers: {
+         'Content-Type': 'application/json'
+       },
+       body: JSON.stringify({
+         //email: 'guilherme.cossu@aulno.ifsp.edu.br',
+         //password: 'password',
+         email: data.email,
+         password: data.password,
+         returnSecureToken: true,
+       })
+     }
+   );
+   const resData = await response.json();
+   console.log(resData);
+ }
+ */

@@ -17,8 +17,8 @@ import firebase from 'firebase';
 //(Diminuir o espaço do olho e check do email e senha, organizar data, genero e o cadastrar)
 
 /*
-data@gmail.com -> data.password
-guilherme.cossu@aulno.ifsp.edu.br -> password
+guilherme.cossu@aluno.ifsp.edu.br -> password
+user1@email.com --> user1passwrod
 
 */
 const RegisterScreen2 = ({ navigation }) => {
