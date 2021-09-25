@@ -3,8 +3,13 @@ import { TextInput, StyleSheet, Text, Button, View, ScrollView, TouchableOpacity
 import Feather from 'react-native-vector-icons/Feather';
 import firebase from 'firebase';
 
-//Não funciona na web mas no cel e no emuldor funciona certo, agora só preciso descobrir se tem como colocar pra entrar na home dependendo da resposta
-//Eu consigo com a validação do usuário pegar as informações cadastradas dele? (Email,genero,nome,datadenasc,senha  etc.)
+/*
+Emails e Senhas Cadastrados
+guilherme.cossu@aluno.ifsp.edu.br -> password
+user1@email.com --> user1passwrod
+*/
+
+//como passar o user com o navigation navigate, sem ele terminar como undefined
 
 const LoginScreen = ({ navigation }) => {
   const [data, setData] = React.useState({
@@ -44,8 +49,11 @@ const LoginScreen = ({ navigation }) => {
       const user = userCredential.user;
 
       firebase.firestore().collection("Users").doc(user.uid).get().then((firebasedata) => {
-        console.log(firebasedata.data());
-        console.log(firebasedata.data().gender);
+        //console.log(firebasedata.data());
+        //console.log(firebasedata.data().gender);
+        let user = firebasedata.data();
+        console.log(user);
+        navigation.navigate('Home',user);
       }).catch((error) => {
         console.log(error);
       });
@@ -90,12 +98,8 @@ const LoginScreen = ({ navigation }) => {
           <Text onPress={() => navigation.navigate('Register2')} style={styles.register}>Primeira Vez? Cadastre-se</Text>
         </TouchableOpacity>
         <View style={styles.view2}>
-          <Button onPress={/*() => navigation.navigate('Home')*/() => signupHandler(data)}
-            title="Login" style={styles.button} color="#9900cc"
-          ></Button>
-
           <Button onPress={/*() => navigation.navigate('Home')*/() => signinFirebase(data)}
-            title="Login 2 " style={styles.button} color="#9900cc" marginTop={20}
+            title="Login" style={styles.button} color="#9900cc"
           ></Button>
         </View>
       </View>

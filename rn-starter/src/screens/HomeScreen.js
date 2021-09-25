@@ -9,9 +9,9 @@ const nome = "Nome User"
 
 
 // As informações das vagas não são apresentadas, precisa receber o user e pegar o nome dele
-const HomeScreen = ({ navigation,user }) => {
+const HomeScreen = ({ navigation, user }) => {
     const [vagas, setvagas] = useState([]);
-
+    console.log(user);
     useEffect(() => {
         console.log("[VacanciesTest]");
         setvagas(
@@ -47,7 +47,7 @@ const HomeScreen = ({ navigation,user }) => {
                 <Image source={require('../../assets/UserIcon.png')} style={styles.img} />
             </View>
             <View style={styles.faixasuperior}>
-                <Text>Olá, {nome}!</Text>
+                <Text>Olá, {"user.name"}!</Text>
             </View>
             <View> 
                 <ResultsList results = {vagas}> </ResultsList>

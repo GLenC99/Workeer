@@ -94,6 +94,11 @@ const AlterInfoScreen = ({ navigation,user }) => {
                     </Animatable.View>
                     : null}
             </View>
+            {data.email.match("@") ?
+                <Text></Text>
+                :
+                <Text style={styles.warnings}>O valor inserido não é reconhecido como um email</Text>
+            }
             <View style={styles.passwStyle}>
                 <Image source={require('../../assets/PasswordIcon.png')} style={styles.image} />
                 <TextInput placeholder="Senha" underlineColorAndroid={'transparent'} secureTextEntry={data.secureTextEntry ? true : false}
@@ -115,7 +120,12 @@ const AlterInfoScreen = ({ navigation,user }) => {
                     }
                 </TouchableOpacity>
             </View>
-            <View >
+            {data.password.length < 6 ?
+                <Text style={styles.warnings}>A senha deve ter ao menos 6 caracteres</Text>
+                :
+                <Text></Text>
+            }
+            <View marginTop = {20}>
                 <DatePicker date={data.date}
                     onDateChange={handleDateSelect}
                 />
@@ -192,6 +202,12 @@ const styles = StyleSheet.create({
     picker: {
         paddingTop: 40,
         alignItems: "center"
+    },
+
+    warnings: {
+        color: "red",
+        fontSize: 10,
+        fontWeight: "bold",
     },
 });
 
