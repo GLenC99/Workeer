@@ -36,7 +36,7 @@ const navigator = createStackNavigator(
     AlterInfo: AlterInfoScreen,
   },
   {
-    initialRouteName: "Login",
+    initialRouteName: "Search",
     defaultNavigationOptions: {
       title: "App",
     },

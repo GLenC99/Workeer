@@ -1,8 +1,10 @@
 import React, {useState} from "react";
-import {StyleSheet,View,Image,TouchableOpacity, Alert} from "react-native";
+import {StyleSheet,View,Image,TouchableOpacity, Alert, Text} from "react-native";
 import SearchBar from "../components/SearchBar";
 import SearchBarScreen from "../components/SearchBarScreen.js";
 import Feather from 'react-native-vector-icons/Feather';
+import ResultsList from "../components/ResultsList";
+
 /*
 const handleSearch = () => {
     this.setState({query: text});
@@ -21,15 +23,6 @@ const SearchScreen = ({navigation,user}) => {
     return(
         <View>
         <SearchBarScreen >
-            <View marginBottom = {15}>
-            <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-                <Feather 
-                    name="corner-down-left"
-                    color="black"
-                    size={25}
-                />
-            </TouchableOpacity>
-            </View>
             <View style={styles.barraStyle}>
             <SearchBar/>
             <TouchableOpacity onPress={botaoPressionado} style={styles.botaoPesq}>
@@ -42,8 +35,40 @@ const SearchScreen = ({navigation,user}) => {
                     />
             </TouchableOpacity>
             </View>
+            <View style={styles.vacanciesFound}>
+                <Text> Vagas Pesquisadas </Text>
+                <ResultsList> </ResultsList>
+            </View>
+            <View style={styles.menuinferior}>
+                <TouchableOpacity onPress={() => navigation.navigate('Home')} style={styles.image}>
+                    <Feather
+                        name="home"
+                        color="black"
+                        size={75}
+                        marginLeft={40}
+                        marginRight={40}
+                    />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('Search')} style={styles.image}>
+                    <Feather
+                        name="search"
+                        color="black"
+                        size={75}
+                        marginLeft={40}
+                        marginRight={40}
+                    />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('Settings')} style={styles.image}>
+                    <Feather
+                        name="settings"
+                        color="black"
+                        size={75}
+                        marginLeft={40}
+                        marginRight={40}
+                    />
+                </TouchableOpacity>
+            </View>
         </SearchBarScreen>
-
         </View>
         
         
@@ -54,14 +79,38 @@ const styles = StyleSheet.create({
     menuinferior: {
         backgroundColor: 'lime',
         flexDirection: "row",
+        width: 400,
+        alignSelf: "center",
+        borderWidth: 1,
     },
     barraStyle: {
         flexDirection: "row",
+        borderWidth: 1,
     },
     botaoPesq: {
         alignItems: "center",
-        marginLeft: 10,
-    }  
+        marginLeft: 15,
+        borderWidth: 1,
+    },
+    
+    vacanciesFound:{
+        marginTop: 10,
+        height: 430,
+        width: 400,
+        alignItems: "center",
+        //alignContent: "center",
+        alignSelf: "center",
+        borderWidth: 1,
+        marginBottom:10,
+    },
+
+    image: {
+        width: 133.3,
+        height: 76,
+        borderWidth: 1,
+        alignItems: "center",
+    },
+
 });
 
 export default SearchScreen;

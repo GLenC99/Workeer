@@ -6,7 +6,8 @@ import * as Animatable from 'react-native-animatable';
 
 //Precisa conseguir reconhecer o usuario e postar as informações novas, substituindo as antigas, 
 //o valor por default pode ser o que já esta gravado no firebase do usuario
-const AlterInfoScreen = ({ navigation,user }) => {
+const AlterInfoScreen = ({ navigation, user }) => {
+
     const [data, setData] = React.useState({
         name: '',
         gender: '',
@@ -125,7 +126,7 @@ const AlterInfoScreen = ({ navigation,user }) => {
                 :
                 <Text></Text>
             }
-            <View marginTop = {20}>
+            <View marginTop={20}>
                 <DatePicker date={data.date}
                     onDateChange={handleDateSelect}
                 />

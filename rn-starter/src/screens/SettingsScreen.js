@@ -25,7 +25,7 @@ const SettingsScreen = ({ navigation,user }) => {
                     color="black"
                     size={20}
                     />
-                <Text onPress={() => Alert.alert('Sobre Workeer', 'Versão Beta 0.0.1')}>Sobre o aplicativo</Text>
+                <Text onPress={() => Alert.alert('Sobre Workeer', 'Versão Beta 0.0.1')} style={styles.optionsText}>Sobre o aplicativo</Text>
                 </View>
                 <View style = {styles.inforows}>
                 <Feather
@@ -33,7 +33,7 @@ const SettingsScreen = ({ navigation,user }) => {
                     color="black"
                     size={20}
                     />
-                <Text onPress={() => navigation.navigate('UserOpinion')}>Opine sobre o sistema</Text>
+                <Text onPress={() => navigation.navigate('UserOpinion')} style={styles.optionsText}>Opine sobre o sistema</Text>
                 </View>
                 <View style = {styles.inforows}>
                 <Feather
@@ -41,7 +41,7 @@ const SettingsScreen = ({ navigation,user }) => {
                     color="black"
                     size={20}
                     />
-                <Text onPress={() => navigation.navigate('AlterInfo')}>Alterar informações pessoais</Text>
+                <Text onPress={() => navigation.navigate('AlterInfo')} style={styles.optionsText}>Alterar informações pessoais</Text>
                 </View>
                 <View style = {styles.inforows}>
                 <Feather
@@ -49,11 +49,11 @@ const SettingsScreen = ({ navigation,user }) => {
                     color="black"
                     size={20}
                     />
-                <Text onPress={() => navigation.navigate('ReportProblems')}>Reportar problemas</Text>
+                <Text onPress={() => navigation.navigate('ReportProblems')} style={styles.optionsText}>Reportar problemas</Text>
                 </View>                
             </View>
-            <View style={[{ width: "40%", margin: 10, backgroundColor: "red", alignContent: "center", alignSelf:"center", marginTop:150}]}>
-                    <Button style = {styles.button}
+            <View style = {styles.button}>
+                    <Button 
                         title="sair"
                         color='#9900cc'
                         onPress={() => navigation.navigate('Login')}        
@@ -96,10 +96,12 @@ const styles = StyleSheet.create({
     faixasuperior: {
         alignSelf: 'center',
         marginBottom:70,
+        borderWidth: 1,
     },
     Iconimg:{
         width:40,
         height:40,
+        borderWidth:1,
     },  
     img: {
         width: 20,
@@ -113,21 +115,43 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         display: 'flex',
         marginBottom:10,
-      },
-    image: {
-        width: 131,
-        height: 80,
+        marginLeft:10,
         borderWidth:1,
+      },
+
+    optionsText: {
+        marginLeft:5,
+    },    
+    image: {
+        width: 133.3,
+        height: 76,
+        borderWidth: 1,
         alignItems: "center",
     },
 
     conteudo: {
         backgroundColor: 'gray',
+        borderWidth: 1,
+        alignItems: "flex-start",
+        marginHorizontal:5,
+    },
+
+    button: {
+        width: "40%", 
+        margin: 10, 
+        backgroundColor: "red", 
+        alignContent: "center", 
+        alignSelf:"center", 
+        marginTop:150,
+        borderWidth: 1,
     },
 
     menuinferior: {
         backgroundColor: 'lime',
         flexDirection: "row",
+        width: 400,
+        alignSelf: "center",
+        borderWidth: 1,
     },
 });
 
