@@ -14,11 +14,11 @@ const handleSearch = () => {
  //pesquisado em alguma parte e retornar para o usuário em uma lista
 
 
-const SearchScreen = ({navigation,user}) => {
+const SearchScreen = ({navigation}) => {
     const botaoPressionado= () => {
         Alert.alert("Botão Pressionado")
     }
-
+    const user = navigation.state.params.user;
 
     return(
         <View>
@@ -40,7 +40,7 @@ const SearchScreen = ({navigation,user}) => {
                 <ResultsList> </ResultsList>
             </View>
             <View style={styles.menuinferior}>
-                <TouchableOpacity onPress={() => navigation.navigate('Home')} style={styles.image}>
+                <TouchableOpacity onPress={() => navigation.navigate('Home',{user : user})} style={styles.image}>
                     <Feather
                         name="home"
                         color="black"
@@ -49,7 +49,7 @@ const SearchScreen = ({navigation,user}) => {
                         marginRight={40}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('Search')} style={styles.image}>
+                <TouchableOpacity onPress={() => navigation.navigate('Search',{user : user})} style={styles.image}>
                     <Feather
                         name="search"
                         color="black"
@@ -58,7 +58,7 @@ const SearchScreen = ({navigation,user}) => {
                         marginRight={40}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('Settings')} style={styles.image}>
+                <TouchableOpacity onPress={() => navigation.navigate('Settings',{user : user})} style={styles.image}>
                     <Feather
                         name="settings"
                         color="black"

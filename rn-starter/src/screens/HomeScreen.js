@@ -10,11 +10,25 @@ const nome = "Nome User"
 
 
 // As informações das vagas não são apresentadas, precisa receber o user e pegar o nome dele
-const HomeScreen = ({ navigation, user }) => {
+const HomeScreen = ({ navigation }) => {
     const [vagas, setvagas] = useState([]);
-    console.log(user);
+    const user = navigation.state.params.user;
+    //console.log(navigation.state.params.user);
+
+    useEffect(() => {
+        firebase.firestore().collection('Vagas').get().then(function (querySnapshot) {
+            querySnapshot.foreach((doc) => {
+                console.log("Documento: ",doc);
+
+            })
+        }).catch(function (error) {
+                console.error(error);
+            });
+
+    },[]);
 
     const getVagasInfo = () => {
+        console.log("Entrou na função");
         //console.log(firebase.firestore().collection("Vagas").get()); //n funfou
         /*
         const q = query(collection(db, "Vagas"), where("Local", "==", "CAMPINAS"));
@@ -25,15 +39,22 @@ const HomeScreen = ({ navigation, user }) => {
             console.log(doc.id, " => ", doc.data());
         });
         */
-        firebase.firestore().collection('Vagas').where('Local', '==', 'Campinas').get().then(function (querySnapshot) {
-            if (querySnapshot.exists) {
+
+        firebase.firestore().collection('Vagas').get().then(function (querySnapshot) {
+            /*
+            if (querySnapshot.data().foreach) {
                 console.log(querySnapshot.data());
             } else {
                 console.log("No such document!");
             }
+            */
+            querySnapshot.foreach((doc) => {
+                console.log("Documento: ",doc);
+
+            })
         }).catch(function (error) {
-            console.error(error);
-        });
+                console.error(error);
+            });
 
     }
 
@@ -70,7 +91,7 @@ const HomeScreen = ({ navigation, user }) => {
 
     return (
         <ScrollView>
-            <View style = {styles.faixaUserIcon}>
+            <View style={styles.faixaUserIcon}>
                 <TouchableOpacity onPress={getVagasInfo}>
                     <Image source={require('../../assets/UserIcon.png')} style={styles.img} />
                 </TouchableOpacity>
@@ -82,7 +103,7 @@ const HomeScreen = ({ navigation, user }) => {
                 <ResultsList results={vagas}> </ResultsList>
             </View>
             <View style={styles.menuinferior}>
-                <TouchableOpacity onPress={() => navigation.navigate('Home')} style={styles.image}>
+                <TouchableOpacity onPress={() => navigation.navigate('Home'),{user : user}} style={styles.image}>
                     <Feather
                         name="home"
                         color="black"
@@ -91,7 +112,7 @@ const HomeScreen = ({ navigation, user }) => {
                         marginRight={40}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('Search')} style={styles.image}>
+                <TouchableOpacity onPress={() => navigation.navigate('Search'),{user : user}} style={styles.image}>
                     <Feather
                         name="search"
                         color="black"
@@ -100,7 +121,7 @@ const HomeScreen = ({ navigation, user }) => {
                         marginRight={40}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('Settings')} style={styles.image}>
+                <TouchableOpacity onPress={() => navigation.navigate('Settings',{user : user})} style={styles.image}>
                     <Feather
                         name="settings"
                         color="black"
@@ -115,7 +136,7 @@ const HomeScreen = ({ navigation, user }) => {
 };
 
 const styles = StyleSheet.create({
-    faixaUserIcon:{
+    faixaUserIcon: {
         borderWidth: 1,
     },
     faixasuperior: {
@@ -132,14 +153,14 @@ const styles = StyleSheet.create({
         alignSelf: 'flex-end',
     },
 
-    faixaVagas:{
+    faixaVagas: {
         width: 410,
         height: 350,
-        borderWidth:1,
+        borderWidth: 1,
         alignContent: "center",
         marginBottom: 20,
 
-    },  
+    },
     image: {
         width: 133.3,
         height: 76,
@@ -153,7 +174,7 @@ const styles = StyleSheet.create({
         height: 350,
         alignSelf: 'center',
         display: 'flex',
-        
+
     },
     menuinferior: {
         backgroundColor: 'lime',

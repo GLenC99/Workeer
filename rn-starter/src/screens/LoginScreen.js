@@ -53,7 +53,7 @@ const LoginScreen = ({ navigation }) => {
         //console.log(firebasedata.data().gender);
         let user = firebasedata.data();
         console.log(user);
-        navigation.navigate('Home',user);
+        navigation.navigate('Home',{user : user});
       }).catch((error) => {
         console.log(error);
       });

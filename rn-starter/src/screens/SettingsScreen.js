@@ -6,6 +6,9 @@ const nome = "Nome da Pessoa";
 //precisa receber as informações do usuario para poder associar reclamações e alterá-las nessa tela, 
 //precisa passar as informações do usuario pras proximas telas e não tenho certeza de como fazer isso
 const SettingsScreen = ({ navigation,user }) => {
+
+    const user = navigation.state.params.user;
+
     return (
         <ScrollView>
             <View style={styles.Iconimg}>
@@ -33,7 +36,7 @@ const SettingsScreen = ({ navigation,user }) => {
                     color="black"
                     size={20}
                     />
-                <Text onPress={() => navigation.navigate('UserOpinion')} style={styles.optionsText}>Opine sobre o sistema</Text>
+                <Text onPress={() => navigation.navigate('UserOpinion',{user : user})} style={styles.optionsText}>Opine sobre o sistema</Text>
                 </View>
                 <View style = {styles.inforows}>
                 <Feather
@@ -41,7 +44,7 @@ const SettingsScreen = ({ navigation,user }) => {
                     color="black"
                     size={20}
                     />
-                <Text onPress={() => navigation.navigate('AlterInfo')} style={styles.optionsText}>Alterar informações pessoais</Text>
+                <Text onPress={() => navigation.navigate('AlterInfo',{user : user})} style={styles.optionsText}>Alterar informações pessoais</Text>
                 </View>
                 <View style = {styles.inforows}>
                 <Feather
@@ -49,18 +52,18 @@ const SettingsScreen = ({ navigation,user }) => {
                     color="black"
                     size={20}
                     />
-                <Text onPress={() => navigation.navigate('ReportProblems')} style={styles.optionsText}>Reportar problemas</Text>
+                <Text onPress={() => navigation.navigate('ReportProblems',{user : user})} style={styles.optionsText}>Reportar problemas</Text>
                 </View>                
             </View>
             <View style = {styles.button}>
                     <Button 
                         title="sair"
                         color='#9900cc'
-                        onPress={() => navigation.navigate('Login')}        
+                        onPress={() => navigation.navigate('Login',{user : user})}        
                     ></Button>
                 </View>
             <View style={styles.menuinferior}>
-            <TouchableOpacity onPress={() => navigation.navigate('Home')} style= {styles.image}>
+            <TouchableOpacity onPress={() => navigation.navigate('Home',{user : user})} style= {styles.image}>
                     <Feather
                         name="home"
                         color="black"
@@ -78,7 +81,7 @@ const SettingsScreen = ({ navigation,user }) => {
                         marginRight={40}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('Settings')} style= {styles.image}>
+                <TouchableOpacity onPress={() => navigation.navigate('Settings',{user : user})} style= {styles.image}>
                     <Feather
                         name="settings"
                         color="black"
