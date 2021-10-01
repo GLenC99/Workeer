@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity } from "react-native";
 import firebase from 'firebase';
 
-const ReportProblemsScreen = ({ navigation, user }) => {
+const ReportProblemsScreen = ({navigation}) => {
     const [problem, setProblem] = React.useState({
         empresa: '',
-        problema: '',
+        ocorrencia: '',
         datadaocorrencia: '',
     });
 
@@ -22,7 +22,7 @@ const ReportProblemsScreen = ({ navigation, user }) => {
         if (val.length != 0) {
             setProblem({
                 ...problem,
-                problema: val,
+                ocorrencia: val,
             });
         };
     };
@@ -39,17 +39,15 @@ const ReportProblemsScreen = ({ navigation, user }) => {
     const sendReport = () => {
         console.log(problem);
         //Problema vai ser parecido com o do Users Opinion
-        /* 
-        firebase.firestore().collection("ProblemsReported").set({
-            company: empresa,
-            occurrence: problema,
-            date: datadaocorrencia,
+        firebase.firestore().collection("ProblemsReported").doc().set({
+            company: problem.empresa,
+            occurrence: problem.ocorrencia,
+            date: problem.datadaocorrencia,
         }).then(() => { 
             console.log("Opinião Inserida");
         }).catch((erro) => {
             console.log("Erro no envio", erro);
         });
-        */
     };
 
     return (
@@ -61,7 +59,7 @@ const ReportProblemsScreen = ({ navigation, user }) => {
                 <TextInput placeholder="Empresa" onChangeText={handleIncChange} />
             </View>
             <View style={styles.occurrencyLine}>
-                <TextInput placeholder="Problema" onChangeText={handleProblemChange} />
+                <TextInput placeholder="Ocorrência" onChangeText={handleProblemChange} />
             </View>
             <View style={styles.dateLine}>
                 <TextInput placeholder="Data da ocorrencia (O máximo de exatidão possivel na data)" onChangeText={handleDateChange}/>

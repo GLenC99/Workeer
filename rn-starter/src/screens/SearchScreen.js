@@ -18,7 +18,7 @@ const SearchScreen = ({navigation}) => {
     const botaoPressionado= () => {
         Alert.alert("Botão Pressionado")
     }
-    const user = navigation.state.params.user;
+    //const user = navigation.state.params.user;
 
     return(
         <View>

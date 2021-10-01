@@ -5,10 +5,10 @@ const nome = "Nome da Pessoa";
 
 //precisa receber as informações do usuario para poder associar reclamações e alterá-las nessa tela, 
 //precisa passar as informações do usuario pras proximas telas e não tenho certeza de como fazer isso
-const SettingsScreen = ({ navigation,user }) => {
+const SettingsScreen = ({ navigation}) => {
 
-    const user = navigation.state.params.user;
-
+    // = navigation.state.params.user;
+    const user = "";
     return (
         <ScrollView>
             <View style={styles.Iconimg}>

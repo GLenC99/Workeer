@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity } from "react-native";
 import firebase from 'firebase';
 
-const UserOpinionScreen = ({ navigation, user }) => {
+const UserOpinionScreen = ({navigation}) => {
     const equipeemail = "emailworkeer@email.com";
     const [opinion, setOpinion] = useState();
 
@@ -15,15 +15,13 @@ const UserOpinionScreen = ({ navigation, user }) => {
     const sendOpinion = () => {
         console.log(opinion);
         // Erro: _firebase.default.firestore().collection("Users Opinion").setDoc(Ir só com o set tbm não funciona)
-        /*
-        firebase.firestore().collection("Users Opinion").set({
-            content: opinion,
+        firebase.firestore().collection("ProblemsReported").doc().set({
+            opinion: opinion,
         }).then(() => { 
             console.log("Opinião Inserida");
         }).catch((erro) => {
             console.log("Erro no envio", erro);
         });
-        */
     };
 
     return (

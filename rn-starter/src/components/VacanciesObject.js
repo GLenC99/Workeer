@@ -1,14 +1,15 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
-const VacanciesObjects = (props) => {
+const VacanciesObjects = ({vaga}) => {
+    console.log("Vaga:" + vaga);
     return (
         <View style={styles.objectStyle}>
             <TouchableOpacity>
-                <Text>{props.nomevaga}</Text>
-                <Text>{props.link}</Text>
-                <Text>{props.localvaga}</Text>
-                <Text>{props.numvagas}</Text>
+                <Text>{vaga.nomevaga}</Text>
+                <Text>{vaga.link}</Text>
+                <Text>{vaga.localvaga}</Text>
+                <Text>{vaga.numvagas}</Text>
             </TouchableOpacity>
         </View>
     );
