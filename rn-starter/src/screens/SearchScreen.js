@@ -17,7 +17,11 @@ const handleSearch = () => {
 const SearchScreen = ({navigation}) => {
     const botaoPressionado= () => {
         Alert.alert("Botão Pressionado")
-    }
+    };
+    
+    const handleSearchSelect = () => {
+
+    }; 
     //const user = navigation.state.params.user;
 
     return(
@@ -34,6 +38,19 @@ const SearchScreen = ({navigation}) => {
                         marginRight={40}
                     />
             </TouchableOpacity>
+            </View>
+            <View style={styles.picker}>
+                <Image source={require('../../assets/GenderIdentityIcon.png')} style={styles.image} />
+                <Picker
+                    selectedValue={data.gender}
+                    style={{ height: 50, width: 150 }}
+                    onValueChange={(itemValue, itemIndex) => handleSearchSelect(itemValue)}
+                >
+                    <Picker.Item label="Mulher" value="mulher" />
+                    <Picker.Item label="Travesti" value="travesti" />
+                    <Picker.Item label="Pessoa não-binária" value="naobinario" />
+                    <Picker.Item label="Homem" value="homem" />
+                </Picker>
             </View>
             <View style={styles.vacanciesFound}>
                 <Text> Vagas Pesquisadas </Text>
@@ -109,6 +126,11 @@ const styles = StyleSheet.create({
         height: 76,
         borderWidth: 1,
         alignItems: "center",
+    },
+    picker: {
+        paddingTop: 40,
+        alignItems: "center",
+        flexDirection: "row",
     },
 
 });

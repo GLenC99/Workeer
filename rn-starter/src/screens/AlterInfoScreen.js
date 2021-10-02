@@ -6,8 +6,7 @@ import * as Animatable from 'react-native-animatable';
 
 //Precisa conseguir reconhecer o usuario e postar as informações novas, substituindo as antigas, 
 //o valor por default pode ser o que já esta gravado no firebase do usuario
-const AlterInfoScreen = ({ navigation, user }) => {
-
+const AlterInfoScreen = ({ navigation }) => {
     const [data, setData] = React.useState({
         name: '',
         gender: '',
@@ -17,6 +16,29 @@ const AlterInfoScreen = ({ navigation, user }) => {
         check_textInputChange: false,
         secureTextEntry: true,
     });
+
+    const auth = getAuth();
+
+    const user = auth.currentUser;
+    const newPassword = data.password;
+    const newEmail = data.email;
+
+
+    updateEmail(user, newEmail).then(() => {
+        // Email updated!
+        // ...
+    }).catch((error) => {
+        // An error occurred
+        // ...
+    });
+
+    updatePassword(user, newPassword).then(() => {
+        // Update successful.
+    }).catch((error) => {
+        // An error ocurred
+        // ...
+    });
+
     const emailInputChange = (val) => {
         if (val.length != 0) {
             setData({
