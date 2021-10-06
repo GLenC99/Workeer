@@ -12,10 +12,6 @@ import firebase from 'firebase';
 //Gerenciar Usuarios Firebase https://firebase.google.com/docs/auth/web/manage-users?hl=pt-br
 // dúvida que pode ser útil https://github.com/firebase/quickstart-js/issues/12
 
-
-//Não sei o que eu fiz mas ta pegando as informações perfeitamente, só tem que mudar a estética 
-//(Diminuir o espaço do olho e check do email e senha, organizar data, genero e o cadastrar)
-
 /*
 guilherme.cossu@aluno.ifsp.edu.br -> password
 user1@email.com --> user1passwrod
@@ -96,20 +92,6 @@ const RegisterScreen2 = ({ navigation }) => {
         console.log("Senha: " + data.password);
         Alert.alert("Enviando para o Firebase....")
 
-        // fetch(
-        //     'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDpv3MTThp_aC0VbykbZa9VQP1gjKlv3uY',
-        //     {
-        //         method: 'POST',
-        //         headers: {
-        //             'Content-Type': 'application/json'
-        //         },
-        //         body: JSON.stringify({
-        //             email: data.email,
-        //             password: data.password,
-        //             returnSecureToken: true
-        //         })
-        //     }
-        // )
         firebase.auth().createUserWithEmailAndPassword(data.email, data.password).then((response) => {
             console.log('[RegisterScreen 2] Usuário criado com sucesso.', response.user.uid);
             let user = response.user;
@@ -140,6 +122,8 @@ const RegisterScreen2 = ({ navigation }) => {
                 password: data.password,
             }).then(() => { 
                 console.log("Usuario Cadastrado");
+                () => navigation.navigate('Login');
+                
             }).catch((erro) => {
                 console.log("Erro no Cadastro", erro);
             })
@@ -372,3 +356,18 @@ useEffect(() => {
     ).then((response) => { console.log("Resposta:" + response.json()) }).catch((error) => { console.log(error) })
   }, []);
 */
+
+// fetch(
+        //     'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDpv3MTThp_aC0VbykbZa9VQP1gjKlv3uY',
+        //     {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json'
+        //         },
+        //         body: JSON.stringify({
+        //             email: data.email,
+        //             password: data.password,
+        //             returnSecureToken: true
+        //         })
+        //     }
+        // )
