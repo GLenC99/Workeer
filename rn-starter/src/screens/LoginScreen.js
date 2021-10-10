@@ -43,17 +43,19 @@ const LoginScreen = ({ navigation }) => {
     })
   };
 
+  const goToHome = () => {
+    navigation.navigate('Home', { user: 'user' });
+  };
+
   const signinFirebase = (data) => {
     firebase.auth().signInWithEmailAndPassword(data.email, data.password).then((userCredential) => {
-      //console.log("Login Bem Sucedido");
       const user = userCredential.user;
-
       firebase.firestore().collection("Users").doc(user.uid).get().then((firebasedata) => {
         //console.log(firebasedata.data());
         //console.log(firebasedata.data().gender);
         let user = firebasedata.data();
         console.log(user);
-        navigation.navigate('Home',{user : user});
+        goToHome;
       }).catch((error) => {
         console.log(error);
       });
@@ -98,7 +100,7 @@ const LoginScreen = ({ navigation }) => {
           <Text onPress={() => navigation.navigate('Register2')} style={styles.register}>Primeira Vez? Cadastre-se</Text>
         </TouchableOpacity>
         <View style={styles.view2}>
-          <Button onPress={/*() => navigation.navigate('Home')*/() => signinFirebase(data)}
+          <Button onPress={/*() => signinFirebase(data)*/ goToHome}
             title="Login" style={styles.button} color="#9900cc"
           ></Button>
         </View>
@@ -108,7 +110,7 @@ const LoginScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  scrowView: {
+  scrollView: {
     backgroundColor: '#ffffff',
   },
 

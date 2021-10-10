@@ -18,7 +18,8 @@ const HomeScreen = ({ navigation }) => {
     //console.log(navigation.state.params.user);
 
     const getVagasInfo = () => {
-        console.log("Entrou na função");
+        console.log("Entrou na função");// Entra na função mostra o log, mas o app trava e crasha
+
         //console.log(firebase.firestore().collection("Vagas").get()); //n funfou
         /*
         const q = query(collection(db, "Vagas"), where("Local", "==", "CAMPINAS"));
@@ -48,6 +49,7 @@ const HomeScreen = ({ navigation }) => {
     }
 
     useEffect(() => {
+        /*
         console.log("[VacanciesTest]");
         firebase.firestore().collection("Vagas").get().then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
@@ -58,7 +60,7 @@ const HomeScreen = ({ navigation }) => {
             .catch((error) => {
                 console.log("Error getting documents: ", error);
             });
-
+            */
             setvagas(
                 [
                     {
@@ -85,7 +87,9 @@ const HomeScreen = ({ navigation }) => {
                 ]
             )        
     }, []);
-    console.log(vagas);
+
+    //console.log(vagas);
+    
     return (
         <ScrollView>
             <View style={styles.faixaUserIcon}>
@@ -100,7 +104,7 @@ const HomeScreen = ({ navigation }) => {
                 <ResultsList results={vagas}> </ResultsList>
             </View>
             <View style={styles.menuinferior}>
-                <TouchableOpacity onPress={() => navigation.navigate('Home'), { user: user }} style={styles.image}>
+                <TouchableOpacity onPress={() => navigation.navigate('Home')/*, { user: user }*/} style={styles.image}>
                     <Feather
                         name="home"
                         color="black"
@@ -109,7 +113,7 @@ const HomeScreen = ({ navigation }) => {
                         marginRight={40}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('Search'), { user: user }} style={styles.image}>
+                <TouchableOpacity onPress={() => navigation.navigate('Search')/*, { user: user }*/} style={styles.image}>
                     <Feather
                         name="search"
                         color="black"
@@ -118,7 +122,7 @@ const HomeScreen = ({ navigation }) => {
                         marginRight={40}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('Settings', { user: user })} style={styles.image}>
+                <TouchableOpacity onPress={() => navigation.navigate('Settings')/*, { user: user }*/} style={styles.image}>
                     <Feather
                         name="settings"
                         color="black"

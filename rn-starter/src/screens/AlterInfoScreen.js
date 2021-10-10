@@ -24,7 +24,7 @@ const AlterInfoScreen = ({ navigation }) => {
     const newEmail = data.email;
 
 
-    updateEmail(user, newEmail).then(() => {
+    updateEmail(user, newEmail7).then(() => {
         // Email updated!
         // ...
     }).catch((error) => {
@@ -33,7 +33,7 @@ const AlterInfoScreen = ({ navigation }) => {
     });
 
     updatePassword(user, newPassword).then(() => {
-        // Update successful.
+        console.log("Update successful");
     }).catch((error) => {
         // An error ocurred
         // ...

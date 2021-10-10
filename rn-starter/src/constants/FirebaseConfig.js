@@ -12,6 +12,23 @@ export default {
     measurementId: "G-8C3595GKY3"
   }
 };
+
+
+//FirebaseConfig email alternativo para quando exceder a cota de dados
+/*
+export default {
+FirebaseConfig: {
+  apiKey: "AIzaSyA7eKAinnxrhU47f0sQZOuJlVUf4GtplJY",
+  authDomain: "workeer-342b8.firebaseapp.com",
+  projectId: "workeer-342b8",
+  storageBucket: "workeer-342b8.appspot.com",
+  messagingSenderId: "302956353245",
+  appId: "1:302956353245:web:a9d25084d585bb09d4ed34",
+  measurementId: "G-PQ8SG9CN54"
+  }
+};
+*/
+
 //firebase.initializeApp(firebaseConfig);
 
 //Initialize Cloud Firestore through Firebase

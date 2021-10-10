@@ -11,6 +11,8 @@ from firebase_admin import firestore
 
 
 cred = credentials.Certificate("Chave_Privada_Projeto/workeer-4b214-firebase-adminsdk-43nh9-fae3d26ffe.json")
+#Quando o projeto tiver atingido a cota diária
+#cred = credentials.Certificate("Chave_Privada_Projeto/workeer-342b8-firebase-adminsdk-4rf5c-5303e5f858.json")
 firebase_admin.initialize_app(cred)
 db = firestore.client()
 
