@@ -5,7 +5,6 @@ import Feather from 'react-native-vector-icons/Feather';
 import { FlatList } from "react-native-gesture-handler";
 import ResultsList from "../components/ResultsList";
 import firebase from 'firebase';
-import { Colors } from "../constants/Colors";
 import { Colors } from '../constants/Colors';
 
 const nome = "Nome User"
