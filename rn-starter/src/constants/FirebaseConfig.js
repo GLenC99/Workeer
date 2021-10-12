@@ -2,21 +2,21 @@ import firebase from 'firebase';
 
 // Initialize Firebase
 
-export default {
-  FirebaseConfig: {
-    apiKey: "AIzaSyBapIMIE5nt0Hg6HMOGWk2L5d-qV4kKdjM",
-    authDomain: "workeer-4b214.firebaseapp.com",
-    projectId: "workeer-4b214",
-    storageBucket: "workeer-4b214.appspot.com",
-    messagingSenderId: "557192471001",
-    appId: "1:557192471001:web:39314f26d6a1a4827439c8",
-    measurementId: "G-8C3595GKY3"
-  }
-};
+// export default {
+//   FirebaseConfig: {
+//     apiKey: "AIzaSyBapIMIE5nt0Hg6HMOGWk2L5d-qV4kKdjM",
+//     authDomain: "workeer-4b214.firebaseapp.com",
+//     projectId: "workeer-4b214",
+//     storageBucket: "workeer-4b214.appspot.com",
+//     messagingSenderId: "557192471001",
+//     appId: "1:557192471001:web:39314f26d6a1a4827439c8",
+//     measurementId: "G-8C3595GKY3"
+//   }
+// };
 
 
 //FirebaseConfig email alternativo para quando exceder a cota de dados
-/*
+
 export default {
 FirebaseConfig: {
   apiKey: "AIzaSyA7eKAinnxrhU47f0sQZOuJlVUf4GtplJY",
@@ -29,7 +29,7 @@ FirebaseConfig: {
   }
 };
 
-*/
+
 //firebase.initializeApp(firebaseConfig);
 
 //Initialize Cloud Firestore through Firebase
