@@ -24,7 +24,8 @@ const SearchScreen = ({ navigation }) => {
 
     };
     
-    //const user = navigation.state.params.user;
+    const user = navigation.state.params.user;
+
     return (
         <View>
             <SearchBarScreen >
@@ -46,7 +47,7 @@ const SearchScreen = ({ navigation }) => {
                     <ResultsList> </ResultsList>
                 </View>
                 <View style={styles.menuinferior}>
-                    <TouchableOpacity onPress={() => navigation.navigate('Home'/*,{user : user}*/)} style={styles.image}>
+                    <TouchableOpacity onPress={() => navigation.navigate('Home',{user : user})} style={styles.image}>
                         <Feather
                             name="home"
                             color="black"
@@ -55,7 +56,7 @@ const SearchScreen = ({ navigation }) => {
                             marginRight={40}
                         />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => navigation.navigate('Search'/*,{user : user}*/)} style={styles.image}>
+                    <TouchableOpacity onPress={() => navigation.navigate('Search',{user : user})} style={styles.image}>
                         <Feather
                             name="search"
                             color="black"
@@ -64,7 +65,7 @@ const SearchScreen = ({ navigation }) => {
                             marginRight={40}
                         />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => navigation.navigate('Settings'/*,{user : user}*/)} style={styles.image}>
+                    <TouchableOpacity onPress={() => navigation.navigate('Settings',{user : user})} style={styles.image}>
                         <Feather
                             name="settings"
                             color="black"

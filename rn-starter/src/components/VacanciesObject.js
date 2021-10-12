@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
 const VacanciesObjects = ({vaga}) => {
-    console.log("Vaga:" + vaga);
+    //console.log("Vaga:" + vaga);
     return (
         <View style={styles.objectStyle}>
             <TouchableOpacity>

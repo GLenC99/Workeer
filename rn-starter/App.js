@@ -38,7 +38,7 @@ const navigator = createStackNavigator(
     Vacancies: VacanciesScreen,
   },
   {
-    initialRouteName: "Search",
+    initialRouteName: "Login",
     defaultNavigationOptions: {
       title: "App",
     },

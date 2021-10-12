@@ -3,9 +3,13 @@ import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity } from "rea
 import firebase from 'firebase';
 
 const UserOpinionScreen = ({navigation}) => {
+    const user  = navigation.state.params.user;
     const equipeemail = "emailworkeer@email.com";
     const [opinion, setOpinion] = useState();
 
+    const gotoSettings = () => {
+        navigation.navigate('Settings',{user:user});
+    }
     const handleOpinion = (val) => {
         if (val.length != 0) {
             setOpinion(val);
@@ -14,11 +18,12 @@ const UserOpinionScreen = ({navigation}) => {
 
     const sendOpinion = () => {
         console.log(opinion);
-        // Erro: _firebase.default.firestore().collection("Users Opinion").setDoc(Ir só com o set tbm não funciona)
-        firebase.firestore().collection("ProblemsReported").doc().set({
+        firebase.firestore().collection("UserOpinions").doc().set({
             opinion: opinion,
         }).then(() => { 
             console.log("Opinião Inserida");
+            gotoSettings();
+
         }).catch((erro) => {
             console.log("Erro no envio", erro);
         });
@@ -53,7 +58,7 @@ const UserOpinionScreen = ({navigation}) => {
             <View style={styles.button}>
                 <Button
                     title="VOLTAR"
-                    onPress={() => navigation.navigate('Settings')}
+                    onPress={() => navigation.navigate('Settings',{user:user})}
                 ></Button>
             </View>
         </View>

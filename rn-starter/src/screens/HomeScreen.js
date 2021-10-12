@@ -15,7 +15,7 @@ const HomeScreen = ({ navigation }) => {
     const [vagas, setvagas] = useState([]);
     //const user = navigation.state.params.user;
     const user = "";
-    //console.log(navigation.state.params.user);
+    console.log(navigation.state.params.user);
 
     const getVagasInfo = () => {
         console.log("Entrou na função");// Entra na função mostra o log, mas o app trava e crasha
@@ -104,7 +104,7 @@ const HomeScreen = ({ navigation }) => {
                 <ResultsList results={vagas}> </ResultsList>
             </View>
             <View style={styles.menuinferior}>
-                <TouchableOpacity onPress={() => navigation.navigate('Home')/*, { user: user }*/} style={styles.image}>
+                <TouchableOpacity onPress={() => navigation.navigate('Home', { user: user })} style={styles.image}>
                     <Feather
                         name="home"
                         color="black"
@@ -113,7 +113,7 @@ const HomeScreen = ({ navigation }) => {
                         marginRight={40}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('Search')/*, { user: user }*/} style={styles.image}>
+                <TouchableOpacity onPress={() => navigation.navigate('Search', { user: user })} style={styles.image}>
                     <Feather
                         name="search"
                         color="black"
@@ -122,7 +122,7 @@ const HomeScreen = ({ navigation }) => {
                         marginRight={40}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('Settings')/*, { user: user }*/} style={styles.image}>
+                <TouchableOpacity onPress={() => navigation.navigate('Settings', { user: user })} style={styles.image}>
                     <Feather
                         name="settings"
                         color="black"

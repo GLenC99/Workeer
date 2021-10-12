@@ -87,6 +87,10 @@ const RegisterScreen2 = ({ navigation }) => {
         };
     };
 
+    const gotoLogin = () => {
+        navigation.navigate('Login');
+    };
+
     const postFirebase = (data) => {
         console.log("Email: " + data.email);
         console.log("Senha: " + data.password);
@@ -122,7 +126,7 @@ const RegisterScreen2 = ({ navigation }) => {
                 password: data.password,
             }).then(() => { 
                 console.log("Usuario Cadastrado");
-                () => navigation.navigate('Login');
+                gotoLogin();
                 
             }).catch((erro) => {
                 console.log("Erro no Cadastro", erro);

@@ -1,6 +1,7 @@
 import firebase from 'firebase';
 
 // Initialize Firebase
+
 export default {
   FirebaseConfig: {
     apiKey: "AIzaSyBapIMIE5nt0Hg6HMOGWk2L5d-qV4kKdjM",
@@ -27,8 +28,8 @@ FirebaseConfig: {
   measurementId: "G-PQ8SG9CN54"
   }
 };
-*/
 
+*/
 //firebase.initializeApp(firebaseConfig);
 
 //Initialize Cloud Firestore through Firebase
