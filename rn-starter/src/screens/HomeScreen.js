@@ -6,6 +6,7 @@ import { FlatList } from "react-native-gesture-handler";
 import ResultsList from "../components/ResultsList";
 import firebase from 'firebase';
 import { Colors } from "../constants/Colors";
+import { Colors } from '../constants/Colors';
 
 const nome = "Nome User"
 
@@ -14,23 +15,21 @@ const nome = "Nome User"
 const HomeScreen = ({ navigation }) => {
     const [vagas, setvagas] = useState([]);
     //const user = navigation.state.params.user;
-    const user = "";
-    console.log(navigation.state.params.user);
+    const user = navigation.state.params ? navigation.state.params.user : 'andre';
 
     console.log('[Home Screen]');
 
-    // useEffect(() => {
-    //     console.log('Iniciando firebase fetch');
-    //     firebase.firestore().collection('Vagas').get().then(function (querySnapshot) {
-    //         querySnapshot.foreach((doc) => {
-    //             console.log("Documento: ", doc);
+    useEffect(() => {
+        console.log('Iniciando firebase fetch');
+        firebase.firestore().collection('Vagas').get().then(function (querySnapshot) {
+            querySnapshot.foreach((doc) => {
+                console.log("Documento: ", doc);
+            })
+        }).catch(function (error) {
+            console.error(error);
+        });
 
-    //         })
-    //     }).catch(function (error) {
-    //         console.error(error);
-    //     });
-
-    // }, []);
+    }, []);
 
     //user1@email.com user1passwrod
 
@@ -47,21 +46,21 @@ const HomeScreen = ({ navigation }) => {
         });
         */
 
-        firebase.firestore().collection('Vagas').get().then(function (querySnapshot) {
-            /*
-            if (querySnapshot.data().foreach) {
-                console.log(querySnapshot.data());
-            } else {
-                console.log("No such document!");
-            }
-            */
-            querySnapshot.foreach((doc) => {
-                console.log("Documento: ", doc);
+        // firebase.firestore().collection('Vagas').get().then(function (querySnapshot) {
+        //     /*
+        //     if (querySnapshot.data().foreach) {
+        //         console.log(querySnapshot.data());
+        //     } else {
+        //         console.log("No such document!");
+        //     }
+        //     */
+        //     querySnapshot.foreach((doc) => {
+        //         console.log("Documento: ", doc);
 
-            })
-        }).catch(function (error) {
-            console.error(error);
-        });
+        //     })
+        // }).catch(function (error) {
+        //     console.error(error);
+        // });
     }
 
 
@@ -77,17 +76,17 @@ const HomeScreen = ({ navigation }) => {
         //     console.error(error);
         // });
 
-        firebase.firestore().collection("Vagas")
-            .get()
-            .then((querySnapshot) => {
-                querySnapshot.forEach((doc) => {
-                    // doc.data() is never undefined for query doc snapshots
-                    console.log(doc.id, " => ", doc.data());
-                });
-            })
-            .catch((error) => {
-                console.log("Error getting documents: ", error);
-            });
+        // firebase.firestore().collection("Vagas")
+        //     .get()
+        //     .then((querySnapshot) => {
+        //         querySnapshot.forEach((doc) => {
+        //             // doc.data() is never undefined for query doc snapshots
+        //             console.log(doc.id, " => ", doc.data());
+        //         });
+        //     })
+        //     .catch((error) => {
+        //         console.log("Error getting documents: ", error);
+        //     });
 
         setvagas(
             [
@@ -117,24 +116,24 @@ const HomeScreen = ({ navigation }) => {
     }, []);
 
     return (
-        <View>
+        <View style={styles.screen}>
             <View style={styles.faixaUserIcon}>
                 <TouchableOpacity onPress={getVagasInfo}>
                     <Image source={require('../../assets/UserIcon.png')} style={styles.img} />
                 </TouchableOpacity>
             </View>
             <View style={styles.faixasuperior}>
-                <Text>Olá, {"user.name"}!</Text>
+                <Text style={styles.text}>Olá, {"user.name"}!</Text>
             </View>
-            <View style={styles.faixaVagas}>
+            <ScrollView style={styles.faixaVagas}>
                 <ResultsList results={vagas}> </ResultsList>
-            </View>
+            </ScrollView>
             <View style={styles.menuinferior}>
                 <TouchableOpacity onPress={() => navigation.navigate('Home', { user: user })} style={styles.image}>
                     <Feather
                         name="home"
-                        color="black"
-                        size={80}
+                        color="white"
+                        size={50}
                         marginLeft={40}
                         marginRight={40}
                     />
@@ -142,8 +141,8 @@ const HomeScreen = ({ navigation }) => {
                 <TouchableOpacity onPress={() => navigation.navigate('Search', { user: user })} style={styles.image}>
                     <Feather
                         name="search"
-                        color="black"
-                        size={80}
+                        color="white"
+                        size={50}
                         marginLeft={40}
                         marginRight={40}
                     />
@@ -151,29 +150,51 @@ const HomeScreen = ({ navigation }) => {
                 <TouchableOpacity onPress={() => navigation.navigate('Settings', { user: user })} style={styles.image}>
                     <Feather
                         name="settings"
-                        color="black"
-                        size={80}
+                        color="white"
+                        size={50}
                         marginLeft={40}
                         marginRight={40}
                     />
                 </TouchableOpacity>
             </View>
-            <TouchableOpacity onPress={() => { navigation.navigate('BasicScreen') }}><Text>Novas Telas</Text>
-            </TouchableOpacity>
         </View>
     );
 };
 
+export const homeScreenOptions = () => {
+    return {
+        headerTitle: () => (
+            <View style={styles.header}>
+                <Text style={styles.headerTitle}>Home</Text>
+            </View>
+        ),
+        headerStyle: {
+            backgroundColor: Colors.primary,
+            elevation: 0,
+            shadowOpacity: 0,
+            borderBottomWidth: 0,
+        },
+        headerTintColor: 'white'
+    };
+};
+
 const styles = StyleSheet.create({
+    screen: {
+        flex: 1,
+        backgroundColor: Colors.primary,
+        padding: 10,
+    },
     faixaUserIcon: {
-        borderWidth: 1,
+        backgroundColor: 'white'
     },
     faixasuperior: {
         alignSelf: 'flex-start',
         marginBottom: 10,
-        borderWidth: 1,
+        // borderWidth: 1,
     },
-
+    text: {
+        color: Colors.text,
+    },
     img: {
         width: 100,
         height: 100,
@@ -183,19 +204,16 @@ const styles = StyleSheet.create({
     },
 
     faixaVagas: {
-        width: 410,
-        height: 350,
-        borderWidth: 1,
+        // width: 410,
+        // borderWidth: 1,
         alignContent: "center",
         marginBottom: 20,
-
     },
     image: {
         width: 133.3,
         height: 76,
-        borderWidth: 1,
+        // borderWidth: 1,
         alignItems: "center",
-        borderWidth: 1,
     },
 
     scrollvagas: {
@@ -206,11 +224,20 @@ const styles = StyleSheet.create({
 
     },
     menuinferior: {
-        backgroundColor: 'lime',
+        backgroundColor: Colors.menuinferior,
         flexDirection: "row",
-        width: 400,
         alignSelf: "center",
-        borderWidth: 1,
+        position: 'absolute',
+        bottom: 0,
+        // borderWidth: 1,
+    },
+    header: {
+
+    },
+    headerTitle: {
+        color: Colors.text,
+        fontSize: 20,
+        fontWeight: 'bold',
     },
 });
 
