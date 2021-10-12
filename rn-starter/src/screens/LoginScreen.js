@@ -7,6 +7,7 @@ import firebase from 'firebase';
 Emails e Senhas Cadastrados
 guilherme.cossu@aluno.ifsp.edu.br -> password
 user1@email.com --> user1passwrod
+oraelay@gmail.com --> juvcon17
 */
 
 //como passar o user com o navigation navigate, sem ele terminar como undefined
@@ -55,7 +56,7 @@ const LoginScreen = ({ navigation }) => {
         //console.log(firebasedata.data().gender);
         let user = firebasedata.data();
         console.log(user);
-        goToHome;
+        goToHome();
       }).catch((error) => {
         console.log(error);
       });
@@ -100,7 +101,7 @@ const LoginScreen = ({ navigation }) => {
           <Text onPress={() => navigation.navigate('Register2')} style={styles.register}>Primeira Vez? Cadastre-se</Text>
         </TouchableOpacity>
         <View style={styles.view2}>
-          <Button onPress={/*() => signinFirebase(data)*/ goToHome}
+          <Button onPress={() => signinFirebase(data)/*goToHome*/}
             title="Login" style={styles.button} color="#9900cc"
           ></Button>
         </View>

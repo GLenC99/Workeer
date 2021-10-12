@@ -7,8 +7,8 @@ const nome = "Nome da Pessoa";
 //precisa passar as informações do usuario pras proximas telas e não tenho certeza de como fazer isso
 const SettingsScreen = ({ navigation}) => {
 
-    // = navigation.state.params.user;
-    const user = "";
+    //
+    const user  = navigation.state.params.user;
     return (
         <ScrollView>
             <View style={styles.Iconimg}>
@@ -72,7 +72,7 @@ const SettingsScreen = ({ navigation}) => {
                         marginRight={40}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('Search')} style= {styles.image}>
+                <TouchableOpacity onPress={() => navigation.navigate('Search',{user : user})} style= {styles.image}>
                     <Feather
                         name="search"
                         color="black"

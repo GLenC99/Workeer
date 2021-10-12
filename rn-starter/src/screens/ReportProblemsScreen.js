@@ -3,6 +3,14 @@ import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity } from "rea
 import firebase from 'firebase';
 
 const ReportProblemsScreen = ({navigation}) => {
+    const user  = navigation.state.params.user;
+    
+    const gotoSettings = () => {
+        navigation.navigate('Settings',{user:user});
+    }
+
+    
+
     const [problem, setProblem] = React.useState({
         empresa: '',
         ocorrencia: '',
@@ -38,13 +46,14 @@ const ReportProblemsScreen = ({navigation}) => {
 
     const sendReport = () => {
         console.log(problem);
-        //Problema vai ser parecido com o do Users Opinion
         firebase.firestore().collection("ProblemsReported").doc().set({
             company: problem.empresa,
             occurrence: problem.ocorrencia,
             date: problem.datadaocorrencia,
         }).then(() => { 
             console.log("Opinião Inserida");
+            gotoSettings();
+
         }).catch((erro) => {
             console.log("Erro no envio", erro);
         });
