@@ -10,7 +10,7 @@ import UserOpinionScreen from "./src/screens/UserOpinionScreen";
 import RegisterScreen2 from "./src/screens/RegisterScreen2";
 import ReportProblemsScreen from "./src/screens/ReportProblemsScreen";
 import AlterInfoScreen from "./src/screens/AlterInfoScreen";
-import VacanciesScreen from './src/screens/VacanciesScreen';
+import BasicScreen, { basicScreenOptions } from './src/screens/screenmodels/BasicScreen';
 
 import FirebaseConfig from './src/constants/FirebaseConfig';
 
@@ -35,10 +35,13 @@ const navigator = createStackNavigator(
     UserOpinion: UserOpinionScreen,
     ReportProblems: ReportProblemsScreen,
     AlterInfo: AlterInfoScreen,
-    Vacancies: VacanciesScreen,
+    BasicScreen: {
+      screen: BasicScreen,
+      navigationOptions: basicScreenOptions,
+    },
   },
   {
-    initialRouteName: "Search",
+    initialRouteName: "Home",
     defaultNavigationOptions: {
       title: "App",
     },

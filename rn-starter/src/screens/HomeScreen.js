@@ -1,5 +1,5 @@
 import React, { Component, useState, useEffect } from "react";
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Image } from "react-native";
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Image, Button } from "react-native";
 import VacanciesObjects from "../components/VacanciesObject";
 import Feather from 'react-native-vector-icons/Feather';
 import { FlatList } from "react-native-gesture-handler";
@@ -11,15 +11,30 @@ const nome = "Nome User"
 
 // As informações das vagas não são apresentadas, precisa receber o user e pegar o nome dele
 const HomeScreen = ({ navigation }) => {
-
     const [vagas, setvagas] = useState([]);
-    //const user = navigation.state.params.user;
-    const user = "";
+    const user = '';
+    // const user = navigation.state.params.user;
     //console.log(navigation.state.params.user);
 
-    const getVagasInfo = () => {
-        console.log("Entrou na função");// Entra na função mostra o log, mas o app trava e crasha
+    console.log('[Home Screen]');
 
+    // useEffect(() => {
+    //     console.log('Iniciando firebase fetch');
+    //     firebase.firestore().collection('Vagas').get().then(function (querySnapshot) {
+    //         querySnapshot.foreach((doc) => {
+    //             console.log("Documento: ", doc);
+
+    //         })
+    //     }).catch(function (error) {
+    //         console.error(error);
+    //     });
+
+    // }, []);
+
+    //user1@email.com user1passwrod
+
+    const getVagasInfo = () => {
+        console.log("Entrou na função");
         //console.log(firebase.firestore().collection("Vagas").get()); //n funfou
         /*
         const q = query(collection(db, "Vagas"), where("Local", "==", "CAMPINAS"));
@@ -48,50 +63,60 @@ const HomeScreen = ({ navigation }) => {
         });
     }
 
+
+
     useEffect(() => {
-        /*
         console.log("[VacanciesTest]");
-        firebase.firestore().collection("Vagas").get().then((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-                // doc.data() is never undefined for query doc snapshots
-                console.log(doc.id, " => ", doc.data());
-            });
-        })
+        // firebase.firestore().collection('Vagas').get().then(function (querySnapshot) {
+        //     querySnapshot.foreach((doc) => {
+        //         console.log("Documento: ", doc);
+
+        //     })
+        // }).catch(function (error) {
+        //     console.error(error);
+        // });
+
+        firebase.firestore().collection("Vagas")
+            .get()
+            .then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    // doc.data() is never undefined for query doc snapshots
+                    console.log(doc.id, " => ", doc.data());
+                });
+            })
             .catch((error) => {
                 console.log("Error getting documents: ", error);
             });
-            */
-            setvagas(
-                [
-                    {
-                        id: 0,
-                        nome: "Vaga1",
-                        link: "http://vaga1",
-                        localvaga: "Campinas",
-                        numvagas: 2,
-                    },
-                    {
-                        id: 1,
-                        nome: "Vaga2",
-                        link: "http://vaga2",
-                        localvaga: "Hortolandia",
-                        numvagas: 1,
-                    },
-                    {
-                        id: 2,
-                        nome: "Vaga3",
-                        link: "http://vaga3",
-                        localvaga: "Campinas",
-                        numvagas: 5,
-                    },
-                ]
-            )        
+
+        setvagas(
+            [
+                {
+                    id: 0,
+                    nome: "Vaga1",
+                    link: "http://vaga1",
+                    localvaga: "Campinas",
+                    numvagas: 2,
+                },
+                {
+                    id: 1,
+                    nome: "Vaga2",
+                    link: "http://vaga2",
+                    localvaga: "Hortolandia",
+                    numvagas: 1,
+                },
+                {
+                    id: 2,
+                    nome: "Vaga3",
+                    link: "http://vaga3",
+                    localvaga: "Campinas",
+                    numvagas: 5,
+                },
+            ]
+        )
     }, []);
 
-    //console.log(vagas);
-    
     return (
-        <ScrollView>
+        <View>
             <View style={styles.faixaUserIcon}>
                 <TouchableOpacity onPress={getVagasInfo}>
                     <Image source={require('../../assets/UserIcon.png')} style={styles.img} />
@@ -104,7 +129,7 @@ const HomeScreen = ({ navigation }) => {
                 <ResultsList results={vagas}> </ResultsList>
             </View>
             <View style={styles.menuinferior}>
-                <TouchableOpacity onPress={() => navigation.navigate('Home')/*, { user: user }*/} style={styles.image}>
+                <TouchableOpacity onPress={() => navigation.navigate('Home'), { user: user }} style={styles.image}>
                     <Feather
                         name="home"
                         color="black"
@@ -113,7 +138,7 @@ const HomeScreen = ({ navigation }) => {
                         marginRight={40}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('Search')/*, { user: user }*/} style={styles.image}>
+                <TouchableOpacity onPress={() => navigation.navigate('Search'), { user: user }} style={styles.image}>
                     <Feather
                         name="search"
                         color="black"
@@ -122,7 +147,7 @@ const HomeScreen = ({ navigation }) => {
                         marginRight={40}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('Settings')/*, { user: user }*/} style={styles.image}>
+                <TouchableOpacity onPress={() => navigation.navigate('Settings', { user: user })} style={styles.image}>
                     <Feather
                         name="settings"
                         color="black"
@@ -132,7 +157,9 @@ const HomeScreen = ({ navigation }) => {
                     />
                 </TouchableOpacity>
             </View>
-        </ScrollView>
+            <TouchableOpacity onPress={() => { navigation.navigate('BasicScreen') }}><Text>Novas Telas</Text>
+            </TouchableOpacity>
+        </View>
     );
 };
 
