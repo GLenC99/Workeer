@@ -9,81 +9,12 @@ import { Colors } from '../constants/Colors';
 
 
 const HomeScreen = ({ navigation }) => {
+    console.log('[Home Screen inicializada]')
     const [vagas, setVagas] = useState([]);
     //const user = navigation.state.params.user;
     const user = navigation.state.params ? navigation.state.params.user : 'andre';
 
     useEffect(() => {
-        console.log('Iniciando firebase fetch');
-        firebase.firestore().collection('Vagas').get().then(function (querySnapshot) {
-            querySnapshot.foreach((doc) => {
-                console.log("Documento: ", doc);
-                //setVagas(vagas + doc);
-
-            })
-        }).catch(function (error) {
-            console.error(error);
-        });
-
-    }, []);
-
-    //user1@email.com user1passwrod
-
-    const getVagasInfo = () => {
-        console.log("Entrou na função");
-        //console.log(firebase.firestore().collection("Vagas").get()); //n funfou
-        /*
-        const q = query(collection(db, "Vagas"), where("Local", "==", "CAMPINAS"));
-
-        const querySnapshot = getDocs(q);
-        querySnapshot.forEach((doc) => {
-            // doc.data() is never undefined for query doc snapshots
-            console.log(doc.id, " => ", doc.data());
-        });
-        */
-
-        // firebase.firestore().collection('Vagas').get().then(function (querySnapshot) {
-        //     /*
-        //     if (querySnapshot.data().foreach) {
-        //         console.log(querySnapshot.data());
-        //     } else {
-        //         console.log("No such document!");
-        //     }
-        //     */
-        //     querySnapshot.foreach((doc) => {
-        //         console.log("Documento: ", doc);
-
-        //     })
-        // }).catch(function (error) {
-        //     console.error(error);
-        // });
-    }
-
-
-
-    useEffect(() => {
-        console.log("[VacanciesTest]");
-        // firebase.firestore().collection('Vagas').get().then(function (querySnapshot) {
-        //     querySnapshot.foreach((doc) => {
-        //         console.log("Documento: ", doc);
-
-        //     })
-        // }).catch(function (error) {
-        //     console.error(error);
-        // });
-
-        // firebase.firestore().collection("Vagas")
-        //     .get()
-        //     .then((querySnapshot) => {
-        //         querySnapshot.forEach((doc) => {
-        //             // doc.data() is never undefined for query doc snapshots
-        //             console.log(doc.id, " => ", doc.data());
-        //         });
-        //     })
-        //     .catch((error) => {
-        //         console.log("Error getting documents: ", error);
-        //     });
-
         setVagas(
             [
                 {
@@ -109,7 +40,66 @@ const HomeScreen = ({ navigation }) => {
                 },
             ]
         )
-    }, []);
+
+        let vagasAux = [];
+
+        firebase.firestore().collection("Vagas").get()
+            .then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    // console.log('id', doc.id);
+                    // console.log(doc.data().titulo);
+                    // console.log(doc.data().descricao);
+                    const vaga = {
+                        id: doc.id,
+                        titulo: doc.data().titulo,
+                        link: doc.data().link,
+                        descricao: doc.data().descricao,
+                        local: doc.data().local,
+                        funcao: doc.data().funcao,
+                        numerodevagas: doc.data().numerodevagas
+                    };
+                    vagasAux.push(vaga);
+                });
+                console.log("Vagas", vagasAux);
+                setVagas(vagasAux);
+            })
+            .catch(function (error) {
+                console.error(error);
+            });
+
+    }, [])
+
+    //user1@email.com user1passwrod
+
+    const getVagasInfo = () => {
+        console.log("Entrou na função");
+        //console.log(firebase.firestore().collection("Vagas").get()); //n funfou
+        /*
+        const q = query(collection(db, "Vagas"), where("Local", "==", "CAMPINAS"));
+    
+        const querySnapshot = getDocs(q);
+        querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            console.log(doc.id, " => ", doc.data());
+        });
+        */
+
+        // firebase.firestore().collection('Vagas').get().then(function (querySnapshot) {
+        //     /*
+        //     if (querySnapshot.data().foreach) {
+        //         console.log(querySnapshot.data());
+        //     } else {
+        //         console.log("No such document!");
+        //     }
+        //     */
+        //     querySnapshot.foreach((doc) => {
+        //         console.log("Documento: ", doc);
+
+        //     })
+        // }).catch(function (error) {
+        //     console.error(error);
+        // });
+    }
 
     return (
         <View style={styles.screen}>

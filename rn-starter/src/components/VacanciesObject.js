@@ -6,10 +6,10 @@ const VacanciesObjects = ({ vaga }) => {
     //console.log("Vaga:" + vaga);
     return (
         <View style={styles.card}>
-            <Text style={styles.cardTitle}>{vaga.nome}</Text>
+            <Text style={styles.cardTitle}>{vaga.titulo}</Text>
             <Text>{vaga.link}</Text>
-            <Text>{vaga.localvaga}</Text>
-            <Text>{vaga.numvagas}</Text>
+            <Text>{vaga.local}</Text>
+            <Text>{vaga.numerodevagas}</Text>
             <Text style={styles.textDescription}>Posição para gerenciar as operaçõe logísticas de uma transportadora </Text>
         </View>
     );
