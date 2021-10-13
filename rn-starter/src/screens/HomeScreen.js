@@ -7,22 +7,19 @@ import ResultsList from "../components/ResultsList";
 import firebase from 'firebase';
 import { Colors } from '../constants/Colors';
 
-const nome = "Nome User"
 
-
-// As informações das vagas não são apresentadas, precisa receber o user e pegar o nome dele
 const HomeScreen = ({ navigation }) => {
-    const [vagas, setvagas] = useState([]);
+    const [vagas, setVagas] = useState([]);
     //const user = navigation.state.params.user;
     const user = navigation.state.params ? navigation.state.params.user : 'andre';
-
-    console.log('[Home Screen]');
 
     useEffect(() => {
         console.log('Iniciando firebase fetch');
         firebase.firestore().collection('Vagas').get().then(function (querySnapshot) {
             querySnapshot.foreach((doc) => {
                 console.log("Documento: ", doc);
+                //setVagas(vagas + doc);
+
             })
         }).catch(function (error) {
             console.error(error);
@@ -87,7 +84,7 @@ const HomeScreen = ({ navigation }) => {
         //         console.log("Error getting documents: ", error);
         //     });
 
-        setvagas(
+        setVagas(
             [
                 {
                     id: 0,
@@ -129,30 +126,18 @@ const HomeScreen = ({ navigation }) => {
             </ScrollView>
             <View style={styles.menuinferior}>
                 <TouchableOpacity onPress={() => navigation.navigate('Home', { user: user })} style={styles.image}>
-                    <Feather
-                        name="home"
-                        color="white"
-                        size={50}
-                        marginLeft={40}
-                        marginRight={40}
+                    <Feather style={styles.styleFeather}
+                        name="home" size={50}
                     />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => navigation.navigate('Search', { user: user })} style={styles.image}>
-                    <Feather
-                        name="search"
-                        color="white"
-                        size={50}
-                        marginLeft={40}
-                        marginRight={40}
+                    <Feather style={styles.styleFeather}
+                        name="search" size={50}
                     />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => navigation.navigate('Settings', { user: user })} style={styles.image}>
-                    <Feather
-                        name="settings"
-                        color="white"
-                        size={50}
-                        marginLeft={40}
-                        marginRight={40}
+                    <Feather style={styles.styleFeather}
+                        name="settings" size={50}
                     />
                 </TouchableOpacity>
             </View>
@@ -238,6 +223,11 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
     },
+    styleFeather: {
+        color: Colors.text,
+        marginLeft: 40,
+        marginRight: 40,
+    }
 });
 
 export default HomeScreen;

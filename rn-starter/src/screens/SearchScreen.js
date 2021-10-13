@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Image, TouchableOpacity, Alert, Text } from "react-native";
+import { StyleSheet, View, Image, TouchableOpacity, Alert, Text, ScrollView, Picker } from "react-native";
 import SearchBar from "../components/SearchBar";
 import SearchBarScreen from "../components/SearchBarScreen.js";
 import Feather from 'react-native-vector-icons/Feather';
 import ResultsList from "../components/ResultsList";
-
+import firebase from 'firebase';
+import { Colors } from '../constants/Colors';
+import { color } from "react-native-reanimated";
 /*
 const handleSearch = () => {
     this.setState({query: text});
@@ -16,62 +18,62 @@ const handleSearch = () => {
 
 
 const SearchScreen = ({ navigation }) => {
+    const [tipoPesq, setTipoPesq] = useState([]);
+    //setTipoPesq("titulo");
     const botaoPressionado = () => {
         Alert.alert("Botão Pressionado")
     };
 
-    const handleSearchSelect = () => {
-
+    const handleSearchSelect = (val) => {
+        setTipoPesq(val);
+        console.log(tipoPesq);
     };
-    
+
     const user = navigation.state.params.user;
 
     return (
-        <View>
+        <View style={styles.screenStyle}>
             <SearchBarScreen >
                 <View style={styles.barraStyle}>
                     <SearchBar />
                     <TouchableOpacity onPress={botaoPressionado} style={styles.botaoPesq}>
-                        <Feather
-                            name="search"
-                            color="black"
-                            size={40}
-                            marginLeft={40}
-                            marginRight={40}
+                        <Feather style={styles.styleFeather}
+                            name="search" size={40}
                         />
                     </TouchableOpacity>
                 </View>
-                <Text> Inserir o Picker Aqui</Text>
+                <View style={styles.pickerStyle}>
+                    <Picker
+                        selectedValue={tipoPesq}
+                        style={{ height: 50, width: 150 }}
+                        onValueChange={(itemValue, itemIndex) => handleSearchSelect(itemValue)}
+                    >
+                        <Picker.Item label="Tìtulo" value="titulo" />
+                        <Picker.Item label="Por Cidade" value="cidade" />
+                        <Picker.Item label="Por Área" value="area" />                   
+                        <Picker.Item label="Empresas com Reclamações" value="reclamacoes" />
+                    </Picker>
+                </View>
                 <View style={styles.vacanciesFound}>
-                    <Text> Vagas Pesquisadas </Text>
-                    <ResultsList> </ResultsList>
+                    <ScrollView>
+                        <Text style={{color: Colors.text}}> Vagas Pesquisadas </Text>
+                        <ResultsList> </ResultsList>
+                    </ScrollView>
                 </View>
                 <View style={styles.menuinferior}>
-                    <TouchableOpacity onPress={() => navigation.navigate('Home',{user : user})} style={styles.image}>
-                        <Feather
-                            name="home"
-                            color="black"
-                            size={75}
-                            marginLeft={40}
-                            marginRight={40}
+                    <TouchableOpacity onPress={() => navigation.navigate('Home', { user: user })} style={styles.image}>
+                        <Feather style={styles.styleFeather}
+                            name="home" size={50}
                         />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => navigation.navigate('Search',{user : user})} style={styles.image}>
-                        <Feather
-                            name="search"
-                            color="black"
-                            size={75}
-                            marginLeft={40}
-                            marginRight={40}
+                    <TouchableOpacity onPress={() => navigation.navigate('Search', { user: user })} style={styles.image}>
+                        <Feather style={styles.styleFeather}
+                            name="search" size={50}
                         />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => navigation.navigate('Settings',{user : user})} style={styles.image}>
-                        <Feather
-                            name="settings"
-                            color="black"
-                            size={75}
-                            marginLeft={40}
-                            marginRight={40}
+                    <TouchableOpacity onPress={() => navigation.navigate('Settings', { user: user })} style={styles.image}>
+                        <Feather style={styles.styleFeather}
+                            name="settings" size={50}
                         />
                     </TouchableOpacity>
                 </View>
@@ -82,22 +84,36 @@ const SearchScreen = ({ navigation }) => {
     );
 };
 
+export const searchScreenOptions = () => {
+    return {
+        headerTitle: () => (
+            <View style={styles.header}>
+                <Text style={styles.headerTitle}>Search</Text>
+            </View>
+        ),
+        headerStyle: {
+            backgroundColor: Colors.primary,
+            elevation: 0,
+            shadowOpacity: 0,
+            borderBottomWidth: 0,
+        },
+        headerTintColor: 'white'
+    };
+};
+
 const styles = StyleSheet.create({
-    menuinferior: {
-        backgroundColor: 'lime',
-        flexDirection: "row",
-        width: 400,
-        alignSelf: "center",
-        borderWidth: 1,
+    screenStyle: {
+        backgroundColor: Colors.whitefilling,
     },
     barraStyle: {
         flexDirection: "row",
         borderWidth: 1,
+        backgroundColor: Colors.menuinferior,
     },
     botaoPesq: {
         alignItems: "center",
         marginLeft: 15,
-        borderWidth: 1,
+        //borderWidth: 1,
     },
 
     vacanciesFound: {
@@ -108,20 +124,43 @@ const styles = StyleSheet.create({
         alignSelf: "center",
         borderWidth: 1,
         marginBottom: 10,
+        color: Colors.text,
+        borderColor: Colors.text,
     },
 
     image: {
-        width: 133.3,
-        height: 76,
-        borderWidth: 1,
+        //width: 133.3,
+        //height: 76,
+        //borderWidth: 1,
         alignItems: "center",
     },
-    picker: {
+    pickerStyle: {
         paddingTop: 40,
         alignItems: "center",
         flexDirection: "row",
+        alignSelf: "center",
     },
+    menuinferior: {
+        backgroundColor: Colors.menuinferior,
+        flexDirection: "row",
+        alignSelf: "center",
+        position: 'absolute',
+        bottom: 0,
+        // borderWidth: 1,
+    },
+    header: {
 
+    },
+    headerTitle: {
+        color: Colors.text,
+        fontSize: 20,
+        fontWeight: 'bold',
+    },
+    styleFeather: {
+        color: Colors.text,
+        marginLeft: 40,
+        marginRight: 40,
+    },
 });
 
 export default SearchScreen;

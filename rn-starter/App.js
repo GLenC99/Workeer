@@ -4,8 +4,8 @@ import { createStackNavigator } from "react-navigation-stack";
 import LoginScreen from "./src/screens/LoginScreen";
 import RegisterScreen from "./src/screens/RegisterScreen";
 import HomeScreen, { homeScreenOptions } from "./src/screens/HomeScreen";
-import SearchScreen from "./src/screens/SearchScreen";
-import SettingsScreen from "./src/screens/SettingsScreen";
+import SearchScreen, { searchScreenOptions } from "./src/screens/SearchScreen";
+import SettingsScreen, {settingScreenOptions} from "./src/screens/SettingsScreen";
 import UserOpinionScreen from "./src/screens/UserOpinionScreen";
 import RegisterScreen2 from "./src/screens/RegisterScreen2";
 import ReportProblemsScreen from "./src/screens/ReportProblemsScreen";
@@ -31,8 +31,14 @@ const navigator = createStackNavigator(
       screen: HomeScreen,
       navigationOptions: homeScreenOptions
     },
-    Search: SearchScreen,
-    Settings: SettingsScreen,
+    Search:  {
+      screen: SearchScreen,
+      navigationOptions: searchScreenOptions
+    },
+    Settings: {
+      screen: SettingsScreen,
+      navigationOptions: settingScreenOptions,
+    },  
     UserOpinion: UserOpinionScreen,
     Register2: RegisterScreen2,
     UserOpinion: UserOpinionScreen,
