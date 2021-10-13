@@ -187,14 +187,14 @@ const RegisterScreen2 = ({ navigation }) => {
             }
             <View style={styles.date}>
                 <Image source={require('../../assets/DateIcon.png')} style={styles.image} />
-                <Text marginRight={20}>Data de nascimento: </Text>
-                <DatePicker date={data.date}
+                <Text style = {{marginRight:20}, {color:Colors.primary}} >Data de nascimento: </Text>
+                <DatePicker date={data.date} style={{color:Colors.text},{borderWidth:2},{borderColor:Colors.primary}}
                     onDateChange={handleDateSelect}
                 />
             </View>
             <View style={styles.picker}>
                 <Image source={require('../../assets/GenderIdentityIcon.png')} style={styles.image} />
-                <Picker
+                <Picker style={{borderColor: Colors.primary},{borderWidth: 2},{color:Colors.primary}}
                     selectedValue={data.gender}
                     style={{ height: 50, width: 150 }}
                     onValueChange={(itemValue, itemIndex) => handleGenderSelect(itemValue)}
@@ -205,11 +205,13 @@ const RegisterScreen2 = ({ navigation }) => {
                     <Picker.Item label="Homem" value="homem" />
                 </Picker>
             </View>
-
-            <TouchableOpacity>
-                <Text onPress={() => postFirebase(data) /*consoleLogs, () => navigation.navigate('Login')*/} style={styles.button}>Cadastrar</Text>
+            <TouchableOpacity onPress={() => postFirebase(data)}>
+                <View style={styles.buttonContainer}>
+                    <View style={styles.button}>
+                        <Text style={styles.buttonText}> Cadastrar </Text>
+                    </View>
+                </View>
             </TouchableOpacity>
-
 
 
             <Text>{data.name}</Text>
@@ -279,17 +281,23 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
     },
 
+    buttonContainer: {
+        alignItems: 'center'
+    },
     button: {
-        marginTop: 20,
-        height: 30,
-        width: 150,
+        backgroundColor: Colors.primary,
+        color: Colors.primary,
+        borderRadius: 7,
+        width: 200,
+        height: 48,
         alignSelf: 'center',
-        alignItems: 'center',
-        alignContent: 'center',
-        textAlign: 'center',
-        textAlignVertical: 'center',
-        color: 'red',
-        backgroundColor: 'blue',
+    },
+    buttonText: {
+        alignSelf: 'center',
+        fontSize: 20,
+        fontWeight: 'bold',
+        paddingTop: 10,
+        color: Colors.text,
     },
     featherStyle: {
         color: Colors.primary,
