@@ -6,6 +6,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import DatePicker from 'react-native-datepicker';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import firebase from 'firebase';
+import { Colors } from "../constants/Colors";
 
 // Esse stack overflow talvez ajude com um erro no firestore https://stackoverflow.com/questions/46636255/firebase-firestore-is-not-a-function-when-trying-to-initialize-cloud-firestore
 // Firestore link https://firebase.google.com/docs/firestore/quickstart?hl=pt#web-version-9
@@ -136,14 +137,13 @@ const RegisterScreen2 = ({ navigation }) => {
 
     return (
         <View>
-            <Text>Registration</Text>
-            <View style={styles.nameStyles}>
+            <View style={styles.contentStyles}>
                 <Image source={require('../../assets/NameIcon.png')} style={styles.image} />
-                <TextInput placeholder="Nome Completo" underlineColorAndroid={'transparent'} onChangeText={(val) => handleNameChange(val)} style={styles.nameInputStyle} />
+                <TextInput placeholder="Nome Completo" underlineColorAndroid={'transparent'} onChangeText={(val) => handleNameChange(val)} style={styles.inputStyle} />
             </View>
-            <View style={styles.emailStyles}>
+            <View style={styles.contentStyles}>
                 <Image source={require('../../assets/EmailIcon.png')} style={styles.image} />
-                <TextInput placeholder="Email" underlineColorAndroid={'transparent'} onChangeText={(val) => emailInputChange(val)} style={styles.emailInputStyle} />
+                <TextInput placeholder="Email" underlineColorAndroid={'transparent'} onChangeText={(val) => emailInputChange(val)} style={styles.inputStyle} />
                 {data.check_textInputChange ?
                     <Animatable.View
                         animation="bounceIn"
@@ -161,21 +161,19 @@ const RegisterScreen2 = ({ navigation }) => {
                 :
                 <Text style={styles.warnings}>O valor inserido não é reconhecido como um email</Text>
             }
-            <View style={styles.passwStyle}>
+            <View style={styles.contentStyles}>
                 <Image source={require('../../assets/PasswordIcon.png')} style={styles.image} />
                 <TextInput placeholder="Senha" underlineColorAndroid={'transparent'} secureTextEntry={data.secureTextEntry ? true : false}
-                    onChangeText={(val) => handlePasswordChange(val)} style={styles.passwInputStyle} />
+                    onChangeText={(val) => handlePasswordChange(val)} style={styles.inputStyle} />
                 <TouchableOpacity onPress={updateSecureTextEntry}>
                     {data.secureTextEntry ?
-                        <Feather
+                        <Feather style={styles.featherStyle}
                             name="eye-off"
-                            color="grey"
                             size={20}
                         />
                         :
-                        <Feather
+                        <Feather style={styles.featherStyle}
                             name="eye"
-                            color="grey"
                             size={20}
                         />
 
@@ -224,6 +222,23 @@ const RegisterScreen2 = ({ navigation }) => {
     );
 };
 
+export const registerScreenOptions = () => {
+    return {
+        headerTitle: () => (
+            <View style={styles.header}>
+                <Text style={styles.headerTitle}>Register</Text>
+            </View>
+        ),
+        headerStyle: {
+            backgroundColor: Colors.primary,
+            elevation: 0,
+            shadowOpacity: 0,
+            borderBottomWidth: 0,
+        },
+        headerTintColor: Colors.whitefilling,
+    };
+};
+
 const styles = StyleSheet.create({
 
     image: {
@@ -234,45 +249,20 @@ const styles = StyleSheet.create({
         marginRight: 10,
     },
 
-    nameInputStyle: {
+    inputStyle: {
         width: 300,
         borderWidth: 2,
+        borderColor: Colors.primary,
+        color: Colors.text,
     },
 
-    nameStyles: {
-        flexDirection: "row",
-        display: 'flex',
-        marginTop: 10,
-        marginBottom: 10,
-    },
-
-    emailInputStyle: {
-        width: 300,
-        marginRight: 30,
-        borderWidth: 2,
-    },
-
-    emailStyles: {
-        flexDirection: "row",
-        display: 'flex',
-        marginTop: 10,
-        marginBottom: 10,
-    },
-
-    passwInputStyle: {
-        width: 300,
-        marginRight: 30,
-        borderWidth: 2,
-    },
-
-    passwStyle: {
+    contentStyles: {
         flexDirection: "row",
         display: 'flex',
         marginTop: 10,
         marginBottom: 10,
         textAlign: 'justify',
     },
-
     date: {
         flexDirection: "row",
     },
@@ -300,7 +290,17 @@ const styles = StyleSheet.create({
         textAlignVertical: 'center',
         color: 'red',
         backgroundColor: 'blue',
+    },
+    featherStyle: {
+        color: Colors.primary,
+      },
+      header: {
 
+    },
+    headerTitle: {
+        color: Colors.text,
+        fontSize: 20,
+        fontWeight: 'bold',
     },
 });
 

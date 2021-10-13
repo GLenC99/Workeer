@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
     },
 
     conteudo: {
-        backgroundColor: '#fffff',
+        //backgroundColor: '#fffff',
         //borderWidth: 1,
         alignItems: "flex-start",
         marginHorizontal: 5,

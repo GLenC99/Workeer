@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { TextInput, StyleSheet, Text, Button, View, ScrollView, TouchableOpacity } from "react-native";
 import Feather from 'react-native-vector-icons/Feather';
 import firebase from 'firebase';
-
+import { Colors } from "../constants/Colors";
 /*
 Emails e Senhas Cadastrados
 guilherme.cossu@aluno.ifsp.edu.br -> password
@@ -83,16 +83,12 @@ const LoginScreen = ({ navigation }) => {
             onChangeText={(val) => handlePasswordChange(val)} style={styles.content} />
           <TouchableOpacity onPress={updateSecureTextEntry}>
             {data.secureTextEntry ?
-              <Feather
-                name="eye-off"
-                color="grey"
-                size={20}
+              <Feather style={styles.featherStyle}
+                name="eye-off" size={20}
               />
               :
-              <Feather
-                name="eye"
-                color="grey"
-                size={20}
+              <Feather style={styles.featherStyle}
+                name="eye" size={20}
               />
             }
           </TouchableOpacity>
@@ -101,9 +97,13 @@ const LoginScreen = ({ navigation }) => {
           <Text onPress={() => navigation.navigate('Register2')} style={styles.register}>Primeira Vez? Cadastre-se</Text>
         </TouchableOpacity>
         <View style={styles.view2}>
-          <Button onPress={() => signinFirebase(data)/*goToHome*/}
-            title="Login" style={styles.button} color="#9900cc"
-          ></Button>
+        <TouchableOpacity onPress={() => signinFirebase(data)}>
+                <View style={styles.buttonContainer}>
+                    <View style={styles.button}>
+                        <Text style={styles.buttonText}> Login </Text>
+                    </View>
+                </View>
+            </TouchableOpacity>
         </View>
       </View>
     </ScrollView>
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
   },
 
   viewTitle: {
-    backgroundColor: '#54b9f8',
+    backgroundColor: Colors.primary,
   },
 
   textTitle: {
@@ -131,19 +131,21 @@ const styles = StyleSheet.create({
     marginLeft: 50,
     marginTop: 30,
     marginBottom: 30,
+    color: Colors.text,
   },
   appscreen: {
     marginTop: 80,
   },
 
   content: {
-    //marginTop: 20,
+    marginRight: 10,
     textAlign: 'center',
     justifyContent: 'center',
     width: 100,
     height: 50,
     marginLeft: 150,
-    backgroundColor: 'yellow',
+    backgroundColor: Colors.text,
+    color: Colors.primary,
   },
   labels: {
     marginTop: 30,
@@ -152,6 +154,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     width: 100,
     marginLeft: 150,
+    color: Colors.primary
   },
 
   passwordLine: {
@@ -160,14 +163,9 @@ const styles = StyleSheet.create({
 
   view2: {
     width: 200,
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
-  button: {
-    flexDirection: 'row',
-    flex: 1,
-    marginBottom: 20,
 
-  },
   register: {
     marginTop: 30,
     marginBottom: 20,
@@ -175,8 +173,29 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     fontStyle: 'italic',
     fontSize: 15,
-    color: '#9900cc',
+    color: Colors.text,
   },
+  buttonContainer: {
+    alignItems: 'center'
+},
+button: {
+    backgroundColor: Colors.primary,
+    color: Colors.primary,
+    borderRadius: 7,
+    width: 200,
+    height: 48,
+    alignSelf: 'center',
+},
+buttonText: {
+    alignSelf: 'center',
+    fontSize: 20,
+    fontWeight: 'bold',
+    paddingTop: 10,
+    color: Colors.text,
+},
+featherStyle: {
+  color: Colors.primary,
+},
 });
 
 export default LoginScreen;

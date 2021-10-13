@@ -7,7 +7,7 @@ import HomeScreen, { homeScreenOptions } from "./src/screens/HomeScreen";
 import SearchScreen, { searchScreenOptions } from "./src/screens/SearchScreen";
 import SettingsScreen, {settingScreenOptions} from "./src/screens/SettingsScreen";
 import UserOpinionScreen from "./src/screens/UserOpinionScreen";
-import RegisterScreen2 from "./src/screens/RegisterScreen2";
+import RegisterScreen2, {registerScreenOptions } from "./src/screens/RegisterScreen2";
 import ReportProblemsScreen from "./src/screens/ReportProblemsScreen";
 import AlterInfoScreen from "./src/screens/AlterInfoScreen";
 import BasicScreen, { basicScreenOptions } from './src/screens/screenmodels/BasicScreen';
@@ -40,7 +40,10 @@ const navigator = createStackNavigator(
       navigationOptions: settingScreenOptions,
     },  
     UserOpinion: UserOpinionScreen,
-    Register2: RegisterScreen2,
+    Register2: {
+      screen: RegisterScreen2,
+      navigationOptions: registerScreenOptions,
+    },
     UserOpinion: UserOpinionScreen,
     ReportProblems: ReportProblemsScreen,
     AlterInfo: AlterInfoScreen,
@@ -50,7 +53,7 @@ const navigator = createStackNavigator(
     },
   },
   {
-    initialRouteName: "Home",
+    initialRouteName: "Login",
     defaultNavigationOptions: {
       title: "App",
     },
