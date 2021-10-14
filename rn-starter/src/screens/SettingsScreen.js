@@ -152,8 +152,8 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignSelf: "center",
         position: 'absolute',
-        bottom: 0,
-        // borderWidth: 1,
+        bottom: -400,
+        borderWidth: 1,
     },
     header: {
 

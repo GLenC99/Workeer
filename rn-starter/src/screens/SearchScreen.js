@@ -72,7 +72,7 @@ const SearchScreen = ({ navigation }) => {
                 <View style={styles.barraStyle}>
                     <SearchBar />
                     <TouchableOpacity onPress={botaoPressionado} style={styles.botaoPesq}>
-                        <Feather style={styles.styleFeather}
+                        <Feather style={styles.styleSearch}
                             name="search" size={40}
                         />
                     </TouchableOpacity>
@@ -180,8 +180,8 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignSelf: "center",
         position: 'absolute',
-        bottom: 0,
-        // borderWidth: 1,
+        bottom: -60,
+        borderWidth: 1,
     },
     header: {
 
@@ -195,6 +195,9 @@ const styles = StyleSheet.create({
         color: Colors.text,
         marginLeft: 40,
         marginRight: 40,
+    },
+    styleSearch: {
+        color: Colors.text,
     },
 });
 

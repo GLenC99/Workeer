@@ -104,7 +104,6 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         borderWidth: 1,
         borderColor: Colors.text,
-        autoCapitalize: "words",
     },
 
     buttonContainer: {
