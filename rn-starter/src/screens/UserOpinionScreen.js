@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity } from "react-native";
 import firebase from 'firebase';
-
-const UserOpinionScreen = ({navigation}) => {
-    const user  = navigation.state.params.user;
+import { Colors } from "../constants/Colors";
+const UserOpinionScreen = ({ navigation }) => {
+    const user = navigation.state.params.user;
     const equipeemail = "emailworkeer@email.com";
     const [opinion, setOpinion] = useState();
 
     const gotoSettings = () => {
-        navigation.navigate('Settings',{user:user});
+        navigation.navigate('Settings', { user: user });
     }
     const handleOpinion = (val) => {
         if (val.length != 0) {
@@ -20,7 +20,7 @@ const UserOpinionScreen = ({navigation}) => {
         console.log(opinion);
         firebase.firestore().collection("UserOpinions").doc().set({
             opinion: opinion,
-        }).then(() => { 
+        }).then(() => {
             console.log("Opinião Inserida");
             gotoSettings();
 
@@ -30,46 +30,56 @@ const UserOpinionScreen = ({navigation}) => {
     };
 
     return (
-        <View>
-            <View style= {styles.title}>
-                <Text>Opinião sobre o Sistema</Text>
+        <View style={styles.screen}>
+            <View>
+                <Text style={styles.title}>Opine sobre o Sistema</Text>
             </View>
-            <View style= {styles.textInput}>
-                <TextInput
-                    multiline={true}
-                    onChangeText={handleOpinion}
-                    placeholder={"Por favor, compartilhe conosco sua opinião sobre o sistema! Apresente seu ponto de vista quanto ao que pode ser melhorado e o que deve ser mantido!"}
-                />
+            <TextInput
+                multiline={false}
+                onChangeText={handleOpinion}
+                placeholder={"Por favor, compartilhe conosco sua opinião sobre o sistema! Apresente seu ponto de vista quanto ao que pode ser melhorado e o que deve ser mantido!"}
+            />
+            <View style={styles.textInput}>
+                <textarea onChangeText={handleOpinion} rows="20" cols="50" >
+
+                </textarea>
             </View>
-            <View style= {styles.sendButton}>
-                <TouchableOpacity onPress={sendOpinion}>
-                    <Text>Enviar</Text>
-                </TouchableOpacity>
-            </View>
-            <View style= {styles.warning1}>
-                <Text>
-                    Caso de problemas urgentes por favor entre em contato através do email {equipeemail}
-                </Text>
-            </View>
+            <TouchableOpacity onPress={sendOpinion}>
+                <View style={styles.buttonContainer}>
+                    <View style={styles.button}>
+                        <Text style={styles.buttonText}> Enviar </Text>
+                    </View>
+                </View>
+            </TouchableOpacity>
+            <Text style={styles.warning1} t>
+                Caso de problemas urgentes por favor entre em contato através do email {equipeemail}
+            </Text>
             <Text style={styles.textWarning}>
                 (Caso tenha ocorrido algum tipo de problema ou descriminação relacionado a uma das empresas recomendadas pelo sistema
                 por favor realize sua ocorrencia retornando a tela de configurações e nos informe através da opção reportar problemas)
             </Text>
-            <View style={styles.button}>
-                <Button
-                    title="VOLTAR"
-                    onPress={() => navigation.navigate('Settings',{user:user})}
-                ></Button>
-            </View>
+            <TouchableOpacity onPress={() => navigation.navigate('Settings', { user: user })}>
+                <View style={styles.buttonContainer}>
+                    <View style={styles.button}>
+                        <Text style={styles.buttonText}> Voltar </Text>
+                    </View>
+                </View>
+            </TouchableOpacity>
+            <Text>{opinion}</Text>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
+    screen: {
+        flex: 1,
+        backgroundColor: Colors.whitefilling,
+        padding: 10,
+    },
     title: {
         alignSelf: 'center',
         marginVertical: 10,
-        borderWidth: 1,
+        color: Colors.text,
     },
 
     textInput: {
@@ -78,38 +88,50 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         alignSelf: 'center',
         borderWidth: 1,
+        borderColor: Colors.text,
+        autoCapitalize: "words",
     },
 
-    sendButton: {
+    buttonContainer: {
+        alignItems: 'center'
+    },
+    button: {
+        backgroundColor: Colors.primary,
+        borderRadius: 7,
+        width: 343,
+        height: 48,
         alignSelf: 'center',
-        height: 20,
-        width: 100,
-        backgroundColor: 'green',
-        marginVertical: 10,
-        alignContent:'center',
-        alignItems: 'center',
-        borderWidth: 2,
+    },
+    buttonText: {
+        alignSelf: 'center',
+        fontSize: 20,
+        fontWeight: 'bold',
+        paddingTop: 10,
+        color: Colors.text,
     },
 
     warning1: {
-        marginVertical: 10,
-        borderWidth: 1,
+        marginVertical: 12,
+        color: Colors.text,
+        //borderWidth: 1,
     },
 
     textWarning: {
-        fontSize: 8,
+        fontSize: 10,
         color: 'red',
-        borderWidth: 1,
-    },
-    button: {
-        width: "40%",
-        margin: 10,
-        backgroundColor: "red",
-        alignContent: "center",
-        alignSelf: "center",
-        marginTop: 10,
-        borderWidth: 1,
+        //borderWidth: 1,
     },
 });
 
 export default UserOpinionScreen;
+
+
+/*
+
+<TextInput
+                    multiline={false}
+                    onChangeText={handleOpinion}
+                    placeholder={"Por favor, compartilhe conosco sua opinião sobre o sistema! Apresente seu ponto de vista quanto ao que pode ser melhorado e o que deve ser mantido!"}
+                />
+
+                */

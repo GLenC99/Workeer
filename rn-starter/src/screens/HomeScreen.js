@@ -15,6 +15,7 @@ const HomeScreen = ({ navigation }) => {
     const user = navigation.state.params ? navigation.state.params.user : 'andre';
 
     useEffect(() => {
+        /*
         setVagas(
             [
                 {
@@ -40,15 +41,15 @@ const HomeScreen = ({ navigation }) => {
                 },
             ]
         )
-
+            */
         let vagasAux = [];
 
         firebase.firestore().collection("Vagas").get()
             .then((querySnapshot) => {
                 querySnapshot.forEach((doc) => {
-                    // console.log('id', doc.id);
-                    // console.log(doc.data().titulo);
-                    // console.log(doc.data().descricao);
+                    console.log('id', doc.id);
+                    console.log(doc.data().titulo);
+                    console.log(doc.data().descricao);
                     const vaga = {
                         id: doc.id,
                         titulo: doc.data().titulo,
@@ -68,6 +69,8 @@ const HomeScreen = ({ navigation }) => {
             });
 
     }, [])
+
+    console.log("Vagas: ", vagas);
 
     //user1@email.com user1passwrod
 

@@ -19,7 +19,7 @@ import FirebaseConfig from './src/constants/FirebaseConfig';
 //ou deixar as letras em branco
 //Color GenderQueer/NonBinary yellow #ffff1a white #ffffff purple #b366ff black #333333
 
-LogBox.ignoreLogs(['Setting a timer']);
+//LogBox.ignoreLogs(['Setting a timer']);
 
 if (!firebase.apps.length) {
   console.log('[Firebase started]');
