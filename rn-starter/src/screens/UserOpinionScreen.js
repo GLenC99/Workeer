@@ -1,11 +1,16 @@
-import React, { useState } from "react";
-import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity } from "react-native";
+import React, { useState, useEffect } from "react";
+import { StyleSheet, Text, View, Alert, TextInput, TouchableOpacity } from "react-native";
 import firebase from 'firebase';
 import { Colors } from "../constants/Colors";
+
 const UserOpinionScreen = ({ navigation }) => {
-    const user = navigation.state.params.user;
+    const user = navigation.state.params ? navigation.state.params.user : 'andre';
     const equipeemail = "emailworkeer@email.com";
     const [opinion, setOpinion] = useState();
+
+    useEffect(() => {
+        Alert.alert('OBS', 'Caso tenha ocorrido algum tipo de problema ou discriminação relacionado a uma das empresas recomendadas pelo sistema, realize sua ocorrencia retornando a tela de configurações e nos informe através da opção reportar problemas');
+    }, []);
 
     const gotoSettings = () => {
         navigation.navigate('Settings', { user: user });
@@ -51,15 +56,8 @@ const UserOpinionScreen = ({ navigation }) => {
                     </View>
                 </View>
             </TouchableOpacity>
-            <Text style={styles.warning1} t>
-                Caso de problemas urgentes por favor entre em contato através do email {equipeemail}
-            </Text>
-            <Text style={styles.textWarning}>
-                (Caso tenha ocorrido algum tipo de problema ou descriminação relacionado a uma das empresas recomendadas pelo sistema
-                por favor realize sua ocorrencia retornando a tela de configurações e nos informe através da opção reportar problemas)
-            </Text>
             <TouchableOpacity onPress={() => navigation.navigate('Settings', { user: user })}>
-                <View style={styles.buttonContainer}>
+                <View style={styles.buttonContainer,{marginTop:20}}>
                     <View style={styles.button}>
                         <Text style={styles.buttonText}> Voltar </Text>
                     </View>
@@ -68,6 +66,23 @@ const UserOpinionScreen = ({ navigation }) => {
             <Text>{opinion}</Text>
         </View>
     );
+};
+
+export const userOpinionScreenOptions = () => {
+    return {
+        headerTitle: () => (
+            <View style={styles.header}>
+                <Text style={styles.headerTitle}>User Opinion</Text>
+            </View>
+        ),
+        headerStyle: {
+            backgroundColor: Colors.primary,
+            elevation: 0,
+            shadowOpacity: 0,
+            borderBottomWidth: 0,
+        },
+        headerTintColor: Colors.whitefilling,
+    };
 };
 
 const styles = StyleSheet.create({
@@ -120,6 +135,14 @@ const styles = StyleSheet.create({
         fontSize: 10,
         color: 'red',
         //borderWidth: 1,
+    },
+    header: {
+
+    },
+    headerTitle: {
+        color: Colors.text,
+        fontSize: 20,
+        fontWeight: 'bold',
     },
 });
 

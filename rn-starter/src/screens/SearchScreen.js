@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, View, Image, TouchableOpacity, Alert, Text, ScrollView, Picker } from "react-native";
 import SearchBar from "../components/SearchBar";
 import SearchBarScreen from "../components/SearchBarScreen.js";
@@ -18,10 +18,45 @@ const handleSearch = () => {
 
 
 const SearchScreen = ({ navigation }) => {
+    const user = navigation.state.params.user ? navigation.state.params.user : 'andre';
+    const [vagas, setVagas] = useState([]);
     const [tipoPesq, setTipoPesq] = useState([]);
-    //setTipoPesq("titulo");
+    const searchvalue = '';
+    const getFirebaseVagas = () => {
+        let vagasAux = [];
+
+        firebase.firestore().collection("Vagas").get()
+            .then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    console.log('id', doc.id);
+                    console.log(doc.data().titulo);
+                    console.log(doc.data().descricao);
+                    const vaga = {
+                        id: doc.id,
+                        titulo: doc.data().titulo,
+                        link: doc.data().link,
+                        descricao: doc.data().descricao,
+                        local: doc.data().local,
+                        funcao: doc.data().funcao,
+                        numerodevagas: doc.data().numerodevagas
+                    };
+                    vagasAux.push(vaga);
+                });
+                console.log("Vagas", vagasAux);
+                setVagas(vagasAux);
+            })
+            .catch(function (error) {
+                console.error(error);
+            });
+
+    };
+    //const vagas = navigation.state.params.vagas ? navigation.state.params.vagas:'';
+    console.log("Tela Pesquisa");
+    console.log("Vagas: ",{vagas});
+
     const botaoPressionado = () => {
-        Alert.alert("Botão Pressionado")
+        Alert.alert("Botão Pressionado");
+        getFirebaseVagas();
     };
 
     const handleSearchSelect = (val) => {
@@ -29,11 +64,11 @@ const SearchScreen = ({ navigation }) => {
         console.log(tipoPesq);
     };
 
-    const user = navigation.state.params.user;
+    
 
     return (
         <View style={styles.screenStyle}>
-            <SearchBarScreen >
+            <SearchBarScreen value={searchvalue}>
                 <View style={styles.barraStyle}>
                     <SearchBar />
                     <TouchableOpacity onPress={botaoPressionado} style={styles.botaoPesq}>
@@ -56,8 +91,8 @@ const SearchScreen = ({ navigation }) => {
                 </View>
                 <View style={styles.vacanciesFound}>
                     <ScrollView>
-                        <Text style={{color: Colors.text}}> Vagas Pesquisadas </Text>
-                        <ResultsList> </ResultsList>
+                        <Text style={{color: Colors.text, alignSelf: 'center'}}> Vagas Pesquisadas </Text>
+                        <ResultsList results={vagas}> </ResultsList>
                     </ScrollView>
                 </View>
                 <View style={styles.menuinferior}>

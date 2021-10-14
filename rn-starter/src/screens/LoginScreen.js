@@ -10,8 +10,6 @@ user1@email.com --> user1passwrod
 oraelay@gmail.com --> juvcon17
 */
 
-//como passar o user com o navigation navigate, sem ele terminar como undefined
-
 const LoginScreen = ({ navigation }) => {
   const [data, setData] = React.useState({
     email: '',

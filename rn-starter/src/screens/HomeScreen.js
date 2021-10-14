@@ -68,48 +68,18 @@ const HomeScreen = ({ navigation }) => {
                 console.error(error);
             });
 
-    }, [])
+    }, []);
 
     console.log("Vagas: ", vagas);
 
     //user1@email.com user1passwrod
 
-    const getVagasInfo = () => {
-        console.log("Entrou na função");
-        //console.log(firebase.firestore().collection("Vagas").get()); //n funfou
-        /*
-        const q = query(collection(db, "Vagas"), where("Local", "==", "CAMPINAS"));
-    
-        const querySnapshot = getDocs(q);
-        querySnapshot.forEach((doc) => {
-            // doc.data() is never undefined for query doc snapshots
-            console.log(doc.id, " => ", doc.data());
-        });
-        */
-
-        // firebase.firestore().collection('Vagas').get().then(function (querySnapshot) {
-        //     /*
-        //     if (querySnapshot.data().foreach) {
-        //         console.log(querySnapshot.data());
-        //     } else {
-        //         console.log("No such document!");
-        //     }
-        //     */
-        //     querySnapshot.foreach((doc) => {
-        //         console.log("Documento: ", doc);
-
-        //     })
-        // }).catch(function (error) {
-        //     console.error(error);
-        // });
-    }
+   
 
     return (
         <View style={styles.screen}>
             <View style={styles.faixaUserIcon}>
-                <TouchableOpacity onPress={getVagasInfo}>
                     <Image source={require('../../assets/UserIcon.png')} style={styles.img} />
-                </TouchableOpacity>
             </View>
             <View style={styles.faixasuperior}>
                 <Text style={styles.text}>Olá, {"user.name"}!</Text>
@@ -123,7 +93,7 @@ const HomeScreen = ({ navigation }) => {
                         name="home" size={50}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('Search', { user: user })} style={styles.image}>
+                <TouchableOpacity onPress={() => navigation.navigate('Search', { user: user }, {vagas:vagas})} style={styles.image}>
                     <Feather style={styles.styleFeather}
                         name="search" size={50}
                     />
@@ -151,7 +121,7 @@ export const homeScreenOptions = () => {
             shadowOpacity: 0,
             borderBottomWidth: 0,
         },
-        headerTintColor: 'white'
+        headerTintColor: Colors.whitefilling
     };
 };
 
@@ -235,4 +205,36 @@ export default HomeScreen;
                 <VacanciesObjects nomevaga="vaga6" link="http://vaga6" localvaga="Campinas SP" numvagas={6} />
                 <VacanciesObjects nomevaga="vaga7" link="http://vaga7" localvaga="Sumaré SP" numvagas={7} />
 </ScrollView>
+*/
+
+/*
+ const getVagasInfo = () => {
+        console.log("Entrou na função");
+        //console.log(firebase.firestore().collection("Vagas").get()); //n funfou
+        /*
+        const q = query(collection(db, "Vagas"), where("Local", "==", "CAMPINAS"));
+    
+        const querySnapshot = getDocs(q);
+        querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            console.log(doc.id, " => ", doc.data());
+        });
+        
+
+        // firebase.firestore().collection('Vagas').get().then(function (querySnapshot) {
+        //     
+        //     if (querySnapshot.data().foreach) {
+        //         console.log(querySnapshot.data());
+        //     } else {
+        //         console.log("No such document!");
+        //     }
+        //     
+        //     querySnapshot.foreach((doc) => {
+        //         console.log("Documento: ", doc);
+
+        //     })
+        // }).catch(function (error) {
+        //     console.error(error);
+        // });
+    }
 */

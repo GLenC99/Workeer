@@ -2,8 +2,6 @@ import React, { Component,useState } from "react";
 import {TextInput, StyleSheet, Text, Picker, View,Button, Image, Alert,Container,Content,Form } from "react-native"
 //import DatePicker from '@react-native-community/datetimepicker';
 
-//descobirir como faço pra criar aqueles negócios de cadastro de data
-//Configurar o genero pq ta dando ruim
 
 const RegisterScreen = ({navigation}) => {
     navigation.onPress = false;

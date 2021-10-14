@@ -4,27 +4,29 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import VacanciesObject from '../components/VacanciesObject';
 
 const VacanciesScreen = ({ navigation }) => {
-    title = "Título";
-    job = "Função";
-    local = "Local";
-    numvac = "Numero de Vagas";
-    description = "Descrição";
-    link = "Link";
+    const vaga = navigation.state.params.vaga ? navigation.state.params.user : 'vaga1';
+    const id: "doc.id";
+    const titulo: "doc.data().titulo";
+    const link: "doc.data().link";
+    const descricao: "doc.data().descricao";
+    const local: "doc.data().local";
+    const funcao: "doc.data().funcao";
+    const numerodevagas: "doc.data().numerodevagas";
 
 
     return (
         <View>
             <Text style={styles.title}>Tela das Vagas</Text>
             <View style={styles.vacancytitle}>
-            <Text>{title}</Text>
+            <Text>{id}</Text>
             </View>   
             <View style={styles.vacancydescript}>
-            <Text>{description}</Text>
+            <Text>{descricao}</Text>
             </View>         
             <View style={styles.vacancyinfo}>
-            <Text>{job}</Text>
+            <Text>{funcao}</Text>
             <Text>{local}</Text>
-            <Text>{numvac}</Text>
+            <Text>{numerodevagas}</Text>
             </View>
             <View style={styles.vacancylink}>
                 <Text>{link}</Text>
@@ -32,6 +34,23 @@ const VacanciesScreen = ({ navigation }) => {
 
         </View>
     );
+};
+
+export const vacanciesScreenOptions = () => {
+    return {
+        headerTitle: () => (
+            <View style={styles.header}>
+                <Text style={styles.headerTitle}>{titulo}</Text>
+            </View>
+        ),
+        headerStyle: {
+            backgroundColor: Colors.primary,
+            elevation: 0,
+            shadowOpacity: 0,
+            borderBottomWidth: 0,
+        },
+        headerTintColor: Colors.whitefilling,
+    };
 };
 
 const styles = StyleSheet.create({
@@ -50,6 +69,14 @@ const styles = StyleSheet.create({
     },
     vacancylink: {
 
+    },
+    header: {
+
+    },
+    headerTitle: {
+        color: Colors.text,
+        fontSize: 20,
+        fontWeight: 'bold',
     },
 
 });

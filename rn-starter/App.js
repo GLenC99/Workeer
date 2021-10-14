@@ -7,10 +7,10 @@ import RegisterScreen from "./src/screens/RegisterScreen";
 import HomeScreen, { homeScreenOptions } from "./src/screens/HomeScreen";
 import SearchScreen, { searchScreenOptions } from "./src/screens/SearchScreen";
 import SettingsScreen, { settingScreenOptions } from "./src/screens/SettingsScreen";
-import UserOpinionScreen from "./src/screens/UserOpinionScreen";
+import UserOpinionScreen, { userOpinionScreenOptions } from "./src/screens/UserOpinionScreen";
 import RegisterScreen2, { registerScreenOptions } from "./src/screens/RegisterScreen2";
-import ReportProblemsScreen from "./src/screens/ReportProblemsScreen";
-import AlterInfoScreen from "./src/screens/AlterInfoScreen";
+import ReportProblemsScreen, { reportProblemsScreenOptions } from "./src/screens/ReportProblemsScreen";
+import AlterInfoScreen, { alterInfoScreenOptions } from "./src/screens/AlterInfoScreen";
 import BasicScreen, { basicScreenOptions } from './src/screens/screenmodels/BasicScreen';
 
 import FirebaseConfig from './src/constants/FirebaseConfig';
@@ -47,9 +47,18 @@ const navigator = createStackNavigator(
       screen: RegisterScreen2,
       navigationOptions: registerScreenOptions,
     },
-    UserOpinion: UserOpinionScreen,
-    ReportProblems: ReportProblemsScreen,
-    AlterInfo: AlterInfoScreen,
+    UserOpinion: {
+      screen: UserOpinionScreen,
+      navigationOptions: userOpinionScreenOptions,
+    },
+    ReportProblems:{
+      screen: ReportProblemsScreen,
+      navigationOptions: reportProblemsScreenOptions,
+    },
+    AlterInfo:{
+      screen: AlterInfoScreen,
+      navigationOptions: alterInfoScreenOptions
+    },
     BasicScreen: {
       screen: BasicScreen,
       navigationOptions: basicScreenOptions,

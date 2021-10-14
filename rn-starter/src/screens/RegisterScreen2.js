@@ -150,7 +150,7 @@ const RegisterScreen2 = ({ navigation }) => {
                     >
                         <Feather
                             name="check-circle"
-                            color="green"
+                            color={Colors.text}
                             size={20}
                         />
                     </Animatable.View>
@@ -277,7 +277,7 @@ const styles = StyleSheet.create({
 
     warnings: {
         color: "red",
-        fontSize: 8,
+        fontSize: 10,
         fontWeight: "bold",
     },
 

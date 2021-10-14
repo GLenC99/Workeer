@@ -3,10 +3,14 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, Picker } fr
 import Feather from 'react-native-vector-icons/Feather';
 import DatePicker from 'react-native-datepicker';
 import * as Animatable from 'react-native-animatable';
+import { Colors } from "../constants/Colors";
 
 //Precisa conseguir reconhecer o usuario e postar as informações novas, substituindo as antigas, 
 //o valor por default pode ser o que já esta gravado no firebase do usuario
 const AlterInfoScreen = ({ navigation }) => {
+
+    const user = navigation.state.params ? navigation.state.params.user : 'andre';
+    
     const [data, setData] = React.useState({
         name: '',
         gender: '',
@@ -17,13 +21,13 @@ const AlterInfoScreen = ({ navigation }) => {
         secureTextEntry: true,
     });
 
-    const auth = getAuth();
+    //const auth = getAuth();
 
-    const user = auth.currentUser;
+    //const user = auth.currentUser;
     const newPassword = data.password;
     const newEmail = data.email;
 
-
+    /*
     updateEmail(user, newEmail).then(() => {
         console.log("Email updated!");
         // ...
@@ -37,7 +41,7 @@ const AlterInfoScreen = ({ navigation }) => {
         // An error ocurred
         // ...
     });
-
+    */
     const emailInputChange = (val) => {
         if (val.length != 0) {
             setData({
@@ -95,29 +99,29 @@ const AlterInfoScreen = ({ navigation }) => {
             });
         };
     };
-
+    /*
     const updateInfo = () => {
         updateEmail(user, newEmail);
         updatePassword(user, newPassword);
 
     };
-
+    */
     return (
         <View>
-            <View style={styles.nameStyles}>
+            <View style={styles.contentStyles}>
                 <Image source={require('../../assets/NameIcon.png')} style={styles.image} />
-                <TextInput placeholder="Nome Completo" underlineColorAndroid={'transparent'} onChangeText={(val) => handleNameChange(val)} style={styles.nameInputStyle} />
+                <TextInput placeholder="Nome Completo" underlineColorAndroid={'transparent'} onChangeText={(val) => handleNameChange(val)} style={styles.inputStyle} />
             </View>
-            <View style={styles.emailStyles}>
+            <View style={styles.contentStyles}>
                 <Image source={require('../../assets/EmailIcon.png')} style={styles.image} />
-                <TextInput placeholder="Email" underlineColorAndroid={'transparent'} onChangeText={(val) => emailInputChange(val)} style={styles.emailInputStyle} />
+                <TextInput placeholder="Email" underlineColorAndroid={'transparent'} onChangeText={(val) => emailInputChange(val)} style={styles.inputStyle} />
                 {data.check_textInputChange ?
                     <Animatable.View
                         animation="bounceIn"
                     >
                         <Feather
                             name="check-circle"
-                            color="green"
+                            color={Colors.primary}
                             size={20}
                         />
                     </Animatable.View>
@@ -128,21 +132,19 @@ const AlterInfoScreen = ({ navigation }) => {
                 :
                 <Text style={styles.warnings}>O valor inserido não é reconhecido como um email</Text>
             }
-            <View style={styles.passwStyle}>
+            <View style={styles.contentStyles}>
                 <Image source={require('../../assets/PasswordIcon.png')} style={styles.image} />
                 <TextInput placeholder="Senha" underlineColorAndroid={'transparent'} secureTextEntry={data.secureTextEntry ? true : false}
-                    onChangeText={(val) => handlePasswordChange(val)} style={styles.passwInputStyle} />
+                    onChangeText={(val) => handlePasswordChange(val)} style={styles.inputStyle} />
                 <TouchableOpacity onPress={updateSecureTextEntry}>
                     {data.secureTextEntry ?
-                        <Feather
+                        <Feather style={styles.featherStyle}
                             name="eye-off"
-                            color="grey"
                             size={20}
                         />
                         :
-                        <Feather
+                        <Feather style={styles.featherStyle}
                             name="eye"
-                            color="grey"
                             size={20}
                         />
 
@@ -155,12 +157,14 @@ const AlterInfoScreen = ({ navigation }) => {
                 <Text></Text>
             }
             <View marginTop={20}>
-                <DatePicker date={data.date}
+                <DatePicker  style={{borderColor: Colors.primary},{borderWidth: 2},{color:Colors.primary}}
+                    date={data.date}
                     onDateChange={handleDateSelect}
                 />
             </View>
             <View style={styles.picker}>
-                <Picker
+                <Image source={require('../../assets/GenderIdentityIcon.png')} style={styles.image} />
+                <Picker style={{ borderColor: Colors.primary }, { borderWidth: 2 }, { color: Colors.text }}
                     selectedValue={data.gender}
                     style={{ height: 50, width: 150 }}
                     onValueChange={(itemValue, itemIndex) => handleGenderSelect(itemValue)}
@@ -171,13 +175,39 @@ const AlterInfoScreen = ({ navigation }) => {
                     <Picker.Item label="Homem" value="homem" />
                 </Picker>
             </View>
-            <View>
-                <TouchableOpacity>
-                    <Text /*onPress={() => postFirebase(data)consoleLogs}*/>Atualizar</Text>
-                </TouchableOpacity>
-            </View>
+            <TouchableOpacity /*onPress={() => postFirebase(data)consoleLogs}*/>
+                <View style={styles.buttonContainer}>
+                    <View style={styles.button}>
+                        <Text style={styles.buttonText}> Atualizar </Text>
+                    </View>
+                </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('Settings', { user: user })}>
+                <View style={styles.buttonContainer, {marginTop:20}}>
+                    <View style={styles.button}>
+                        <Text style={styles.buttonText}> Voltar </Text>
+                    </View>
+                </View>
+            </TouchableOpacity>
         </View>
     );
+};
+
+export const alterInfoScreenOptions = () => {
+    return {
+        headerTitle: () => (
+            <View style={styles.header}>
+                <Text style={styles.headerTitle}>Alter Info</Text>
+            </View>
+        ),
+        headerStyle: {
+            backgroundColor: Colors.primary,
+            elevation: 0,
+            shadowOpacity: 0,
+            borderBottomWidth: 0,
+        },
+        headerTintColor: Colors.whitefilling,
+    };
 };
 
 const styles = StyleSheet.create({
@@ -189,54 +219,59 @@ const styles = StyleSheet.create({
         marginRight: 10,
     },
 
-    nameInputStyle: {
+    inputStyle: {
         width: 300,
         borderWidth: 2,
+        borderColor: Colors.text,
+        color: Colors.primary,
     },
 
-    nameStyles: {
+    contentStyles: {
         flexDirection: "row",
         display: 'flex',
         marginTop: 10,
         marginBottom: 10,
+        textAlign: 'justify',
     },
-
-    emailInputStyle: {
-        width: 300,
-        marginRight: 50,
-        borderWidth: 2,
-    },
-
-    emailStyles: {
-        flexDirection: "row",
-        display: 'flex',
-        marginTop: 10,
-        marginBottom: 10,
-    },
-
-    passwInputStyle: {
-        width: 300,
-        marginRight: 50,
-        borderWidth: 2,
-    },
-
-    passwStyle: {
-        flexDirection: "row",
-        display: 'flex',
-        marginTop: 10,
-        marginBottom: 10,
-        textAlign: 'justify'
-    },
-
     picker: {
         paddingTop: 40,
-        alignItems: "center"
+        alignItems: "center",
+        flexDirection: "row",
     },
 
     warnings: {
         color: "red",
         fontSize: 10,
         fontWeight: "bold",
+    },
+    buttonContainer: {
+        alignItems: 'center'
+    },
+    button: {
+        backgroundColor: Colors.text,
+        color: Colors.text,
+        borderRadius: 7,
+        width: 200,
+        height: 48,
+        alignSelf: 'center',
+    },
+    buttonText: {
+        alignSelf: 'center',
+        fontSize: 20,
+        fontWeight: 'bold',
+        paddingTop: 10,
+        color: Colors.primary,
+    },
+    featherStyle: {
+        color: Colors.text,
+    },
+    header: {
+
+    },
+    headerTitle: {
+        color: Colors.text,
+        fontSize: 20,
+        fontWeight: 'bold',
     },
 });
 
