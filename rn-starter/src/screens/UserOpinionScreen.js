@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, Alert, TextInput, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, Alert, TextInput, TouchableOpacity, TextArea } from "react-native";
 import firebase from 'firebase';
 import { Colors } from "../constants/Colors";
-//import Textarea from 'react-native-textarea';
 
 
 const UserOpinionScreen = ({ navigation }) => {
@@ -42,9 +41,9 @@ const UserOpinionScreen = ({ navigation }) => {
                 <Text style={styles.title}>Opine sobre o Sistema</Text>
             </View>
             <View style={styles.textInput}>
-                <textarea onChangeText={handleOpinion} rows="20" cols="50" >
+                <TextArea onChangeText={handleOpinion} rows="20" cols="50" >
 
-                </textarea>
+                </TextArea>
             </View>
             <TouchableOpacity onPress={sendOpinion}>
                 <View style={styles.buttonContainer}>
