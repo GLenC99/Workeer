@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, Alert, TextInput, TouchableOpacity } from "react-native";
 import firebase from 'firebase';
 import { Colors } from "../constants/Colors";
+//import Textarea from 'react-native-textarea';
+
 
 const UserOpinionScreen = ({ navigation }) => {
     const user = navigation.state.params ? navigation.state.params.user : 'andre';
@@ -39,11 +41,6 @@ const UserOpinionScreen = ({ navigation }) => {
             <View>
                 <Text style={styles.title}>Opine sobre o Sistema</Text>
             </View>
-            <TextInput
-                multiline={false}
-                onChangeText={handleOpinion}
-                placeholder={"Por favor, compartilhe conosco sua opinião sobre o sistema! Apresente seu ponto de vista quanto ao que pode ser melhorado e o que deve ser mantido!"}
-            />
             <View style={styles.textInput}>
                 <textarea onChangeText={handleOpinion} rows="20" cols="50" >
 

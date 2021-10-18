@@ -22,9 +22,9 @@ const SearchScreen = ({ navigation }) => {
     const [vagas, setVagas] = useState([]);
     const [tipoPesq, setTipoPesq] = useState([]);
     const searchvalue = '';
+
     const getFirebaseVagas = () => {
         let vagasAux = [];
-
         firebase.firestore().collection("Vagas").get()
             .then((querySnapshot) => {
                 querySnapshot.forEach((doc) => {
@@ -48,8 +48,8 @@ const SearchScreen = ({ navigation }) => {
             .catch(function (error) {
                 console.error(error);
             });
-
     };
+    
     //const vagas = navigation.state.params.vagas ? navigation.state.params.vagas:'';
     console.log("Tela Pesquisa");
     console.log("Vagas: ",{vagas});
