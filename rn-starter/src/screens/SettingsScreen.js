@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignSelf: "center",
         position: 'absolute',
-        bottom: -400,
+        bottom: -250,
         borderWidth: 1,
     },
     header: {

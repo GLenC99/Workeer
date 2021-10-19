@@ -85,7 +85,7 @@ const HomeScreen = ({ navigation }) => {
                 <Text style={styles.text}>Olá, {"user.name"}!</Text>
             </View>
             <ScrollView style={styles.faixaVagas}>
-                <ResultsList results={vagas}> </ResultsList>
+                <ResultsList results={vagas} navigation={navigation}> </ResultsList>
             </ScrollView>
             <View style={styles.menuinferior}>
                 <TouchableOpacity onPress={() => navigation.navigate('Home', { user: user })} style={styles.image}>

@@ -4,33 +4,26 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import VacanciesObject from '../components/VacanciesObject';
 
 const VacanciesScreen = ({ navigation }) => {
-    const vaga = navigation.state.params.vaga ? navigation.state.params.user : 'vaga1';
-    const id: "doc.id";
-    const titulo: "doc.data().titulo";
-    const link: "doc.data().link";
-    const descricao: "doc.data().descricao";
-    const local: "doc.data().local";
-    const funcao: "doc.data().funcao";
-    const numerodevagas: "doc.data().numerodevagas";
-
+    //const vaga = navigation.state.params.vaga ? navigation.state.params.vaga : 'vaga1';
 
     return (
         <View>
-            <Text style={styles.title}>Tela das Vagas</Text>
+            
+           {/* <Text style={styles.title}>Tela das Vagas</Text>
             <View style={styles.vacancytitle}>
-            <Text>{id}</Text>
+            <Text>{vaga.id}</Text>
             </View>   
             <View style={styles.vacancydescript}>
-            <Text>{descricao}</Text>
+            <Text>{vaga.descricao}</Text>
             </View>         
             <View style={styles.vacancyinfo}>
-            <Text>{funcao}</Text>
-            <Text>{local}</Text>
-            <Text>{numerodevagas}</Text>
+            <Text>{vaga.funcao}</Text>
+            <Text>{vaga.local}</Text>
+            <Text>{vaga.numerodevagas}</Text>
             </View>
             <View style={styles.vacancylink}>
-                <Text>{link}</Text>
-            </View>
+                <Text>{vaga.link}</Text>
+            </View>*/}
 
         </View>
     );

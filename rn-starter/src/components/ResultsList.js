@@ -4,14 +4,22 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import VacanciesObject from './VacanciesObject';
 
 //results.navigate is not a function
-const ResultsList = ({results}) => {
+const ResultsList = ({results,navigation}) => {
     //const filtervalue = /*results.state.params ? results.state.params.vaga :*/ 'Campinas';
     //const filter = /*results.state.params ? result.state.params.vaga :*/ 'Titulo';
     //console.log("Results: " + results[0]);
+
+    console.log("Navigation: ", navigation);
     const subresults = results.filter((vaga) => {
         return(vaga.local === "Campinas");
     });
+    const vaga = {
 
+    }
+
+    const navigate = () => {
+        navigation.navigate('Vacancies',{vaga})
+    }
     /*
     if (filter){
         subresults = results.filter((vaga) => {
@@ -22,7 +30,6 @@ const ResultsList = ({results}) => {
     */
     /*
     const funcaotitulo = results.filter((vaga) => {
-
     });
 
     const funcaodescricao = results.filter((vaga) => {
@@ -36,7 +43,7 @@ const ResultsList = ({results}) => {
                 keyExractor={(result) => result.id}
                 renderItem={({item}) => {
                     return(
-                        <TouchableOpacity /*onPress={results.navigate('Vacancies'),{vaga}}*/>
+                        <TouchableOpacity onPress={/*navigate*/console.log("Touchable CLicado")}>
                             <VacanciesObject vaga = {item}/>
                         </TouchableOpacity>                  
                     );               

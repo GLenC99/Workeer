@@ -3,7 +3,6 @@ import { StyleSheet, Text, View, Alert, TextInput, TouchableOpacity, TextArea } 
 import firebase from 'firebase';
 import { Colors } from "../constants/Colors";
 
-
 const UserOpinionScreen = ({ navigation }) => {
     const user = navigation.state.params ? navigation.state.params.user : 'andre';
     const equipeemail = "emailworkeer@email.com";
@@ -34,16 +33,19 @@ const UserOpinionScreen = ({ navigation }) => {
             console.log("Erro no envio", erro);
         });
     };
-
+    
     return (
         <View style={styles.screen}>
-            <View>
+            {/*<View>
                 <Text style={styles.title}>Opine sobre o Sistema</Text>
             </View>
             <View style={styles.textInput}>
-                <TextArea onChangeText={handleOpinion} rows="20" cols="50" >
-
-                </TextArea>
+                <TextInput
+                    multiline={false}
+                    numberOfLines={5}
+                    onChangeText={handleOpinion}
+                    placeholder={"Por favor, compartilhe conosco sua opinião sobre o sistema! Apresente seu ponto de vista quanto ao que pode ser melhorado e o que deve ser mantido!"}
+                />
             </View>
             <TouchableOpacity onPress={sendOpinion}>
                 <View style={styles.buttonContainer}>
@@ -53,13 +55,13 @@ const UserOpinionScreen = ({ navigation }) => {
                 </View>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate('Settings', { user: user })}>
-                <View style={styles.buttonContainer,{marginTop:20}}>
+                <View style={styles.buttonContainer, { marginTop: 20 }}>
                     <View style={styles.button}>
                         <Text style={styles.buttonText}> Voltar </Text>
                     </View>
                 </View>
             </TouchableOpacity>
-            <Text>{opinion}</Text>
+            <Text>{opinion}</Text>*/}
         </View>
     );
 };

@@ -92,7 +92,7 @@ const SearchScreen = ({ navigation }) => {
                 <View style={styles.vacanciesFound}>
                     <ScrollView>
                         <Text style={{color: Colors.text, alignSelf: 'center'}}> Vagas Pesquisadas </Text>
-                        <ResultsList results={vagas}> </ResultsList>
+                        <ResultsList results={vagas} navigation={navigation}> </ResultsList>
                     </ScrollView>
                 </View>
                 <View style={styles.menuinferior}>
@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
 
     vacanciesFound: {
         marginTop: 10,
-        height: 430,
+        height: 350,
         width: 400,
         alignItems: "center",
         alignSelf: "center",
@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignSelf: "center",
         position: 'absolute',
-        bottom: -60,
+        bottom: -50,
         borderWidth: 1,
     },
     header: {
