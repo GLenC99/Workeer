@@ -4,7 +4,15 @@ import firebase from 'firebase';
 import { Colors } from "../constants/Colors";
 
 const UserOpinionScreen = ({ navigation }) => {
-    const user = navigation.state.params ? navigation.state.params.user : 'andre';
+    const genericUser = {
+        name: 'Generic User Name',
+        gender: 'naobinario',
+        email: 'genericusname@email.com',
+        password: 'password',
+        date: '01-01-2001',
+    };
+
+    const user = navigation.state.params ? navigation.state.params.user : genericUser;
     const equipeemail = "emailworkeer@email.com";
     const [opinion, setOpinion] = useState();
 
@@ -36,17 +44,19 @@ const UserOpinionScreen = ({ navigation }) => {
     
     return (
         <View style={styles.screen}>
-            {/*<View>
+            <View>
                 <Text style={styles.title}>Opine sobre o Sistema</Text>
             </View>
+            
             <View style={styles.textInput}>
                 <TextInput
                     multiline={false}
                     numberOfLines={5}
                     onChangeText={handleOpinion}
-                    placeholder={"Por favor, compartilhe conosco sua opinião sobre o sistema! Apresente seu ponto de vista quanto ao que pode ser melhorado e o que deve ser mantido!"}
+                    placeholder={"Por favor, compartilhe conosco sua opinião sobre o sistema!"}
                 />
             </View>
+            
             <TouchableOpacity onPress={sendOpinion}>
                 <View style={styles.buttonContainer}>
                     <View style={styles.button}>
@@ -54,6 +64,7 @@ const UserOpinionScreen = ({ navigation }) => {
                     </View>
                 </View>
             </TouchableOpacity>
+            
             <TouchableOpacity onPress={() => navigation.navigate('Settings', { user: user })}>
                 <View style={styles.buttonContainer, { marginTop: 20 }}>
                     <View style={styles.button}>
@@ -61,7 +72,7 @@ const UserOpinionScreen = ({ navigation }) => {
                     </View>
                 </View>
             </TouchableOpacity>
-            <Text>{opinion}</Text>*/}
+            <Text>{opinion}</Text>
         </View>
     );
 };
@@ -125,13 +136,11 @@ const styles = StyleSheet.create({
     warning1: {
         marginVertical: 12,
         color: Colors.text,
-        //borderWidth: 1,
     },
 
     textWarning: {
         fontSize: 10,
         color: 'red',
-        //borderWidth: 1,
     },
     header: {
 
@@ -144,14 +153,3 @@ const styles = StyleSheet.create({
 });
 
 export default UserOpinionScreen;
-
-
-/*
-
-<TextInput
-                    multiline={false}
-                    onChangeText={handleOpinion}
-                    placeholder={"Por favor, compartilhe conosco sua opinião sobre o sistema! Apresente seu ponto de vista quanto ao que pode ser melhorado e o que deve ser mantido!"}
-                />
-
-                */

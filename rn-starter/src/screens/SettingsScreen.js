@@ -7,8 +7,17 @@ const nome = "Nome da Pessoa";
 //precisa receber as informações do usuario para poder associar reclamações e alterá-las nessa tela, 
 const SettingsScreen = ({ navigation }) => {
 
+    
+    const genericUser = {
+        name: 'Generic User Name',
+        gender: 'naobinario',
+        email: 'genericusname@email.com',
+        password: 'password',
+        date: '01-01-2001',
+    };
+    const user = navigation.state.params.user ? navigation.state.params.user : genericUser;
 
-    const user = navigation.state.params ? navigation.state.params.user : 'andre';
+
     return (
         <View>
             <View style={styles.Iconimg}>
@@ -17,7 +26,7 @@ const SettingsScreen = ({ navigation }) => {
                 />
             </View>
             <View style={styles.faixasuperior}>
-                <Text style={{ marginBottom: 20 }, { color: Colors.text }}>{user}</Text>
+                <Text style={{ marginBottom: 20 }, { color: Colors.text }}>{user.name}</Text>
             </View>
             <View style={styles.conteudo}>
                 <View style={styles.inforows}>
@@ -108,7 +117,6 @@ const styles = StyleSheet.create({
         display: 'flex',
         marginBottom: 10,
         marginLeft: 10,
-        //borderWidth:1,
     },
 
     optionsText: {
@@ -123,8 +131,6 @@ const styles = StyleSheet.create({
     },
 
     conteudo: {
-        //backgroundColor: '#fffff',
-        //borderWidth: 1,
         alignItems: "flex-start",
         marginHorizontal: 5,
     },

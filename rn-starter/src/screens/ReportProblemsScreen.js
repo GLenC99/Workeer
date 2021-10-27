@@ -4,7 +4,16 @@ import firebase from 'firebase';
 import { Colors } from "../constants/Colors";
 
 const ReportProblemsScreen = ({navigation}) => {
-    const user = navigation.state.params ? navigation.state.params.user : 'andre';
+    //Não está enviando as ocorrencias, nem dando um retorno pra explicar
+    const genericUser = {
+        name: 'Generic User Name',
+        gender: 'naobinario',
+        email: 'genericusname@email.com',
+        password: 'password',
+        date: '01-01-2001',
+    };
+
+    const user = navigation.state.params ? navigation.state.params.user : genericUser;
     
     useEffect(() => {
         Alert.alert('OBS', 'Caso o problema seja o sistema em si e não uma ocorrencia relacionada as vagas ou empresa recomendada por favor retorne a tela de Configurações e reporte na tela de Opinião sobre o sistema');
@@ -13,8 +22,6 @@ const ReportProblemsScreen = ({navigation}) => {
     const gotoSettings = () => {
         navigation.navigate('Settings',{user:user});
     }
-
-    
 
     const [problem, setProblem] = React.useState({
         empresa: '',
@@ -56,7 +63,7 @@ const ReportProblemsScreen = ({navigation}) => {
             occurrence: problem.ocorrencia,
             date: problem.datadaocorrencia,
         }).then(() => { 
-            console.log("Opinião Inserida");
+            console.log("Ocorrência Reportada");
             gotoSettings();
 
         }).catch((erro) => {

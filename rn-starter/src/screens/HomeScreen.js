@@ -11,8 +11,14 @@ import { Colors } from '../constants/Colors';
 const HomeScreen = ({ navigation }) => {
     console.log('[Home Screen inicializada]')
     const [vagas, setVagas] = useState([]);
-    //const user = navigation.state.params.user;
-    const user = navigation.state.params ? navigation.state.params.user : 'andre';
+    const genericUser = {
+        name: 'Generic User Name',
+        gender: 'naobinario',
+        email: 'genericusname@email.com',
+        password: 'password',
+        date: '01-01-2001',
+    };
+    const user = navigation.state.params ? navigation.state.params.user : genericUser;
 
     useEffect(() => {
         /*
@@ -82,7 +88,7 @@ const HomeScreen = ({ navigation }) => {
                     <Image source={require('../../assets/UserIcon.png')} style={styles.img} />
             </View>
             <View style={styles.faixasuperior}>
-                <Text style={styles.text}>Olá, {"user.name"}!</Text>
+                <Text style={styles.text}>Olá, {user.name}!</Text>
             </View>
             <ScrollView style={styles.faixaVagas}>
                 <ResultsList results={vagas} navigation={navigation}> </ResultsList>

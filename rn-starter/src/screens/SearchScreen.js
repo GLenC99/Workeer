@@ -18,11 +18,18 @@ const handleSearch = () => {
 
 
 const SearchScreen = ({ navigation }) => {
-    const user = navigation.state.params.user ? navigation.state.params.user : 'andre';
+    const genericUser = {
+        name: 'Generic User Name',
+        gender: 'naobinario',
+        email: 'genericusname@email.com',
+        password: 'password',
+        date: '01-01-2001',
+    };
+    const user = navigation.state.params.user ? navigation.state.params.user : genericUser;
     const [vagas, setVagas] = useState([]);
-    const [tipoPesq, setTipoPesq] = useState([]);
+    const [tipoPesq, setTipoPesq] = useState();
     const searchvalue = '';
-
+    
     const getFirebaseVagas = () => {
         let vagasAux = [];
         firebase.firestore().collection("Vagas").get()
@@ -49,26 +56,23 @@ const SearchScreen = ({ navigation }) => {
                 console.error(error);
             });
     };
-    
-    //const vagas = navigation.state.params.vagas ? navigation.state.params.vagas:'';
-    console.log("Tela Pesquisa");
-    console.log("Vagas: ",{vagas});
 
+    //const vagas = navigation.state.params.vagas ? navigation.state.params.vagas:'';
+    //console.log("Tela Pesquisa");
+    //console.log("Vagas: ",{vagas});
     const botaoPressionado = () => {
         Alert.alert("Botão Pressionado");
         getFirebaseVagas();
     };
-
     const handleSearchSelect = (val) => {
         setTipoPesq(val);
         console.log(tipoPesq);
     };
 
-    
 
     return (
         <View style={styles.screenStyle}>
-            <SearchBarScreen value={searchvalue}>
+            <SearchBarScreen value={searchvalue}>{ /*
                 <View style={styles.barraStyle}>
                     <SearchBar />
                     <TouchableOpacity onPress={botaoPressionado} style={styles.botaoPesq}>
@@ -85,13 +89,13 @@ const SearchScreen = ({ navigation }) => {
                     >
                         <Picker.Item label="Tìtulo" value="titulo" />
                         <Picker.Item label="Por Cidade" value="cidade" />
-                        <Picker.Item label="Por Área" value="area" />                   
+                        <Picker.Item label="Por Área" value="area" />
                         <Picker.Item label="Empresas com Reclamações" value="reclamacoes" />
                     </Picker>
                 </View>
                 <View style={styles.vacanciesFound}>
                     <ScrollView>
-                        <Text style={{color: Colors.text, alignSelf: 'center'}}> Vagas Pesquisadas </Text>
+                        <Text style={{ color: Colors.text, alignSelf: 'center' }}> Vagas Pesquisadas </Text>
                         <ResultsList results={vagas} navigation={navigation}> </ResultsList>
                     </ScrollView>
                 </View>
@@ -112,9 +116,29 @@ const SearchScreen = ({ navigation }) => {
                         />
                     </TouchableOpacity>
                 </View>
+            
+        </View>
+        <View>
+            <View style={styles.menuinferior}>
+                     <TouchableOpacity onPress={() => navigation.navigate('Home', { user: user })} style={styles.image}>
+                         <Feather style={styles.styleFeather}
+                             name="home" size={50}
+                         />
+                     </TouchableOpacity>
+                     <TouchableOpacity onPress={() => navigation.navigate('Search', { user: user })} style={styles.image}>
+                         <Feather style={styles.styleFeather}
+                             name="search" size={50}
+                         />
+                     </TouchableOpacity>
+                     <TouchableOpacity onPress={() => navigation.navigate('Settings', { user: user })} style={styles.image}>
+                         <Feather style={styles.styleFeather}
+                             name="settings" size={50}
+                         />
+                     </TouchableOpacity>
+                 </View>
+                 */}
             </SearchBarScreen>
         </View>
-
 
     );
 };

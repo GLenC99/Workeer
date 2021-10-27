@@ -4,6 +4,14 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import VacanciesObject from '../components/VacanciesObject';
 
 const VacanciesScreen = ({ navigation }) => {
+    const genericUser = {
+        name: 'Generic User Name',
+        gender: 'naobinario',
+        email: 'genericusname@email.com',
+        password: 'password',
+        date: '01-01-2001',
+    };
+    const user = navigation.state.params.user ? navigation.state.params.user:genericUser;
     //const vaga = navigation.state.params.vaga ? navigation.state.params.vaga : 'vaga1';
 
     return (
