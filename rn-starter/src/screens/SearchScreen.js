@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, Image, TouchableOpacity, Alert, Text, ScrollView, Picker } from "react-native";
+import { StyleSheet, View, Image, TouchableOpacity, Alert, Text, ScrollView, Picker, Button } from "react-native";
 import SearchBar from "../components/SearchBar";
 import SearchBarScreen from "../components/SearchBarScreen.js";
 import Feather from 'react-native-vector-icons/Feather';
@@ -17,7 +17,7 @@ const handleSearch = () => {
 //pesquisado em alguma parte e retornar para o usuário em uma lista
 
 
-const SearchScreen = ({ navigation }) => {
+const SearchScreen = ({navigation }) => {
     const genericUser = {
         name: 'Generic User Name',
         gender: 'naobinario',
@@ -25,6 +25,7 @@ const SearchScreen = ({ navigation }) => {
         password: 'password',
         date: '01-01-2001',
     };
+    //console.log("Abriu Search Screen - Vagas: ",vacancies);
     const user = navigation.state.params.user ? navigation.state.params.user : genericUser;
     const [vagas, setVagas] = useState([]);
     const [tipoPesq, setTipoPesq] = useState();
@@ -72,7 +73,7 @@ const SearchScreen = ({ navigation }) => {
 
     return (
         <View style={styles.screenStyle}>
-            <SearchBarScreen value={searchvalue}>{ /*
+            <SearchBarScreen value={searchvalue}>
                 <View style={styles.barraStyle}>
                     <SearchBar />
                     <TouchableOpacity onPress={botaoPressionado} style={styles.botaoPesq}>
@@ -116,27 +117,6 @@ const SearchScreen = ({ navigation }) => {
                         />
                     </TouchableOpacity>
                 </View>
-            
-        </View>
-        <View>
-            <View style={styles.menuinferior}>
-                     <TouchableOpacity onPress={() => navigation.navigate('Home', { user: user })} style={styles.image}>
-                         <Feather style={styles.styleFeather}
-                             name="home" size={50}
-                         />
-                     </TouchableOpacity>
-                     <TouchableOpacity onPress={() => navigation.navigate('Search', { user: user })} style={styles.image}>
-                         <Feather style={styles.styleFeather}
-                             name="search" size={50}
-                         />
-                     </TouchableOpacity>
-                     <TouchableOpacity onPress={() => navigation.navigate('Settings', { user: user })} style={styles.image}>
-                         <Feather style={styles.styleFeather}
-                             name="settings" size={50}
-                         />
-                     </TouchableOpacity>
-                 </View>
-                 */}
             </SearchBarScreen>
         </View>
 
@@ -172,7 +152,6 @@ const styles = StyleSheet.create({
     botaoPesq: {
         alignItems: "center",
         marginLeft: 15,
-        //borderWidth: 1,
     },
 
     vacanciesFound: {
@@ -203,8 +182,7 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.menuinferior,
         flexDirection: "row",
         alignSelf: "center",
-        position: 'absolute',
-        bottom: -50,
+        bottom: -10,
         borderWidth: 1,
     },
     header: {
@@ -227,3 +205,23 @@ const styles = StyleSheet.create({
 
 export default SearchScreen;
 
+/*
+<View style={styles.menuinferior}>
+                    <TouchableOpacity onPress={() => navigation.navigate('Home', { user: user })} style={styles.image}>
+                        <Feather style={styles.styleFeather}
+                            name="home" size={50}
+                        />
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate('Search', { user: user })} style={styles.image}>
+                        <Feather style={styles.styleFeather}
+                            name="search" size={50}
+                        />
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate('Settings', { user: user })} style={styles.image}>
+                        <Feather style={styles.styleFeather}
+                            name="settings" size={50}
+                        />
+                    </TouchableOpacity>
+                </View>
+
+*/

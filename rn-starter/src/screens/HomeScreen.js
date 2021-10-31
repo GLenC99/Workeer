@@ -8,7 +8,7 @@ import firebase from 'firebase';
 import { Colors } from '../constants/Colors';
 
 
-const HomeScreen = ({ navigation }) => {
+const HomeScreen = ({vacancies,navigation }) => {
     console.log('[Home Screen inicializada]')
     const [vagas, setVagas] = useState([]);
     const genericUser = {
@@ -18,8 +18,10 @@ const HomeScreen = ({ navigation }) => {
         password: 'password',
         date: '01-01-2001',
     };
-    const user = navigation.state.params ? navigation.state.params.user : genericUser;
 
+    const user = navigation.state.params ? navigation.state.params : genericUser;
+    vacancies = vagas;
+    console.log("Vacancies Home Screen ", vacancies);
     useEffect(() => {
         /*
         setVagas(
@@ -94,17 +96,17 @@ const HomeScreen = ({ navigation }) => {
                 <ResultsList results={vagas} navigation={navigation}> </ResultsList>
             </ScrollView>
             <View style={styles.menuinferior}>
-                <TouchableOpacity onPress={() => navigation.navigate('Home', { user: user })} style={styles.image}>
+                <TouchableOpacity onPress={() => navigation.navigate('Home', { user: user },{vacancies: vacancies})} style={styles.image}>
                     <Feather style={styles.styleFeather}
                         name="home" size={50}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('Search', { user: user }, {vagas:vagas})} style={styles.image}>
+                <TouchableOpacity onPress={() => navigation.navigate('Search', { user: user }, {vacancies: vacancies})} style={styles.image}>
                     <Feather style={styles.styleFeather}
                         name="search" size={50}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('Settings', { user: user })} style={styles.image}>
+                <TouchableOpacity onPress={() => navigation.navigate('Settings', { user: user }, {vacancies: vacancies})} style={styles.image}>
                     <Feather style={styles.styleFeather}
                         name="settings" size={50}
                     />
