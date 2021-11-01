@@ -162,12 +162,12 @@ const styles = StyleSheet.create({
         // width: 410,
         // borderWidth: 1,
         alignContent: "center",
-        marginBottom: 20,
+        //marginBottom: 20,
     },
     image: {
-        width: 133.3,
-        height: 76,
-        // borderWidth: 1,
+        //width: 133.3,
+        //height: 76,
+        borderWidth: 1,
         alignItems: "center",
     },
 
@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignSelf: "center",
         position: 'absolute',
-        bottom: 0,
+        bottom: 2,
         borderWidth: 1,
     },
     header: {

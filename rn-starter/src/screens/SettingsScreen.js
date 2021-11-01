@@ -7,7 +7,7 @@ const nome = "Nome da Pessoa";
 //precisa receber as informações do usuario para poder associar reclamações e alterá-las nessa tela, 
 const SettingsScreen = ({ navigation }) => {
 
-    
+
     const genericUser = {
         name: 'Generic User Name',
         gender: 'naobinario',
@@ -54,9 +54,9 @@ const SettingsScreen = ({ navigation }) => {
                     <Text onPress={() => navigation.navigate('ReportProblems', { user: user })} style={styles.optionsText}>Reportar problemas</Text>
                 </View>
             </View>
-            <View style={styles.button}>
-                <Text style={styles.buttonText} onPress={() => navigation.navigate('Login', { user: user })}> Sair </Text>
-            </View>
+                <View style={styles.button}>
+                    <Text style={styles.buttonText} onPress={() => navigation.navigate('Login', { user: user })}> Sair </Text>
+                </View>
             <View style={styles.menuinferior}>
                 <TouchableOpacity onPress={() => navigation.navigate('Home', { user: user })} style={styles.image}>
                     <Feather style={styles.styleFeather}
@@ -125,9 +125,9 @@ const styles = StyleSheet.create({
     },
 
     image: {
-        width: 133.3,
-        height: 76,
+        borderWidth: 1,
         alignItems: "center",
+
     },
 
     conteudo: {
@@ -136,6 +136,7 @@ const styles = StyleSheet.create({
     },
 
     button: {
+        marginTop:80,
         backgroundColor: 'white',
         color: Colors.primary,
         borderRadius: 7,
@@ -158,7 +159,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignSelf: "center",
         position: 'absolute',
-        bottom: -250,
+        bottom: -180,
         borderWidth: 1,
     },
     header: {

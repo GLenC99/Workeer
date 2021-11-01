@@ -82,16 +82,16 @@ const SearchScreen = ({navigation }) => {
                         />
                     </TouchableOpacity>
                 </View>
-                <View style={styles.pickerStyle}>
+                <View style={styles.pickerView}>
                     <Picker
                         selectedValue={tipoPesq}
-                        style={{ height: 50, width: 150 }}
+                        style={styles.pickerStyle}
                         onValueChange={(itemValue, itemIndex) => handleSearchSelect(itemValue)}
                     >
-                        <Picker.Item label="Tìtulo" value="titulo" />
-                        <Picker.Item label="Por Cidade" value="cidade" />
-                        <Picker.Item label="Por Área" value="area" />
-                        <Picker.Item label="Empresas com Reclamações" value="reclamacoes" />
+                        <Picker.Item label="Tìtulo" value="titulo" style={styles.pickerItems}/>
+                        <Picker.Item label="Por Cidade" value="cidade" style={styles.pickerItems}/>
+                        <Picker.Item label="Por Área" value="area" style={styles.pickerItems}/>
+                        <Picker.Item label="Empresas com Reclamações" value="reclamacoes" style={styles.pickerItems}/>
                     </Picker>
                 </View>
                 <View style={styles.vacanciesFound}>
@@ -169,24 +169,33 @@ const styles = StyleSheet.create({
     image: {
         //width: 133.3,
         //height: 76,
-        //borderWidth: 1,
+        borderWidth: 1,
         alignItems: "center",
     },
-    pickerStyle: {
-        paddingTop: 40,
-        alignItems: "center",
+    pickerView: {
+        marginTop: 5,
+        alignItems: "flex-end",
         flexDirection: "row",
-        alignSelf: "center",
+        alignSelf: "flex-end",
+        borderWidth: 2,
+        backgroundColor: Colors.primary,
+        
+    },
+    pickerStyle:{
+        color: Colors.text,
+        height: 50, 
+        width: 150,
     },
     menuinferior: {
         backgroundColor: Colors.menuinferior,
         flexDirection: "row",
         alignSelf: "center",
-        bottom: -10,
+        bottom: -35,
         borderWidth: 1,
     },
-    header: {
-
+    pickerItems: {
+        color: Colors.text,
+        backgroundColor: Colors.text,
     },
     headerTitle: {
         color: Colors.text,
