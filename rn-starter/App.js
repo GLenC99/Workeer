@@ -20,6 +20,7 @@ import FirebaseConfig from './src/constants/FirebaseConfig';
 //Color GenderQueer/NonBinary yellow #ffff1a white #ffffff purple #b366ff black #333333
 
 LogBox.ignoreLogs(['Setting a timer']);
+LogBox.ignoreLogs(['VirtualizedLists should never be nested inside plain ScrollViews with the same orientation - use another VirtualizedList-backed container instead.']);
 
 if (!firebase.apps.length) {
   console.log('[Firebase started]');

@@ -7,6 +7,7 @@ import ResultsList from "../components/ResultsList";
 import firebase from 'firebase';
 import { Colors } from '../constants/Colors';
 import { color } from "react-native-reanimated";
+import OcorrenciesList from "../components/OcorrenciesList";
 /*
 const handleSearch = () => {
     this.setState({query: text});
@@ -17,7 +18,7 @@ const handleSearch = () => {
 //pesquisado em alguma parte e retornar para o usuário em uma lista
 
 
-const SearchScreen = ({navigation }) => {
+const SearchScreen = ({ navigation }) => {
     const genericUser = {
         name: 'Generic User Name',
         gender: 'naobinario',
@@ -29,8 +30,12 @@ const SearchScreen = ({navigation }) => {
     const user = navigation.state.params.user ? navigation.state.params.user : genericUser;
     const [vagas, setVagas] = useState([]);
     const [tipoPesq, setTipoPesq] = useState();
-    const searchvalue = '';
-    
+    const [searchValue, setSearchValue] = useState();
+
+    useEffect(() => {
+        //setSearchValue('');
+    }, []);
+
     const getFirebaseVagas = () => {
         let vagasAux = [];
         firebase.firestore().collection("Vagas").get()
@@ -62,64 +67,81 @@ const SearchScreen = ({navigation }) => {
     //console.log("Tela Pesquisa");
     //console.log("Vagas: ",{vagas});
     const botaoPressionado = () => {
-        Alert.alert("Botão Pressionado");
+        Alert.alert("Pesquisa " + searchValue); // searchvalue = ''
         getFirebaseVagas();
     };
+
     const handleSearchSelect = (val) => {
         setTipoPesq(val);
         console.log(tipoPesq);
     };
 
+    const updateSearch = (search) => {
+        setSearchValue(search);
+        console.log(searchValue);
+    }
 
     return (
-        <View style={styles.screenStyle}>
-            <SearchBarScreen value={searchvalue}>
-                <View style={styles.barraStyle}>
-                    <SearchBar />
-                    <TouchableOpacity onPress={botaoPressionado} style={styles.botaoPesq}>
-                        <Feather style={styles.styleSearch}
-                            name="search" size={40}
-                        />
-                    </TouchableOpacity>
-                </View>
+        <SearchBarScreen>
+            <View style={styles.barraStyle}>
+                <SearchBar value={searchValue} onValueChange={(search) => updateSearch(search)} />
                 <View style={styles.pickerView}>
                     <Picker
                         selectedValue={tipoPesq}
                         style={styles.pickerStyle}
                         onValueChange={(itemValue, itemIndex) => handleSearchSelect(itemValue)}
                     >
-                        <Picker.Item label="Tìtulo" value="titulo" style={styles.pickerItems}/>
-                        <Picker.Item label="Por Cidade" value="cidade" style={styles.pickerItems}/>
-                        <Picker.Item label="Por Área" value="area" style={styles.pickerItems}/>
-                        <Picker.Item label="Empresas com Reclamações" value="reclamacoes" style={styles.pickerItems}/>
+                        <Picker.Item label="Tìtulo" value="titulo" style={styles.pickerItems} />
+                        <Picker.Item label="Por Cidade" value="cidade" style={styles.pickerItems} />
+                        <Picker.Item label="Por Área" value="area" style={styles.pickerItems} />
+                        <Picker.Item label="Ocorrencias Reportadas" value="reclamacoes" style={styles.pickerItems} />
                     </Picker>
                 </View>
-                <View style={styles.vacanciesFound}>
+                <TouchableOpacity onPress={botaoPressionado} style={styles.botaoPesq}>
+                    <Feather style={styles.styleSearch}
+                        name="search" size={40}
+                    />
+                </TouchableOpacity>
+            </View>
+            {tipoPesq == 'reclamacoes' ?
+                <View style={styles.ocorrenciesList}>
                     <ScrollView>
-                        <Text style={{ color: Colors.text, alignSelf: 'center' }}> Vagas Pesquisadas </Text>
-                        <ResultsList results={vagas} navigation={navigation}> </ResultsList>
+                        <View>
+                            <Text style={{ color: 'red', alignSelf: 'center' }}> Ocorrencias Reportadas </Text>
+                            <OcorrenciesList/>
+                        </View>
                     </ScrollView>
                 </View>
-                <View style={styles.menuinferior}>
-                    <TouchableOpacity onPress={() => navigation.navigate('Home', { user: user })} style={styles.image}>
-                        <Feather style={styles.styleFeather}
-                            name="home" size={50}
-                        />
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => navigation.navigate('Search', { user: user })} style={styles.image}>
-                        <Feather style={styles.styleFeather}
-                            name="search" size={50}
-                        />
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => navigation.navigate('Settings', { user: user })} style={styles.image}>
-                        <Feather style={styles.styleFeather}
-                            name="settings" size={50}
-                        />
-                    </TouchableOpacity>
+                :
+                <View style={styles.vacanciesFound}>
+                    <ScrollView >
+                        <View>
+                            <Text style={{ color: Colors.text, alignSelf: 'center' }}> Vagas Pesquisadas </Text>
+                            <ResultsList results={vagas} navigation={navigation}
+                                search={searchValue} searchtype={tipoPesq}
+                            />
+                        </View>
+                    </ScrollView>
                 </View>
-            </SearchBarScreen>
-        </View>
-
+            }
+            <View style={styles.menuinferior}>
+                <TouchableOpacity onPress={() => navigation.navigate('Home', { user: user })} style={styles.image}>
+                    <Feather style={styles.styleFeather}
+                        name="home" size={50}
+                    />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('Search', { user: user })} style={styles.image}>
+                    <Feather style={styles.styleFeather}
+                        name="search" size={50}
+                    />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('Settings', { user: user })} style={styles.image}>
+                    <Feather style={styles.styleFeather}
+                        name="settings" size={50}
+                    />
+                </TouchableOpacity>
+            </View>
+        </SearchBarScreen>
     );
 };
 
@@ -151,12 +173,13 @@ const styles = StyleSheet.create({
     },
     botaoPesq: {
         alignItems: "center",
-        marginLeft: 15,
+        width: 57,
+        borderWidth: 1,
     },
 
     vacanciesFound: {
-        marginTop: 10,
-        height: 350,
+        marginTop: 23,
+        height: 400,
         width: 400,
         alignItems: "center",
         alignSelf: "center",
@@ -166,6 +189,17 @@ const styles = StyleSheet.create({
         borderColor: Colors.text,
     },
 
+    ocorrenciesList: {
+        marginTop: 23,
+        height: 400,
+        width: 400,
+        alignItems: "center",
+        alignSelf: "center",
+        borderWidth: 1,
+        marginBottom: 10,
+        color: 'red',
+        borderColor: 'red',
+    },
     image: {
         //width: 133.3,
         //height: 76,
@@ -173,17 +207,15 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     pickerView: {
-        marginTop: 5,
         alignItems: "flex-end",
         flexDirection: "row",
         alignSelf: "flex-end",
-        borderWidth: 2,
         backgroundColor: Colors.primary,
-        
+        borderWidth: 1,
     },
-    pickerStyle:{
+    pickerStyle: {
         color: Colors.text,
-        height: 50, 
+        height: 50,
         width: 150,
     },
     menuinferior: {
@@ -231,6 +263,25 @@ export default SearchScreen;
                             name="settings" size={50}
                         />
                     </TouchableOpacity>
+                </View>
+
+
+
+                <View style={styles.vacanciesFound}>
+                    <ScrollView >
+                        {tipoPesq == 'reclamacoes' ?
+                            <View>
+                            <Text style={{ color: 'red', alignSelf: 'center' }}>Empresas acusadas por usuários</Text>
+                            </View>
+                            :
+                            <View>
+                                <Text style={{ color: Colors.text, alignSelf: 'center' }}> Vagas Pesquisadas </Text>
+                                <ResultsList results={vagas} navigation={navigation}
+                                    search={searchValue} searchtype={tipoPesq}
+                                />
+                            </View>
+                        }
+                    </ScrollView>
                 </View>
 
 */

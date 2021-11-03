@@ -3,19 +3,47 @@ import { View, Text, StyleSheet, FlatList } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import VacanciesObject from './VacanciesObject';
 
-//results.navigate is not a function
-const ResultsList = ({results,navigation}) => {
+const ResultsList = ({results,searchtype,search,navigation}) => {
     //const filtervalue = /*results.state.params ? results.state.params.vaga :*/ 'Campinas';
     //const filter = /*results.state.params ? result.state.params.vaga :*/ 'Titulo';
     //console.log("Results: " + results[0]);
 
-    console.log("Navigation: ", navigation);
-    const subresults = results.filter((vaga) => {
-        return(vaga.local === "Campinas");
-    });
-    const vaga = {
+    
 
-    }
+    console.log("Results: ", searchtype);
+
+    const subresults = results.filter((vaga) => {
+        if(search != ''){
+            switch(searchtype) {
+                case 'cidade':
+                    return(vaga.local === search);
+                  break;
+                
+                case 'titulo':
+                    return(vaga.titulo === search);
+                  break;
+          
+                case 'area':
+                    return(vaga.funcao === search);
+                  break;
+          
+                case 'reclamacoes':
+                    //inserir as reclamações
+                    //return(vaga.funcao) 
+                  break;
+          
+                default:
+                  Alert.alert("Tipo de pesquisa não encontrados");
+              
+                }
+
+            if(searchtype === 'cidade'){
+                return(vaga.local === search);
+            }
+        }else{
+            return results;
+        }
+    });
 
     const navigate = () => {
         navigation.navigate('Vacancies',{vaga})
