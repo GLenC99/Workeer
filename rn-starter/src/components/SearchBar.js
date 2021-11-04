@@ -3,10 +3,10 @@ import {View, TextInput, StyleSheet} from 'react-native';
 import { set } from 'react-native-reanimated';
 import { Colors } from '../constants/Colors';
 
-const SearchBar = () => {
+const SearchBar = ( props ) => {
     return(
         <View style = {styles.container}>
-            <TextInput placeholder='Search here..' style={styles.searchInput}></TextInput>
+            <TextInput placeholder='Search here..' style={styles.searchInput} onChangeText={props.onValueChange}></TextInput>
         </View>
     );
 };
