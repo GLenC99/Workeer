@@ -4,15 +4,16 @@ import numpy as np
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
+from random import randint
 
 #scrapy runspider vacanciesSpider.py X
 #scrapy crawl vacanciesbot -o vagas.json V
 #precisa mudar o arquivo json workeer-system-firebase-adminsdk.....
 
 
-cred = credentials.Certificate("Chave_Privada_Projeto/workeer-4b214-firebase-adminsdk-43nh9-fae3d26ffe.json")
+#cred = credentials.Certificate("Chave_Privada_Projeto/workeer-4b214-firebase-adminsdk-43nh9-fae3d26ffe.json")
 #Quando o projeto tiver atingido a cota diária
-#cred = credentials.Certificate("Chave_Privada_Projeto/workeer-342b8-firebase-adminsdk-4rf5c-5303e5f858.json")
+cred = credentials.Certificate("Chave_Privada_Projeto/workeer-342b8-firebase-adminsdk-4rf5c-5303e5f858.json")
 firebase_admin.initialize_app(cred)
 db = firestore.client()
 
@@ -38,16 +39,29 @@ descricao = []
 link = []
 
 #Passando por todas as vagas pulando as que dão erro (mas sem poder descobri-las o que matém os links etc.)
-for i in range (len(vaga_list)):
+
+#for i in range (len(vaga_list)):
+#   try:
+#      local.append(vaga_list[i].split("/")[1])
+#      funcao.append(vaga_list[i].split("/")[0])
+#      numvagas.append(vaga_list[i].split("/")[-1])
+#      titulo.append(vaga_list[i])
+#      descricao.append(descricao_list[i])
+#      link.append(link_list[i])
+#   except:
+#      i = i+1
+
+for i in range(50):
+   indice = randint(0,len(vaga_list))
    try:
-      local.append(vaga_list[i].split("/")[1])
-      funcao.append(vaga_list[i].split("/")[0])
-      numvagas.append(vaga_list[i].split("/")[-1])
-      titulo.append(vaga_list[i])
-      descricao.append(descricao_list[i])
-      link.append(link_list[i])
+      local.append(vaga_list[indice].split("/")[1])
+      funcao.append(vaga_list[indice].split("/")[0])
+      numvagas.append(vaga_list[indice].split("/")[-1])
+      titulo.append(vaga_list[indice])
+      descricao.append(descricao_list[indice])
+      link.append(link_list[indice])
    except:
-      i = i+1
+      indice = randint(0,len(vaga_list))
 
 #confirmação se o for está funcionando
 #print("local tem " + str(len(local)) + "linhas")
@@ -84,7 +98,7 @@ for i in range(len(titulo)):
          u'Link': link[i],
          u'Local': local[i],
          u'Funcao': funcao[i],
-         u'Numero de Vagas': numvagas[i],
+         u'NumerodeVagas': numvagas[i],
       })
       linha = i
    except (KeyError, IndexError):

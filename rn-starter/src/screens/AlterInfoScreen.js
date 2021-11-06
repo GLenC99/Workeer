@@ -1,5 +1,5 @@
-import React from "react";
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, Picker } from "react-native";
+import React, {useEffect} from "react";
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, Picker, Alert } from "react-native";
 import Feather from 'react-native-vector-icons/Feather';
 import DatePicker from 'react-native-datepicker';
 import * as Animatable from 'react-native-animatable';
@@ -21,27 +21,9 @@ const AlterInfoScreen = ({ navigation }) => {
         secureTextEntry: true,
     });
 
-    //const auth = getAuth();
-
-    //const user = auth.currentUser;
     const newPassword = data.password;
     const newEmail = data.email;
 
-    /*
-    updateEmail(user, newEmail).then(() => {
-        console.log("Email updated!");
-        // ...
-    }).catch((error) => {
-        console.log("An error occurred");
-    });
-
-    updatePassword(user, newPassword).then(() => {
-        console.log("Password update successful");
-    }).catch((error) => {
-        // An error ocurred
-        // ...
-    });
-    */
     const emailInputChange = (val) => {
         if (val.length != 0) {
             setData({
@@ -99,13 +81,11 @@ const AlterInfoScreen = ({ navigation }) => {
             });
         };
     };
-    /*
-    const updateInfo = () => {
-        updateEmail(user, newEmail);
-        updatePassword(user, newPassword);
 
-    };
-    */
+    useEffect(() => {
+        Alert.alert("Aviso", "A tela a seguir ainda não se encontra funcional, devendo ser implementada no futuro, por favor, clique em voltar para retornar a tela de configurações")
+    }, []);
+
     return (
         <View>
             <View style={styles.contentStyles}>

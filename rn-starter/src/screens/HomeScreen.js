@@ -22,50 +22,24 @@ const HomeScreen = ({vacancies,navigation }) => {
     const user = navigation.state.params ? navigation.state.params : genericUser;
     vacancies = vagas;
     console.log("Vacancies Home Screen ", vacancies);
+
     useEffect(() => {
-        /*
-        setVagas(
-            [
-                {
-                    id: 0,
-                    nome: "Vaga1",
-                    link: "http://vaga1",
-                    localvaga: "Campinas",
-                    numvagas: 2,
-                },
-                {
-                    id: 1,
-                    nome: "Vaga2",
-                    link: "http://vaga2",
-                    localvaga: "Hortolandia",
-                    numvagas: 1,
-                },
-                {
-                    id: 2,
-                    nome: "Vaga3",
-                    link: "http://vaga3",
-                    localvaga: "Campinas",
-                    numvagas: 5,
-                },
-            ]
-        )
-            */
         let vagasAux = [];
 
         firebase.firestore().collection("Vagas").get()
             .then((querySnapshot) => {
                 querySnapshot.forEach((doc) => {
                     console.log('id', doc.id);
-                    console.log(doc.data().titulo);
-                    console.log(doc.data().descricao);
+                    console.log(doc.data().Titulo);
+                    console.log(doc.data().Descricao);
                     const vaga = {
                         id: doc.id,
-                        titulo: doc.data().titulo,
-                        link: doc.data().link,
-                        descricao: doc.data().descricao,
-                        local: doc.data().local,
-                        funcao: doc.data().funcao,
-                        numerodevagas: doc.data().numerodevagas
+                        titulo: doc.data().Titulo,
+                        link: doc.data().Link,
+                        descricao: doc.data().Descricao,
+                        local: doc.data().Local,
+                        funcao: doc.data().Funcao,
+                        numerodevagas: doc.data().NumerodeVagas
                     };
                     vagasAux.push(vaga);
                 });
@@ -80,10 +54,6 @@ const HomeScreen = ({vacancies,navigation }) => {
 
     console.log("Vagas: ", vagas);
 
-    //user1@email.com user1passwrod
-
-   
-
     return (
         <View style={styles.screen}>
             <View style={styles.faixaUserIcon}>
@@ -92,9 +62,11 @@ const HomeScreen = ({vacancies,navigation }) => {
             <View style={styles.faixasuperior}>
                 <Text style={styles.text}>Olá, {user.name}!</Text>
             </View>
+            <View style={styles.vacancies}>
             <ScrollView style={styles.faixaVagas}>
-                <ResultsList results={vagas} navigation={navigation} search={'Campinas'} searchtype={'cidade'} > </ResultsList>
+                <ResultsList results={vagas} navigation={navigation} search={''} searchtype={''} > </ResultsList>
             </ScrollView>
+            </View>
             <View style={styles.menuinferior}>
                 <TouchableOpacity onPress={() => navigation.navigate('Home', { user: user },{vacancies: vacancies})} style={styles.image}>
                     <Feather style={styles.styleFeather}
@@ -140,43 +112,47 @@ const styles = StyleSheet.create({
         padding: 10,
     },
     faixaUserIcon: {
-        backgroundColor: 'white'
+        backgroundColor: Colors.primary,
     },
     faixasuperior: {
         alignSelf: 'flex-start',
         marginBottom: 10,
-        // borderWidth: 1,
     },
     text: {
         color: Colors.text,
     },
     img: {
-        width: 100,
-        height: 100,
+        width: 70,
+        height: 70,
         resizeMode: 'stretch',
         marginRight: 20,
         alignSelf: 'flex-end',
     },
 
     faixaVagas: {
-        // width: 410,
-        // borderWidth: 1,
         alignContent: "center",
-        //marginBottom: 20,
+    },
+    vacancies: {
+        marginTop: 5,
+        height: 420,
+        width: 400,
+        alignItems: "center",
+        alignSelf: "center",
+        borderWidth: 1,
+        marginBottom: 5,
+        color: Colors.text,
+        borderColor: Colors.text,
     },
     image: {
-        //width: 133.3,
-        //height: 76,
         borderWidth: 1,
         alignItems: "center",
     },
 
     scrollvagas: {
         width: 300,
-        height: 350,
+        height: 340,
         alignSelf: 'center',
         display: 'flex',
-
     },
     menuinferior: {
         backgroundColor: Colors.menuinferior,

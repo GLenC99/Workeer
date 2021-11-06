@@ -17,9 +17,10 @@ const OcorrenciesList = () => {
                     //console.log(doc.data().datadaocorrencia);
                     const ocorrencie = {
                         id: doc.id,
-                        empresa: doc.data().empresa,
-                        datadaocorrencia: doc.data().datadaocorrencia,
-                        textDescription: doc.data().textDescription,
+                        company: doc.data().company,
+                        date: doc.data().date,
+                        location: doc.data().location,
+                        occurrence: doc.data().occurrence,
                     };
                     ocorrenciesAux.push(ocorrencie);
                 });

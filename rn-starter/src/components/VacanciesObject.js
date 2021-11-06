@@ -2,16 +2,16 @@ import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Colors } from '../constants/Colors';
 
-const VacanciesObjects = ({ vaga }) => {
+const VacanciesObjects = ({ vaga },{props}) => {
     //console.log("Vaga:" + vaga);
     return (
-        <View style={styles.card}>
+        <TouchableOpacity style={styles.card}>
             <Text style={styles.cardTitle}>{vaga.titulo}</Text>
             <Text>{vaga.link}</Text>
             <Text>{vaga.local}</Text>
             <Text>{vaga.numerodevagas}</Text>
-            <Text style={styles.textDescription}>Posição para gerenciar as operaçõe logísticas de uma transportadora </Text>
-        </View>
+            <Text style={styles.textDescription}>{vaga.textDescription} </Text>
+        </TouchableOpacity>
     );
 };
 

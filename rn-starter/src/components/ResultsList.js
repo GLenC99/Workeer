@@ -4,74 +4,44 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import VacanciesObject from './VacanciesObject';
 
 const ResultsList = ({results,searchtype,search,navigation}) => {
-    //const filtervalue = /*results.state.params ? results.state.params.vaga :*/ 'Campinas';
-    //const filter = /*results.state.params ? result.state.params.vaga :*/ 'Titulo';
-    //console.log("Results: " + results[0]);
-
     
-
-    console.log("Results: ", searchtype);
-
     const subresults = results.filter((vaga) => {
         if(search != ''){
             switch(searchtype) {
                 case 'cidade':
-                    return(vaga.local === search);
+                    return(vaga.local.match(search.toUpperCase()));
                   break;
                 
                 case 'titulo':
-                    return(vaga.titulo === search);
+                    return(vaga.titulo.match(search.toUpperCase()));
                   break;
           
                 case 'area':
-                    return(vaga.funcao === search);
-                  break;
-          
-                case 'reclamacoes':
-                    //inserir as reclamações
-                    //return(vaga.funcao) 
+                    return(vaga.funcao.match(search.toUpperCase()));
                   break;
           
                 default:
                   Alert.alert("Tipo de pesquisa não encontrados");
-              
+                  break;
                 }
-
-            if(searchtype === 'cidade'){
-                return(vaga.local === search);
-            }
         }else{
             return results;
         }
     });
 
-    const navigate = () => {
-        navigation.navigate('Vacancies',{vaga})
+    const navigate = (vaga) => {
+        //navigation.navigate('Vacancies',{vaga})
+        Alert.alert("Vaga Clicada");
     }
-    /*
-    if (filter){
-        subresults = results.filter((vaga) => {
-            return(vaga.local === filtervalue);
-        });
-        
-    }
-    */
-    /*
-    const funcaotitulo = results.filter((vaga) => {
-    });
-
-    const funcaodescricao = results.filter((vaga) => {
-
-    });
-    */
+    
     return(
         <View>
             <FlatList 
                 data = {subresults}
-                keyExractor={(result) => result.id}
+                keyExractor={(subresults) => subresults.id}
                 renderItem={({item}) => {
                     return(
-                        <TouchableOpacity onPress={/*navigate*/console.log("Touchable CLicado")}>
+                        <TouchableOpacity>
                             <VacanciesObject vaga = {item}/>
                         </TouchableOpacity>                  
                     );               

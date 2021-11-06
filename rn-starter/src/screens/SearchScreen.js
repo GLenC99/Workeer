@@ -18,7 +18,8 @@ const handleSearch = () => {
 //pesquisado em alguma parte e retornar para o usuário em uma lista
 
 
-const SearchScreen = ({ navigation }) => {
+const SearchScreen = ({ navigation, vacancies }) => {
+
     const genericUser = {
         name: 'Generic User Name',
         gender: 'naobinario',
@@ -26,32 +27,30 @@ const SearchScreen = ({ navigation }) => {
         password: 'password',
         date: '01-01-2001',
     };
-    //console.log("Abriu Search Screen - Vagas: ",vacancies);
+
     const user = navigation.state.params.user ? navigation.state.params.user : genericUser;
     const [vagas, setVagas] = useState([]);
     const [tipoPesq, setTipoPesq] = useState();
     const [searchValue, setSearchValue] = useState();
 
     useEffect(() => {
-        //setSearchValue('');
+        setSearchValue('');
+        setTipoPesq('titulo');
     }, []);
-
-    const getFirebaseVagas = () => {
+    
+    const IniciarPesquisa = () => {
         let vagasAux = [];
         firebase.firestore().collection("Vagas").get()
             .then((querySnapshot) => {
                 querySnapshot.forEach((doc) => {
-                    console.log('id', doc.id);
-                    console.log(doc.data().titulo);
-                    console.log(doc.data().descricao);
                     const vaga = {
                         id: doc.id,
-                        titulo: doc.data().titulo,
-                        link: doc.data().link,
-                        descricao: doc.data().descricao,
-                        local: doc.data().local,
-                        funcao: doc.data().funcao,
-                        numerodevagas: doc.data().numerodevagas
+                        titulo: doc.data().Titulo,
+                        link: doc.data().Link,
+                        descricao: doc.data().Descricao,
+                        local: doc.data().Local,
+                        funcao: doc.data().Funcao,
+                        numerodevagas: doc.data().NumerodeVagas
                     };
                     vagasAux.push(vaga);
                 });
@@ -61,14 +60,12 @@ const SearchScreen = ({ navigation }) => {
             .catch(function (error) {
                 console.error(error);
             });
+            //setVagasPesq(vacancies)
     };
-
-    //const vagas = navigation.state.params.vagas ? navigation.state.params.vagas:'';
-    //console.log("Tela Pesquisa");
-    //console.log("Vagas: ",{vagas});
+    
     const botaoPressionado = () => {
         Alert.alert("Pesquisa " + searchValue); // searchvalue = ''
-        getFirebaseVagas();
+        IniciarPesquisa();
     };
 
     const handleSearchSelect = (val) => {

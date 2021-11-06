@@ -27,6 +27,8 @@ const ReportProblemsScreen = ({navigation}) => {
         empresa: '',
         ocorrencia: '',
         datadaocorrencia: '',
+        localocorrencia: '',
+        descricaodetalhada: '',
     });
 
     const handleIncChange = (val) => {
@@ -56,14 +58,34 @@ const ReportProblemsScreen = ({navigation}) => {
         };
     };
 
+    const handlePlaceChange = (val) => {
+        if (val.length != 0) {
+            setProblem({
+                ...problem,
+                localocorrencia: val,
+            });
+        };
+    };
+
+    const handleDescriptionChange = (val) => {
+        if (val.length != 0) {
+            setProblem({
+                ...problem,
+                descricaodetalhada: val,
+            });
+        };
+    };
+
     const sendReport = () => {
         console.log(problem);
         firebase.firestore().collection("ProblemsReported").doc().set({
             company: problem.empresa,
-            occurrence: problem.ocorrencia,
             date: problem.datadaocorrencia,
+            location: problem.localocorrencia,
+            occurrence: problem.ocorrencia,
+            descript: problem.descricaodetalhada,
         }).then(() => { 
-            console.log("Ocorrência Reportada");
+            Alert.alert("Ocorrência Reportada");
             gotoSettings();
 
         }).catch((erro) => {
@@ -85,13 +107,23 @@ const ReportProblemsScreen = ({navigation}) => {
                     style={styles.input}
                     onChangeText={handleDateChange}
                 />
+                <Text style={styles.text}>Local (Cidade - Estado) da ocorrência</Text>
+                <TextInput
+                    style={styles.input}
+                    onChangeText={handlePlaceChange}
+                />
                 <Text style={styles.text}>Ocorrencia</Text>
                 <TextInput
                     style={styles.input}
                     onChangeText={handleProblemChange}
                 />
+                <Text style={styles.text}>Descreva com mais detalhes, se quiser, o ocorrido: </Text>
+                <TextInput
+                    style={styles.input}
+                    onChangeText={handleDescriptionChange}
+                />
             </View>
-            <TouchableOpacity onPress={() => { sendReport }}>
+            <TouchableOpacity onPress={sendReport}>
                 <View style={styles.buttonContainer}>
                     <View style={styles.button}>
                         <Text style={styles.buttonText}>Enviar </Text>
@@ -169,6 +201,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 2,
         borderColor: Colors.primary,
         color: Colors.primary,
+        fontWeight: 'bold',
     },
     standardTitle: {
         color: Colors.primary,
