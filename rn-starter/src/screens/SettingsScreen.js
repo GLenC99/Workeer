@@ -33,7 +33,7 @@ const SettingsScreen = ({ navigation }) => {
                     <Feather style={styles.styleFeather}
                         name="info" size={20}
                     />
-                    <Text onPress={() => Alert.alert('Sobre Workeer', 'Versão Beta 0.0.1')} style={styles.optionsText}>Sobre o aplicativo</Text>
+                    <Text onPress={() => Alert.alert('Sobre Workeer', 'Versão Alpha 0.0.1')} style={styles.optionsText}>Sobre o aplicativo</Text>
                 </View>
                 <View style={styles.inforows}>
                     <Feather style={styles.styleFeather}

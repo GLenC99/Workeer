@@ -77,7 +77,6 @@ const ReportProblemsScreen = ({navigation}) => {
     };
 
     const sendReport = () => {
-        console.log(problem);
         firebase.firestore().collection("ProblemsReported").doc().set({
             company: problem.empresa,
             date: problem.datadaocorrencia,
