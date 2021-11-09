@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { TextInput, StyleSheet, Text, Button, View, ScrollView, TouchableOpacity } from "react-native";
 import Feather from 'react-native-vector-icons/Feather';
 import firebase from 'firebase';
@@ -17,6 +17,35 @@ const LoginScreen = ({ navigation }) => {
     secureTextEntry: true,
   });
 
+  const [vagas, setVagas] = useState([]);
+
+  const getVacancies = () => {
+    let vagasAux = [];
+
+    firebase.firestore().collection("Vagas").get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          //console.log('id', doc.id);
+          //console.log(doc.data().Titulo);
+          //console.log(doc.data().Descricao);
+          const vaga = {
+            id: doc.id,
+            titulo: doc.data().Titulo,
+            link: doc.data().Link,
+            descricao: doc.data().Descricao,
+            local: doc.data().Local,
+            funcao: doc.data().Funcao,
+            numerodevagas: doc.data().NumerodeVagas
+          };
+          vagasAux.push(vaga);
+        });
+        //console.log("Vagas", vagasAux);
+        setVagas(vagasAux);
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+  }
   const handleEmailChange = (val) => {
     if (val.length != 0) {
       setData({
@@ -42,8 +71,9 @@ const LoginScreen = ({ navigation }) => {
     })
   };
 
-  const goToHome = () => {
-    navigation.navigate('Home', { user: 'user' });
+  const goToHome = (user) => {
+    //console.log("User Enviado para goToHome: ",user); Aqui está certo
+    navigation.navigate('Home', { user: user , vacancies: vagas});
   };
 
   const signinFirebase = (data) => {
@@ -52,9 +82,18 @@ const LoginScreen = ({ navigation }) => {
       firebase.firestore().collection("Users").doc(user.uid).get().then((firebasedata) => {
         //console.log(firebasedata.data());
         //console.log(firebasedata.data().gender);
-        let user = firebasedata.data();
-        console.log(user);
-        goToHome();
+        //let user = firebasedata.data();
+        const user = {
+          id: firebasedata.id,
+          date: firebasedata.data().date,
+          email: firebasedata.data().email,
+          gender: firebasedata.data().gender,
+          name: firebasedata.data().name,
+        };
+        //console.log("User Criado: ", user); Aqui está certo
+        getVacancies();
+        goToHome(user);
+
       }).catch((error) => {
         console.log(error);
       });
@@ -95,13 +134,13 @@ const LoginScreen = ({ navigation }) => {
           <Text onPress={() => navigation.navigate('Register2')} style={styles.register}>Primeira Vez? Cadastre-se</Text>
         </TouchableOpacity>
         <View style={styles.view2}>
-        <TouchableOpacity onPress={() => signinFirebase(data)}>
-                <View style={styles.buttonContainer}>
-                    <View style={styles.button}>
-                        <Text style={styles.buttonText}> Login </Text>
-                    </View>
-                </View>
-            </TouchableOpacity>
+          <TouchableOpacity onPress={() => signinFirebase(data)}>
+            <View style={styles.buttonContainer}>
+              <View style={styles.button}>
+                <Text style={styles.buttonText}> Login </Text>
+              </View>
+            </View>
+          </TouchableOpacity>
         </View>
       </View>
     </ScrollView>
@@ -175,69 +214,25 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     alignItems: 'center'
-},
-button: {
+  },
+  button: {
     backgroundColor: Colors.primary,
     color: Colors.primary,
     borderRadius: 7,
     width: 200,
     height: 48,
     alignSelf: 'center',
-},
-buttonText: {
+  },
+  buttonText: {
     alignSelf: 'center',
     fontSize: 20,
     fontWeight: 'bold',
     paddingTop: 10,
     color: Colors.text,
-},
-featherStyle: {
-  color: Colors.primary,
-},
+  },
+  featherStyle: {
+    color: Colors.primary,
+  },
 });
 
 export default LoginScreen;
-
-/*
-  fetch(
-    'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDpv3MTThp_aC0VbykbZa9VQP1gjKlv3uY',
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        email: 'guilherme.cossu@aulno.ifsp.edu.br',
-        password: 'password',
-        returnSecureToken: true
-      })
-    }
-  ).then((response) => { console.log("Login:" + response) }).catch((error) => { console.log(error) });
-*/
-
-/*
- async function signupHandler() {
-
-   console.log("Cheguei no sigupHandler");
-   // // dispatch(authActions.signup(formState.inputValues.email, formState.inputValues.password));
-   // dispatch(authActions.login('andre@gmail.com', 'ifsp@1234'));
-   const response = await fetch(
-     'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDpv3MTThp_aC0VbykbZa9VQP1gjKlv3uY',
-     {
-       method: 'POST',
-       headers: {
-         'Content-Type': 'application/json'
-       },
-       body: JSON.stringify({
-         //email: 'guilherme.cossu@aulno.ifsp.edu.br',
-         //password: 'password',
-         email: data.email,
-         password: data.password,
-         returnSecureToken: true,
-       })
-     }
-   );
-   const resData = await response.json();
-   console.log(resData);
- }
- */

@@ -1,15 +1,18 @@
 import React, { Component, useState, useEffect } from "react";
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Image, Button } from "react-native";
-import VacanciesObjects from "../components/VacanciesObject";
+//import VacanciesObjects from "../components/VacanciesObject";
 import Feather from 'react-native-vector-icons/Feather';
-import { FlatList } from "react-native-gesture-handler";
+//import { FlatList } from "react-native-gesture-handler";
 import ResultsList from "../components/ResultsList";
 import firebase from 'firebase';
 import { Colors } from '../constants/Colors';
 
 
-const HomeScreen = ({vacancies,navigation }) => {
+const HomeScreen = ({navigation, user ,vacancies }) => {
     console.log('[Home Screen inicializada]')
+    console.log("User trazido para Home Screen ", user);
+    console.log("Vagas trazidas para Home Screen ", vacancies);
+
     const [vagas, setVagas] = useState([]);
     const genericUser = {
         name: 'Generic User Name',
@@ -19,9 +22,9 @@ const HomeScreen = ({vacancies,navigation }) => {
         date: '01-01-2001',
     };
 
-    const user = navigation.state.params ? navigation.state.params : genericUser;
-    vacancies = vagas;
-    console.log("Vacancies Home Screen ", vacancies);
+    //const user = navigation.state.params ? navigation.state.params : genericUser;
+    //vacancies = vagas;
+    //console.log("Vacancies Home Screen ", vacancies);
 
     useEffect(() => {
         let vagasAux = [];
@@ -29,9 +32,9 @@ const HomeScreen = ({vacancies,navigation }) => {
         firebase.firestore().collection("Vagas").get()
             .then((querySnapshot) => {
                 querySnapshot.forEach((doc) => {
-                    console.log('id', doc.id);
-                    console.log(doc.data().Titulo);
-                    console.log(doc.data().Descricao);
+                    //console.log('id', doc.id);
+                    //console.log(doc.data().Titulo);
+                    //console.log(doc.data().Descricao);
                     const vaga = {
                         id: doc.id,
                         titulo: doc.data().Titulo,
@@ -43,7 +46,7 @@ const HomeScreen = ({vacancies,navigation }) => {
                     };
                     vagasAux.push(vaga);
                 });
-                console.log("Vagas", vagasAux);
+                //console.log("Vagas", vagasAux);
                 setVagas(vagasAux);
             })
             .catch(function (error) {
@@ -52,7 +55,7 @@ const HomeScreen = ({vacancies,navigation }) => {
 
     }, []);
 
-    console.log("Vagas: ", vagas);
+    //console.log("Vagas: ", vagas);
 
     return (
         <View style={styles.screen}>
@@ -60,7 +63,7 @@ const HomeScreen = ({vacancies,navigation }) => {
                     <Image source={require('../../assets/UserIcon.png')} style={styles.img} />
             </View>
             <View style={styles.faixasuperior}>
-                <Text style={styles.text}>Olá, {user.name}!</Text>
+                <Text style={styles.text}>Olá, {"user.name"}!</Text>
             </View>
             <View style={styles.vacancies}>
             <ScrollView style={styles.faixaVagas}>
@@ -178,47 +181,3 @@ const styles = StyleSheet.create({
 });
 
 export default HomeScreen;
-
-/*
-<ScrollView style={styles.scrollvagas, { backgroundColor: '#a3a3c2', width: 300, height: 300, alignSelf: "center", marginBottom: 30 }}>
-<VacanciesObjects nomevaga="vaga1" link="http://vaga1" localvaga="Campinas SP" numvagas={1} />
-                <VacanciesObjects nomevaga="vaga2" link="http://vaga2" localvaga="Sumaré SP" numvagas={2} />
-                <VacanciesObjects nomevaga="vaga3" link="http://vaga3" localvaga="Hortolandia SP" numvagas={3} />
-                <VacanciesObjects nomevaga="vaga4" link="http://vaga4" localvaga="Campinas SP" numvagas={4} />
-                <VacanciesObjects nomevaga="vaga5" link="http://vaga5" localvaga="Campinas SP" numvagas={5} />
-                <VacanciesObjects nomevaga="vaga6" link="http://vaga6" localvaga="Campinas SP" numvagas={6} />
-                <VacanciesObjects nomevaga="vaga7" link="http://vaga7" localvaga="Sumaré SP" numvagas={7} />
-</ScrollView>
-*/
-
-/*
- const getVagasInfo = () => {
-        console.log("Entrou na função");
-        //console.log(firebase.firestore().collection("Vagas").get()); //n funfou
-        /*
-        const q = query(collection(db, "Vagas"), where("Local", "==", "CAMPINAS"));
-    
-        const querySnapshot = getDocs(q);
-        querySnapshot.forEach((doc) => {
-            // doc.data() is never undefined for query doc snapshots
-            console.log(doc.id, " => ", doc.data());
-        });
-        
-
-        // firebase.firestore().collection('Vagas').get().then(function (querySnapshot) {
-        //     
-        //     if (querySnapshot.data().foreach) {
-        //         console.log(querySnapshot.data());
-        //     } else {
-        //         console.log("No such document!");
-        //     }
-        //     
-        //     querySnapshot.foreach((doc) => {
-        //         console.log("Documento: ", doc);
-
-        //     })
-        // }).catch(function (error) {
-        //     console.error(error);
-        // });
-    }
-*/
