@@ -5,9 +5,9 @@ import { Colors } from "../constants/Colors";
 const nome = "Nome da Pessoa";
 
 //precisa receber as informações do usuario para poder associar reclamações e alterá-las nessa tela, 
-const SettingsScreen = ({ navigation }) => {
+const SettingsScreen = ({ navigation, user, vacancies }) => {
 
-
+    /*
     const genericUser = {
         name: 'Generic User Name',
         gender: 'naobinario',
@@ -15,8 +15,9 @@ const SettingsScreen = ({ navigation }) => {
         password: 'password',
         date: '01-01-2001',
     };
-    const user = navigation.state.params.user ? navigation.state.params.user : genericUser;
-
+    */
+    const usuario = navigation.state.params.user;
+    const vagas = navigation.state.params.vacancies;
 
     return (
         <View>
@@ -26,7 +27,7 @@ const SettingsScreen = ({ navigation }) => {
                 />
             </View>
             <View style={styles.faixasuperior}>
-                <Text style={{ marginBottom: 20 }, { color: Colors.text }}>{user.name}</Text>
+                <Text style={{ marginBottom: 20 }, { color: Colors.text }}>{usuario.name}</Text>
             </View>
             <View style={styles.conteudo}>
                 <View style={styles.inforows}>
@@ -39,36 +40,36 @@ const SettingsScreen = ({ navigation }) => {
                     <Feather style={styles.styleFeather}
                         name="clipboard" size={20}
                     />
-                    <Text onPress={() => navigation.navigate('UserOpinion', { user: user })} style={styles.optionsText}>Opine sobre o sistema</Text>
+                    <Text onPress={() => navigation.navigate('UserOpinion', { user: usuario, vacancies: vagas })} style={styles.optionsText}>Opine sobre o sistema</Text>
                 </View>
                 <View style={styles.inforows}>
                     <Feather style={styles.styleFeather}
                         name="edit" size={20}
                     />
-                    <Text onPress={() => navigation.navigate('AlterInfo', { user: user })} style={styles.optionsText}>Alterar informações pessoais</Text>
+                    <Text onPress={() => navigation.navigate('AlterInfo', { user: usuario, vacancies: vagas })} style={styles.optionsText}>Alterar informações pessoais</Text>
                 </View>
                 <View style={styles.inforows}>
                     <Feather style={styles.styleFeather}
                         name="frown" size={20}
                     />
-                    <Text onPress={() => navigation.navigate('ReportProblems', { user: user })} style={styles.optionsText}>Reportar problemas</Text>
+                    <Text onPress={() => navigation.navigate('ReportProblems', { user: usuario, vacancies: vagas })} style={styles.optionsText}>Reportar problemas</Text>
                 </View>
             </View>
                 <View style={styles.button}>
-                    <Text style={styles.buttonText} onPress={() => navigation.navigate('Login', { user: user })}> Sair </Text>
+                    <Text style={styles.buttonText} onPress={() => navigation.navigate('Login')}> Sair </Text>
                 </View>
-            <View style={styles.menuinferior}>
-                <TouchableOpacity onPress={() => navigation.navigate('Home', { user: user })} style={styles.image}>
+                <View style={styles.menuinferior}>
+                <TouchableOpacity onPress={() => navigation.navigate('Home', { user: usuario, vacancies: vagas })} style={styles.image}>
                     <Feather style={styles.styleFeather}
                         name="home" size={50}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('Search', { user: user })} style={styles.image}>
+                <TouchableOpacity onPress={() => navigation.navigate('Search', { user: usuario, vacancies: vagas })} style={styles.image}>
                     <Feather style={styles.styleFeather}
                         name="search" size={50}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('Settings', { user: user })} style={styles.image}>
+                <TouchableOpacity onPress={() => navigation.navigate('Settings', { user: usuario, vacancies: vagas })} style={styles.image}>
                     <Feather style={styles.styleFeather}
                         name="settings" size={50}
                     />
@@ -131,6 +132,7 @@ const styles = StyleSheet.create({
     },
 
     conteudo: {
+        marginTop:50,
         alignItems: "flex-start",
         marginHorizontal: 5,
     },
@@ -159,7 +161,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignSelf: "center",
         position: 'absolute',
-        bottom: -180,
+        bottom: -200,
         borderWidth: 1,
     },
     header: {

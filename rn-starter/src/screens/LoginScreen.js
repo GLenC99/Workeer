@@ -17,8 +17,8 @@ const LoginScreen = ({ navigation }) => {
     secureTextEntry: true,
   });
 
-  const [vagas, setVagas] = useState([]);
-
+  //const [vagas, setVagas] = useState([]);
+  /*
   const getVacancies = () => {
     let vagasAux = [];
 
@@ -46,6 +46,7 @@ const LoginScreen = ({ navigation }) => {
         console.error(error);
       });
   }
+    */
   const handleEmailChange = (val) => {
     if (val.length != 0) {
       setData({
@@ -71,9 +72,9 @@ const LoginScreen = ({ navigation }) => {
     })
   };
 
-  const goToHome = (user) => {
-    //console.log("User Enviado para goToHome: ",user); Aqui está certo
-    navigation.navigate('Home', { user: user , vacancies: vagas});
+  const goToHome = (user,vagasAux) => {
+    //console.log("User Enviado para goToHome: ",vagasAux); //Aqui está certo
+    navigation.navigate('Home', { user: user, vacancies: vagasAux });
   };
 
   const signinFirebase = (data) => {
@@ -91,8 +92,38 @@ const LoginScreen = ({ navigation }) => {
           name: firebasedata.data().name,
         };
         //console.log("User Criado: ", user); Aqui está certo
-        getVacancies();
-        goToHome(user);
+        //getVacancies();
+
+        let vagasAux = [];
+
+        firebase.firestore().collection("Vagas").get()
+          .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+              //console.log('id', doc.id);
+              //console.log(doc.data().Titulo);
+              //console.log(doc.data().Descricao);
+              const vaga = {
+                id: doc.id,
+                titulo: doc.data().Titulo,
+                link: doc.data().Link,
+                descricao: doc.data().Descricao,
+                local: doc.data().Local,
+                funcao: doc.data().Funcao,
+                numerodevagas: doc.data().NumerodeVagas
+              };
+              vagasAux.push(vaga);
+            });
+            //console.log("Vagas Aux", vagasAux);
+            //setVagas(vagasAux);
+            //console.log("Vagas: ", vagas);
+            goToHome(user,vagasAux);
+
+          })
+          .catch(function (error) {
+            console.error(error);
+          });
+
+        //goToHome(user);
 
       }).catch((error) => {
         console.log(error);

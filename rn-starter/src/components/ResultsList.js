@@ -21,7 +21,7 @@ const ResultsList = ({ results, searchtype, search, navigation }) => {
                     break;
 
                 default:
-                    Alert.alert("Tipo de pesquisa não encontrados");
+                    //Alert.alert("Tipo de pesquisa não encontrados");
                     break;
             }
         } else {

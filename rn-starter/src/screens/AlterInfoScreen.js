@@ -7,9 +7,10 @@ import { Colors } from "../constants/Colors";
 
 //Precisa conseguir reconhecer o usuario e postar as informações novas, substituindo as antigas, 
 //o valor por default pode ser o que já esta gravado no firebase do usuario
-const AlterInfoScreen = ({ navigation }) => {
+const AlterInfoScreen = ({ navigation, user, vacancies }) => {
 
-    const user = navigation.state.params ? navigation.state.params.user : 'andre';
+    const usuario = navigation.state.params.user;
+    const vagas = navigation.state.params.vacancies;
     
     const [data, setData] = React.useState({
         name: '',
@@ -162,7 +163,7 @@ const AlterInfoScreen = ({ navigation }) => {
                     </View>
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('Settings', { user: user })}>
+            <TouchableOpacity onPress={() => navigation.navigate('Settings', { user: usuario , vacancies: vagas })}>
                 <View style={styles.buttonContainer, {marginTop:20}}>
                     <View style={styles.button}>
                         <Text style={styles.buttonText}> Voltar </Text>

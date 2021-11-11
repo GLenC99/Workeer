@@ -13,7 +13,7 @@ const SearchBar = ( props ) => {
 
 const styles = StyleSheet.create({
     container:{
-        width: '45%',
+        width: '60%',
         height: 52,
         backgroundColor: 'white',
         borderWidth:1,

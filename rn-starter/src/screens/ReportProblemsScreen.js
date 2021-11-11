@@ -3,24 +3,17 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity,Alert} from "react-
 import firebase from 'firebase';
 import { Colors } from "../constants/Colors";
 
-const ReportProblemsScreen = ({navigation}) => {
+const ReportProblemsScreen = ({navigation, user, vacancies}) => {
     //Não está enviando as ocorrencias, nem dando um retorno pra explicar
-    const genericUser = {
-        name: 'Generic User Name',
-        gender: 'naobinario',
-        email: 'genericusname@email.com',
-        password: 'password',
-        date: '01-01-2001',
-    };
-
-    const user = navigation.state.params ? navigation.state.params.user : genericUser;
+    const usuario = navigation.state.params.user;
+    const vagas = navigation.state.params.vacancies;
     
     useEffect(() => {
         Alert.alert('OBS', 'Caso o problema seja o sistema em si e não uma ocorrencia relacionada as vagas ou empresa recomendada por favor retorne a tela de Configurações e reporte na tela de Opinião sobre o sistema');
     }, []);
     
     const gotoSettings = () => {
-        navigation.navigate('Settings',{user:user});
+        navigation.navigate('Settings',{ user: usuario , vacancies: vagas });
     }
 
     const [problem, setProblem] = React.useState({
@@ -129,7 +122,7 @@ const ReportProblemsScreen = ({navigation}) => {
                     </View>
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('Settings', { user: user })}>
+            <TouchableOpacity onPress={() => navigation.navigate('Settings', { user: usuario , vacancies: vagas })}>
                 <View style={styles.buttonContainer,{marginTop:20}}>
                     <View style={styles.button}>
                         <Text style={styles.buttonText}> Voltar </Text>

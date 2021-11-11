@@ -18,28 +18,27 @@ const handleSearch = () => {
 //pesquisado em alguma parte e retornar para o usuário em uma lista
 
 
-const SearchScreen = ({ navigation, vacancies }) => {
+const SearchScreen = ({ navigation, user, vacancies }) => {
 
-    const genericUser = {
-        name: 'Generic User Name',
-        gender: 'naobinario',
-        email: 'genericusname@email.com',
-        password: 'password',
-        date: '01-01-2001',
-    };
+    const vagas = navigation.state.params.vacancies;
+    const usuario = navigation.state.params.user;
+    //console.log('Usuario', usuario);
+    //console.log('Vagas', vagas);
 
-    const user = navigation.state.params.user ? navigation.state.params.user : genericUser;
-    const [vagas, setVagas] = useState([]);
+    //const [vagas, setVagas] = useState([]);
     const [tipoPesq, setTipoPesq] = useState();
     const [searchValue, setSearchValue] = useState();
-
+    //console.log("VAGAS: ", vagas);
     useEffect(() => {
         setSearchValue('');
         setTipoPesq('titulo');
     }, []);
     
     const IniciarPesquisa = () => {
-        let vagasAux = [];
+        vagas = navigation.state.params.vacancies;
+        //vagas = navigation.state.params.vacancies;
+        //let vagasAux = [];
+        /*
         firebase.firestore().collection("Vagas").get()
             .then((querySnapshot) => {
                 querySnapshot.forEach((doc) => {
@@ -61,6 +60,7 @@ const SearchScreen = ({ navigation, vacancies }) => {
                 console.error(error);
             });
             //setVagasPesq(vacancies)
+            */
     };
     
     const botaoPressionado = () => {
@@ -70,12 +70,12 @@ const SearchScreen = ({ navigation, vacancies }) => {
 
     const handleSearchSelect = (val) => {
         setTipoPesq(val);
-        console.log(tipoPesq);
+        //console.log(tipoPesq);
     };
 
     const updateSearch = (search) => {
         setSearchValue(search);
-        console.log(searchValue);
+        //console.log(searchValue);
     }
 
     return (
@@ -94,18 +94,13 @@ const SearchScreen = ({ navigation, vacancies }) => {
                         <Picker.Item label="Ocorrencias Reportadas" value="reclamacoes" style={styles.pickerItems} />
                     </Picker>
                 </View>
-                <TouchableOpacity onPress={botaoPressionado} style={styles.botaoPesq}>
-                    <Feather style={styles.styleSearch}
-                        name="search" size={40}
-                    />
-                </TouchableOpacity>
             </View>
             {tipoPesq == 'reclamacoes' ?
                 <View style={styles.ocorrenciesList}>
                     <ScrollView>
                         <View>
                             <Text style={{ color: 'red', alignSelf: 'center' }}> Ocorrencias Reportadas </Text>
-                            <OcorrenciesList/>
+                            <OcorrenciesList style={{marginBottom:5}}/>
                         </View>
                     </ScrollView>
                 </View>
@@ -115,24 +110,24 @@ const SearchScreen = ({ navigation, vacancies }) => {
                         <View>
                             <Text style={{ color: Colors.text, alignSelf: 'center' }}> Vagas Pesquisadas </Text>
                             <ResultsList results={vagas} navigation={navigation}
-                                search={searchValue} searchtype={tipoPesq}
+                                search={searchValue} searchtype={tipoPesq} style={{marginBottom:5}}
                             />
                         </View>
                     </ScrollView>
                 </View>
             }
             <View style={styles.menuinferior}>
-                <TouchableOpacity onPress={() => navigation.navigate('Home', { user: user })} style={styles.image}>
+                <TouchableOpacity onPress={() => navigation.navigate('Home', { user: usuario, vacancies: vagas })} style={styles.image}>
                     <Feather style={styles.styleFeather}
                         name="home" size={50}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('Search', { user: user })} style={styles.image}>
+                <TouchableOpacity onPress={() => navigation.navigate('Search', { user: usuario, vacancies: vagas })} style={styles.image}>
                     <Feather style={styles.styleFeather}
                         name="search" size={50}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('Settings', { user: user })} style={styles.image}>
+                <TouchableOpacity onPress={() => navigation.navigate('Settings', { user: usuario, vacancies: vagas })} style={styles.image}>
                     <Feather style={styles.styleFeather}
                         name="settings" size={50}
                     />
@@ -175,7 +170,7 @@ const styles = StyleSheet.create({
     },
 
     vacanciesFound: {
-        marginTop: 23,
+        marginTop: 60,
         height: 400,
         width: 400,
         alignItems: "center",
@@ -187,13 +182,13 @@ const styles = StyleSheet.create({
     },
 
     ocorrenciesList: {
-        marginTop: 23,
+        marginTop: 60,
         height: 400,
         width: 400,
         alignItems: "center",
         alignSelf: "center",
         borderWidth: 1,
-        marginBottom: 10,
+        //marginBottom: 10,
         color: 'red',
         borderColor: 'red',
     },
@@ -219,7 +214,7 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.menuinferior,
         flexDirection: "row",
         alignSelf: "center",
-        bottom: -35,
+        bottom: -70,
         borderWidth: 1,
     },
     pickerItems: {

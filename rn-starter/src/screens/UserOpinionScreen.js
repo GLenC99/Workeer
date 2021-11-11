@@ -3,16 +3,10 @@ import { StyleSheet, Text, View, Alert, TextInput, TouchableOpacity, TextArea } 
 import firebase from 'firebase';
 import { Colors } from "../constants/Colors";
 
-const UserOpinionScreen = ({ navigation }) => {
-    const genericUser = {
-        name: 'Generic User Name',
-        gender: 'naobinario',
-        email: 'genericusname@email.com',
-        password: 'password',
-        date: '01-01-2001',
-    };
-
-    const user = navigation.state.params ? navigation.state.params.user : genericUser;
+const UserOpinionScreen = ({ navigation, user, vacancies}) => {
+    
+    const usuario = navigation.state.params.user;
+    const vagas = navigation.state.params.vacancies;
     const equipeemail = "emailworkeer@email.com";
     const [opinion, setOpinion] = useState();
 
@@ -21,7 +15,7 @@ const UserOpinionScreen = ({ navigation }) => {
     }, []);
 
     const gotoSettings = () => {
-        navigation.navigate('Settings', { user: user });
+        navigation.navigate('Settings', { user: usuario , vacancies: vagas });
     }
     const handleOpinion = (val) => {
         if (val.length != 0) {
@@ -65,7 +59,7 @@ const UserOpinionScreen = ({ navigation }) => {
                 </View>
             </TouchableOpacity>
             
-            <TouchableOpacity onPress={() => navigation.navigate('Settings', { user: user })}>
+            <TouchableOpacity onPress={gotoSettings}>
                 <View style={styles.buttonContainer, { marginTop: 20 }}>
                     <View style={styles.button}>
                         <Text style={styles.buttonText}> Voltar </Text>

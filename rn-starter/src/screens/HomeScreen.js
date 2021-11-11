@@ -8,12 +8,12 @@ import firebase from 'firebase';
 import { Colors } from '../constants/Colors';
 
 
-const HomeScreen = ({navigation, user ,vacancies }) => {
-    console.log('[Home Screen inicializada]')
-    console.log("User trazido para Home Screen ", user);
-    console.log("Vagas trazidas para Home Screen ", vacancies);
+const HomeScreen = ({ navigation, user, vacancies }) => {
+    //console.log('[Home Screen inicializada]')
+    //console.log("User trazido para Home Screen ", navigation.state.params.user);
+    //console.log("Vagas trazidas para Home Screen ", navigation.state.params.vacancies);
 
-    const [vagas, setVagas] = useState([]);
+    //const [vagas, setVagas] = useState([]);
     const genericUser = {
         name: 'Generic User Name',
         gender: 'naobinario',
@@ -21,12 +21,17 @@ const HomeScreen = ({navigation, user ,vacancies }) => {
         password: 'password',
         date: '01-01-2001',
     };
+    const vagas = navigation.state.params.vacancies;
+    const usuario = navigation.state.params.user;
 
-    //const user = navigation.state.params ? navigation.state.params : genericUser;
+    //console.log('Usuario', usuario);
+    //console.log('Vagas', vagas);
+
     //vacancies = vagas;
     //console.log("Vacancies Home Screen ", vacancies);
-
+    /*
     useEffect(() => {
+        
         let vagasAux = [];
 
         firebase.firestore().collection("Vagas").get()
@@ -47,41 +52,41 @@ const HomeScreen = ({navigation, user ,vacancies }) => {
                     vagasAux.push(vaga);
                 });
                 //console.log("Vagas", vagasAux);
-                setVagas(vagasAux);
+                //setVagas(vagasAux);
             })
             .catch(function (error) {
                 console.error(error);
             });
-
+           
     }, []);
-
+     */
     //console.log("Vagas: ", vagas);
 
     return (
         <View style={styles.screen}>
             <View style={styles.faixaUserIcon}>
-                    <Image source={require('../../assets/UserIcon.png')} style={styles.img} />
+                <Image source={require('../../assets/UserIcon.png')} style={styles.img} />
             </View>
             <View style={styles.faixasuperior}>
-                <Text style={styles.text}>Olá, {"user.name"}!</Text>
+                <Text style={styles.text}>Olá, {usuario.name}!</Text>
             </View>
             <View style={styles.vacancies}>
-            <ScrollView style={styles.faixaVagas}>
-                <ResultsList results={vagas} navigation={navigation} search={''} searchtype={''} > </ResultsList>
-            </ScrollView>
+                <ScrollView style={styles.faixaVagas}>
+                    <ResultsList results={vagas} navigation={navigation} search={''} searchtype={''} > </ResultsList>
+                </ScrollView>
             </View>
             <View style={styles.menuinferior}>
-                <TouchableOpacity onPress={() => navigation.navigate('Home', { user: user },{vacancies: vacancies})} style={styles.image}>
+                <TouchableOpacity onPress={() => navigation.navigate('Home', { user: usuario, vacancies: vagas })} style={styles.image}>
                     <Feather style={styles.styleFeather}
                         name="home" size={50}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('Search', { user: user }, {vacancies: vacancies})} style={styles.image}>
+                <TouchableOpacity onPress={() => navigation.navigate('Search', { user: usuario, vacancies: vagas })} style={styles.image}>
                     <Feather style={styles.styleFeather}
                         name="search" size={50}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('Settings', { user: user }, {vacancies: vacancies})} style={styles.image}>
+                <TouchableOpacity onPress={() => navigation.navigate('Settings', { user: usuario, vacancies: vagas })} style={styles.image}>
                     <Feather style={styles.styleFeather}
                         name="settings" size={50}
                     />
