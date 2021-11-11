@@ -4,7 +4,6 @@ import firebase from 'firebase';
 import { Colors } from "../constants/Colors";
 
 const ReportProblemsScreen = ({navigation, user, vacancies}) => {
-    //Não está enviando as ocorrencias, nem dando um retorno pra explicar
     const usuario = navigation.state.params.user;
     const vagas = navigation.state.params.vacancies;
     
@@ -226,26 +225,3 @@ const styles = StyleSheet.create({
 });
 
 export default ReportProblemsScreen;
-
-/*
-<View style={styles.faixaSuperior}>
-                <Text fontSize = {10}>Por favor nos apresente problemas e situações desconfortáveis similares, abaixo, junto das informações do ocorrido</Text>
-            </View>
-            <View style={styles.companyLine}>
-                <TextInput placeholder="Empresa" onChangeText={handleIncChange} />
-            </View>
-            <View style={styles.dateLine}>
-                <TextInput placeholder="Data da ocorrencia (Dia/Mês/Ano ou Mês/Ano)" onChangeText={handleDateChange}/>
-            </View>
-            <View style={styles.occurrencyLine}>
-                <TextInput placeholder="Ocorrência" onChangeText={handleProblemChange} />
-            </View>
-            <View style={styles.sendButton}>
-                <TouchableOpacity onPress={sendReport}>
-                    <Text>Enviar</Text>
-                </TouchableOpacity>
-            </View>
-            <View style={styles.warningStyle}>
-                <Text>Caso o problema seja o sistema em si e não uma ocorrencia relacionada as vagas ou empresa recomendada por favor retorne a tela de Configurações e reporte na tela de Opinião sobre o sistema </Text>
-            </View>
-*/

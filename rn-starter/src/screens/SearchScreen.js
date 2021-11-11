@@ -22,60 +22,19 @@ const SearchScreen = ({ navigation, user, vacancies }) => {
 
     const vagas = navigation.state.params.vacancies;
     const usuario = navigation.state.params.user;
-    //console.log('Usuario', usuario);
-    //console.log('Vagas', vagas);
-
-    //const [vagas, setVagas] = useState([]);
     const [tipoPesq, setTipoPesq] = useState();
     const [searchValue, setSearchValue] = useState();
-    //console.log("VAGAS: ", vagas);
     useEffect(() => {
         setSearchValue('');
         setTipoPesq('titulo');
     }, []);
-    
-    const IniciarPesquisa = () => {
-        vagas = navigation.state.params.vacancies;
-        //vagas = navigation.state.params.vacancies;
-        //let vagasAux = [];
-        /*
-        firebase.firestore().collection("Vagas").get()
-            .then((querySnapshot) => {
-                querySnapshot.forEach((doc) => {
-                    const vaga = {
-                        id: doc.id,
-                        titulo: doc.data().Titulo,
-                        link: doc.data().Link,
-                        descricao: doc.data().Descricao,
-                        local: doc.data().Local,
-                        funcao: doc.data().Funcao,
-                        numerodevagas: doc.data().NumerodeVagas
-                    };
-                    vagasAux.push(vaga);
-                });
-                console.log("Vagas", vagasAux);
-                setVagas(vagasAux);
-            })
-            .catch(function (error) {
-                console.error(error);
-            });
-            //setVagasPesq(vacancies)
-            */
-    };
-    
-    const botaoPressionado = () => {
-        Alert.alert("Pesquisa " + searchValue); // searchvalue = ''
-        IniciarPesquisa();
-    };
 
     const handleSearchSelect = (val) => {
         setTipoPesq(val);
-        //console.log(tipoPesq);
     };
 
     const updateSearch = (search) => {
         setSearchValue(search);
-        //console.log(searchValue);
     }
 
     return (
@@ -170,25 +129,23 @@ const styles = StyleSheet.create({
     },
 
     vacanciesFound: {
-        marginTop: 60,
+        marginTop: 50,
         height: 400,
         width: 400,
         alignItems: "center",
         alignSelf: "center",
         borderWidth: 1,
-        marginBottom: 10,
         color: Colors.text,
         borderColor: Colors.text,
     },
 
     ocorrenciesList: {
-        marginTop: 60,
+        marginTop: 50,
         height: 400,
         width: 400,
         alignItems: "center",
         alignSelf: "center",
         borderWidth: 1,
-        //marginBottom: 10,
         color: 'red',
         borderColor: 'red',
     },
@@ -214,7 +171,7 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.menuinferior,
         flexDirection: "row",
         alignSelf: "center",
-        bottom: -70,
+        bottom: -17,
         borderWidth: 1,
     },
     pickerItems: {
@@ -237,43 +194,3 @@ const styles = StyleSheet.create({
 });
 
 export default SearchScreen;
-
-/*
-<View style={styles.menuinferior}>
-                    <TouchableOpacity onPress={() => navigation.navigate('Home', { user: user })} style={styles.image}>
-                        <Feather style={styles.styleFeather}
-                            name="home" size={50}
-                        />
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => navigation.navigate('Search', { user: user })} style={styles.image}>
-                        <Feather style={styles.styleFeather}
-                            name="search" size={50}
-                        />
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => navigation.navigate('Settings', { user: user })} style={styles.image}>
-                        <Feather style={styles.styleFeather}
-                            name="settings" size={50}
-                        />
-                    </TouchableOpacity>
-                </View>
-
-
-
-                <View style={styles.vacanciesFound}>
-                    <ScrollView >
-                        {tipoPesq == 'reclamacoes' ?
-                            <View>
-                            <Text style={{ color: 'red', alignSelf: 'center' }}>Empresas acusadas por usuários</Text>
-                            </View>
-                            :
-                            <View>
-                                <Text style={{ color: Colors.text, alignSelf: 'center' }}> Vagas Pesquisadas </Text>
-                                <ResultsList results={vagas} navigation={navigation}
-                                    search={searchValue} searchtype={tipoPesq}
-                                />
-                            </View>
-                        }
-                    </ScrollView>
-                </View>
-
-*/

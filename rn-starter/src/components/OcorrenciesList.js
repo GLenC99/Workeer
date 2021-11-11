@@ -12,9 +12,6 @@ const OcorrenciesList = () => {
         firebase.firestore().collection("ProblemsReported").get()
             .then((querySnapshot) => {
                 querySnapshot.forEach((doc) => {
-                    //console.log('id', doc.id);
-                    //console.log(doc.data().empresa);
-                    //console.log(doc.data().datadaocorrencia);
                     const ocorrencie = {
                         id: doc.id,
                         company: doc.data().company,
@@ -24,7 +21,6 @@ const OcorrenciesList = () => {
                     };
                     ocorrenciesAux.push(ocorrencie);
                 });
-                console.log("Ocorrencias", ocorrenciesAux);
                 setOcorrencies(ocorrenciesAux);
             })
             .catch(function (error) {

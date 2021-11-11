@@ -5,8 +5,6 @@ import DatePicker from 'react-native-datepicker';
 import * as Animatable from 'react-native-animatable';
 import { Colors } from "../constants/Colors";
 
-//Precisa conseguir reconhecer o usuario e postar as informações novas, substituindo as antigas, 
-//o valor por default pode ser o que já esta gravado no firebase do usuario
 const AlterInfoScreen = ({ navigation, user, vacancies }) => {
 
     const usuario = navigation.state.params.user;

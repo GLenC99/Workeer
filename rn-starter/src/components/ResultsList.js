@@ -29,11 +29,6 @@ const ResultsList = ({ results, searchtype, search, navigation }) => {
         }
     });
 
-    const navigate = (vaga) => {
-        //navigation.navigate('Vacancies',{vaga})
-        Alert.alert("Vaga Clicada");
-    }
-
     return (
         <View>
             <FlatList

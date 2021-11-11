@@ -24,8 +24,8 @@ const UserOpinionScreen = ({ navigation, user, vacancies}) => {
     };
 
     const sendOpinion = () => {
-        console.log(opinion);
         firebase.firestore().collection("UserOpinions").doc().set({
+            id: usuario.id,
             opinion: opinion,
         }).then(() => {
             console.log("Opinião Inserida");

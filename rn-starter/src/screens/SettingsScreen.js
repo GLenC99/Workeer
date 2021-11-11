@@ -4,18 +4,8 @@ import Feather from 'react-native-vector-icons/Feather';
 import { Colors } from "../constants/Colors";
 const nome = "Nome da Pessoa";
 
-//precisa receber as informações do usuario para poder associar reclamações e alterá-las nessa tela, 
 const SettingsScreen = ({ navigation, user, vacancies }) => {
 
-    /*
-    const genericUser = {
-        name: 'Generic User Name',
-        gender: 'naobinario',
-        email: 'genericusname@email.com',
-        password: 'password',
-        date: '01-01-2001',
-    };
-    */
     const usuario = navigation.state.params.user;
     const vagas = navigation.state.params.vacancies;
 
@@ -161,7 +151,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignSelf: "center",
         position: 'absolute',
-        bottom: -200,
+        bottom: -130,
         borderWidth: 1,
     },
     header: {

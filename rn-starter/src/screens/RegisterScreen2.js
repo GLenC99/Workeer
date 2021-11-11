@@ -1,23 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, Alert, Picker } from "react-native";
 import * as Animatable from 'react-native-animatable';
-import { color } from "react-native-reanimated";
 import Feather from 'react-native-vector-icons/Feather';
 import DatePicker from 'react-native-datepicker';
-import { getAuth, onAuthStateChanged } from "firebase/auth";
 import firebase from 'firebase';
 import { Colors } from "../constants/Colors";
 
-// Esse stack overflow talvez ajude com um erro no firestore https://stackoverflow.com/questions/46636255/firebase-firestore-is-not-a-function-when-trying-to-initialize-cloud-firestore
-// Firestore link https://firebase.google.com/docs/firestore/quickstart?hl=pt#web-version-9
-//Gerenciar Usuarios Firebase https://firebase.google.com/docs/auth/web/manage-users?hl=pt-br
-// dúvida que pode ser útil https://github.com/firebase/quickstart-js/issues/12
-
-/*
-guilherme.cossu@aluno.ifsp.edu.br -> password
-user1@email.com --> user1passwrod
-
-*/
 const RegisterScreen2 = ({ navigation }) => {
 
     const [data, setData] = React.useState({
@@ -101,22 +89,6 @@ const RegisterScreen2 = ({ navigation }) => {
             console.log('[RegisterScreen 2] Usuário criado com sucesso.', response.user.uid);
             let user = response.user;
             let userId = response.user.uid
-            // console.log("User: " + user);
-            // console.log("Resposta:" + resp)
-            //pega o id do auth
-            // const auth = getAuth(); //Erro: Firebase.default.getAuth is not a function.
-            // onAuthStateChanged(auth, (user) => {
-            //     if (user) {
-            //         // User is signed in, see docs for a list of available properties
-            //         // https://firebase.google.com/docs/reference/js/firebase.User
-            //         const uid = user.uid;
-            //         console.log(uid);
-            //     } else {
-            //         // User is signed out
-            //         // ...
-            //         console.log("user is signed out");
-            //     }
-            // });
 
             //grava no firestore
             firebase.firestore().collection("Users").doc(userId).set({
@@ -212,14 +184,6 @@ const RegisterScreen2 = ({ navigation }) => {
                     </View>
                 </View>
             </TouchableOpacity>
-
-
-            <Text>{data.name}</Text>
-            <Text>{data.email}</Text>
-            <Text>{data.password}</Text>
-            <Text>{data.gender}</Text>
-            <Text>{data.date}</Text>
-
         </View>
     );
 };
@@ -313,73 +277,3 @@ const styles = StyleSheet.create({
 });
 
 export default RegisterScreen2;
-
-/*
-Erro:
-_Firebase.default.getAuth is not a function. (In '_Firebase.default.getAuth()', '_Firebase.default.getAuth' is undefined)
-at src\screens\RegisterScreen2.js:112:25 in fetch.then$argument_0
-at node_modules\react-native\node_modules\promise\setimmediate\core.js:37:13 in tryCallOne
-at node_modules\react-native\node_modules\promise\setimmediate\core.js:123:24 in setImmediate$argument_0
-at node_modules\react-native\Libraries\Core\Timers\JSTimers.js:130:14 in _callTimer
-at node_modules\react-native\Libraries\Core\Timers\JSTimers.js:181:14 in _callImmediatesPass
-at node_modules\react-native\Libraries\Core\Timers\JSTimers.js:441:30 in callImmediates
-at node_modules\react-native\Libraries\BatchedBridge\MessageQueue.js:387:6 in __callImmediates
-at node_modules\react-native\Libraries\BatchedBridge\MessageQueue.js:135:6 in __guard$argument_0
-at node_modules\react-native\Libraries\BatchedBridge\MessageQueue.js:364:10 in __guard
-at node_modules\react-native\Libraries\BatchedBridge\MessageQueue.js:134:4 in flushedQueue
-*/
-
-
-/*
-
-        useEffect(() => {
-            console.log("Abre Login Screen");
-            fetch(
-              'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDpv3MTThp_aC0VbykbZa9VQP1gjKlv3uY',
-              {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                  email: 'guilherme.cossu@aluno.ifsp.edu.br',
-                  password: 'senha',
-                  returnSecureToken: true
-                })
-              }
-            ).then((response) => { console.log("Resposta:" + response.json()) }).catch((error) => { console.log(error) })
-          }, []);
-    };
-
-useEffect(() => {
-    fetch(
-      'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDpv3MTThp_aC0VbykbZa9VQP1gjKlv3uY',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          email: 'guilherme.cossu@aluno.ifsp.edu.br',
-          password: 'senha',
-          returnSecureToken: true
-        })
-      }
-    ).then((response) => { console.log("Resposta:" + response.json()) }).catch((error) => { console.log(error) })
-  }, []);
-*/
-
-// fetch(
-        //     'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDpv3MTThp_aC0VbykbZa9VQP1gjKlv3uY',
-        //     {
-        //         method: 'POST',
-        //         headers: {
-        //             'Content-Type': 'application/json'
-        //         },
-        //         body: JSON.stringify({
-        //             email: data.email,
-        //             password: data.password,
-        //             returnSecureToken: true
-        //         })
-        //     }
-        // )

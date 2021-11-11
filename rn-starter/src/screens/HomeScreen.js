@@ -1,19 +1,13 @@
 import React, { Component, useState, useEffect } from "react";
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Image, Button } from "react-native";
-//import VacanciesObjects from "../components/VacanciesObject";
 import Feather from 'react-native-vector-icons/Feather';
-//import { FlatList } from "react-native-gesture-handler";
 import ResultsList from "../components/ResultsList";
 import firebase from 'firebase';
 import { Colors } from '../constants/Colors';
 
 
 const HomeScreen = ({ navigation, user, vacancies }) => {
-    //console.log('[Home Screen inicializada]')
-    //console.log("User trazido para Home Screen ", navigation.state.params.user);
-    //console.log("Vagas trazidas para Home Screen ", navigation.state.params.vacancies);
 
-    //const [vagas, setVagas] = useState([]);
     const genericUser = {
         name: 'Generic User Name',
         gender: 'naobinario',
@@ -23,45 +17,7 @@ const HomeScreen = ({ navigation, user, vacancies }) => {
     };
     const vagas = navigation.state.params.vacancies;
     const usuario = navigation.state.params.user;
-
-    //console.log('Usuario', usuario);
-    //console.log('Vagas', vagas);
-
-    //vacancies = vagas;
-    //console.log("Vacancies Home Screen ", vacancies);
-    /*
-    useEffect(() => {
-        
-        let vagasAux = [];
-
-        firebase.firestore().collection("Vagas").get()
-            .then((querySnapshot) => {
-                querySnapshot.forEach((doc) => {
-                    //console.log('id', doc.id);
-                    //console.log(doc.data().Titulo);
-                    //console.log(doc.data().Descricao);
-                    const vaga = {
-                        id: doc.id,
-                        titulo: doc.data().Titulo,
-                        link: doc.data().Link,
-                        descricao: doc.data().Descricao,
-                        local: doc.data().Local,
-                        funcao: doc.data().Funcao,
-                        numerodevagas: doc.data().NumerodeVagas
-                    };
-                    vagasAux.push(vaga);
-                });
-                //console.log("Vagas", vagasAux);
-                //setVagas(vagasAux);
-            })
-            .catch(function (error) {
-                console.error(error);
-            });
-           
-    }, []);
-     */
-    //console.log("Vagas: ", vagas);
-
+    
     return (
         <View style={styles.screen}>
             <View style={styles.faixaUserIcon}>

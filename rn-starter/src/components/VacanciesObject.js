@@ -3,7 +3,6 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Colors } from '../constants/Colors';
 
 const VacanciesObjects = ({ vaga },{props}) => {
-    //console.log("Vaga:" + vaga);
     return (
         <TouchableOpacity style={styles.card}>
             <Text style={styles.cardTitle}>{vaga.titulo}</Text>

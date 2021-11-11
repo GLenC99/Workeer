@@ -3,50 +3,15 @@ import { TextInput, StyleSheet, Text, Button, View, ScrollView, TouchableOpacity
 import Feather from 'react-native-vector-icons/Feather';
 import firebase from 'firebase';
 import { Colors } from "../constants/Colors";
-/*
-Emails e Senhas Cadastrados
-guilherme.cossu@aluno.ifsp.edu.br -> password
-user1@email.com --> user1passwrod
-oraelay@gmail.com --> juvcon17
-*/
 
 const LoginScreen = ({ navigation }) => {
+  
   const [data, setData] = React.useState({
     email: '',
     password: '',
     secureTextEntry: true,
   });
 
-  //const [vagas, setVagas] = useState([]);
-  /*
-  const getVacancies = () => {
-    let vagasAux = [];
-
-    firebase.firestore().collection("Vagas").get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          //console.log('id', doc.id);
-          //console.log(doc.data().Titulo);
-          //console.log(doc.data().Descricao);
-          const vaga = {
-            id: doc.id,
-            titulo: doc.data().Titulo,
-            link: doc.data().Link,
-            descricao: doc.data().Descricao,
-            local: doc.data().Local,
-            funcao: doc.data().Funcao,
-            numerodevagas: doc.data().NumerodeVagas
-          };
-          vagasAux.push(vaga);
-        });
-        //console.log("Vagas", vagasAux);
-        setVagas(vagasAux);
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
-  }
-    */
   const handleEmailChange = (val) => {
     if (val.length != 0) {
       setData({
@@ -73,7 +38,6 @@ const LoginScreen = ({ navigation }) => {
   };
 
   const goToHome = (user,vagasAux) => {
-    //console.log("User Enviado para goToHome: ",vagasAux); //Aqui está certo
     navigation.navigate('Home', { user: user, vacancies: vagasAux });
   };
 
@@ -81,9 +45,6 @@ const LoginScreen = ({ navigation }) => {
     firebase.auth().signInWithEmailAndPassword(data.email, data.password).then((userCredential) => {
       const user = userCredential.user;
       firebase.firestore().collection("Users").doc(user.uid).get().then((firebasedata) => {
-        //console.log(firebasedata.data());
-        //console.log(firebasedata.data().gender);
-        //let user = firebasedata.data();
         const user = {
           id: firebasedata.id,
           date: firebasedata.data().date,
@@ -91,17 +52,12 @@ const LoginScreen = ({ navigation }) => {
           gender: firebasedata.data().gender,
           name: firebasedata.data().name,
         };
-        //console.log("User Criado: ", user); Aqui está certo
-        //getVacancies();
 
         let vagasAux = [];
 
         firebase.firestore().collection("Vagas").get()
           .then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
-              //console.log('id', doc.id);
-              //console.log(doc.data().Titulo);
-              //console.log(doc.data().Descricao);
               const vaga = {
                 id: doc.id,
                 titulo: doc.data().Titulo,
@@ -113,18 +69,12 @@ const LoginScreen = ({ navigation }) => {
               };
               vagasAux.push(vaga);
             });
-            //console.log("Vagas Aux", vagasAux);
-            //setVagas(vagasAux);
-            //console.log("Vagas: ", vagas);
             goToHome(user,vagasAux);
 
           })
           .catch(function (error) {
             console.error(error);
           });
-
-        //goToHome(user);
-
       }).catch((error) => {
         console.log(error);
       });
